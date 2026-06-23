@@ -309,6 +309,112 @@
   #experience.tabpanel:not([hidden]){display:block;justify-content:flex-start;padding-top:0;}
   #experience.tabpanel[hidden]{display:none !important;}
 
+  /* HOME is now the sectioned main page — flow normally, hero first */
+  #home.tabpanel:not([hidden]){display:block;justify-content:flex-start;}
+  #home.tabpanel[hidden]{display:none !important;}
+  /* home sections breathe a touch tighter than the full --air so the page stays bounded */
+  .home-block.pad{padding-block:var(--air-half);}
+
+  /* ---------- home teaser blocks — quiet centered columns ---------- */
+  .home-teaser{text-align:center;}
+  .home-teaser .wrap{max-width:var(--measure);}
+  .home-teaser .eyebrow{justify-content:center;}
+  .home-teaser h2{
+    font-family:var(--serif);font-weight:200;
+    font-size:clamp(2rem,1.4rem + 3vw,3.2rem);line-height:1.12;
+    margin:0 auto 1.5rem;max-width:18ch;
+  }
+  .home-teaser h2 em{font-style:italic;color:var(--clay);}
+  .home-teaser .lede{margin:0 auto 2.6rem;}
+  /* the seven tiers as one quiet wrapped line, hairline dividers only */
+  .tier-line{
+    display:flex;flex-wrap:wrap;justify-content:center;
+    gap:.8rem 1.6rem;margin:0 auto clamp(2.6rem,5vw,3.6rem);
+    list-style:none;padding:0;max-width:44ch;
+  }
+  .tier-line li{
+    font-family:var(--serif);font-weight:500;font-size:.64rem;
+    letter-spacing:.24em;text-transform:uppercase;color:var(--gray);
+    display:flex;align-items:center;gap:1.6rem;
+  }
+  .tier-line li::after{content:"";width:2px;height:2px;border-radius:50%;background:var(--hair-strong);}
+  .tier-line li:last-child::after{display:none;}
+
+  /* ---------- home pillars — three quiet columns ---------- */
+  .home-pillars .wrap{max-width:var(--measure-wide);}
+  .home-pillars .head{text-align:center;margin-bottom:clamp(3.4rem,7vh,5rem);}
+  .home-pillars .head .eyebrow{justify-content:center;}
+  .home-pillars .head h2{
+    font-family:var(--serif);font-weight:200;
+    font-size:clamp(1.9rem,1.4rem + 2.6vw,2.9rem);line-height:1.12;margin:0;
+  }
+  .pillar-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);
+    gap:clamp(2.4rem,5vw,4rem);
+    border-top:1px solid var(--hair);
+  }
+  .pillar{text-align:center;padding-top:clamp(2.4rem,5vw,3.6rem);}
+  .pillar .pno{font-family:var(--sans);font-size:.6rem;letter-spacing:.34em;color:var(--gray-2);margin:0 0 1.2rem;}
+  .pillar h3{font-family:var(--serif);font-weight:300;font-size:clamp(1.2rem,1rem + .8vw,1.55rem);line-height:1.2;margin:0 0 1rem;}
+  .pillar p{font-family:var(--sans);font-weight:300;font-size:.88rem;color:var(--ink-soft);line-height:1.9;margin:0;max-width:34ch;margin-inline:auto;}
+  @media (max-width:760px){
+    .pillar-grid{grid-template-columns:1fr;gap:0;}
+    .pillar{border-top:1px solid var(--hair);}
+    .pillar:first-child{border-top:none;}
+  }
+
+  /* ---------- shared: three quiet steps (charter · vault · brief · safety) ---------- */
+  .steps{
+    display:grid;grid-template-columns:repeat(3,1fr);
+    gap:clamp(2rem,4vw,3.4rem);max-width:760px;
+    margin:clamp(2.6rem,5vw,3.6rem) auto 0;text-align:center;
+  }
+  .steps .step .sno{font-family:var(--sans);font-size:.6rem;letter-spacing:.34em;color:var(--gray-2);margin:0 0 1rem;}
+  .steps .step h3{font-family:var(--serif);font-weight:300;font-size:clamp(1.1rem,1rem + .6vw,1.4rem);line-height:1.2;margin:0 0 .8rem;}
+  .steps .step p{font-family:var(--sans);font-weight:300;font-size:.84rem;color:var(--ink-soft);line-height:1.85;margin:0 auto;max-width:30ch;}
+  @media (max-width:680px){
+    .steps{grid-template-columns:1fr;gap:0;}
+    .steps .step{padding-block:clamp(1.8rem,4vw,2.4rem);border-top:1px solid var(--hair);}
+    .steps .step:first-child{border-top:none;}
+  }
+
+  /* ---------- experience touchpoints — four quiet items ---------- */
+  .touch-grid{
+    display:grid;grid-template-columns:repeat(2,1fr);
+    gap:clamp(2.4rem,5vw,3.6rem) clamp(2.4rem,5vw,4rem);
+    max-width:var(--measure);margin:0 auto;text-align:center;
+  }
+  .touch h3{font-family:var(--serif);font-weight:300;font-size:clamp(1.1rem,1rem + .6vw,1.45rem);line-height:1.2;margin:0 0 .9rem;}
+  .touch p{font-family:var(--sans);font-weight:300;font-size:.86rem;color:var(--ink-soft);line-height:1.85;margin:0 auto;max-width:34ch;}
+  @media (max-width:640px){.touch-grid{grid-template-columns:1fr;gap:2.6rem;}}
+
+  /* ---------- vault: how it works wrapper ---------- */
+  .vault-how{width:100%;max-width:760px;margin:clamp(4rem,9vh,7rem) auto 0;padding-top:clamp(2.4rem,5vw,3.4rem);border-top:1px solid var(--hair);}
+  .vault-how .steps{margin-top:0;}
+
+  /* ---------- contact: quiet non-submitting inquiry form ---------- */
+  .inquiry{
+    display:grid;grid-template-columns:1fr 1fr;
+    gap:clamp(1.4rem,3vw,2rem) clamp(1.4rem,3vw,2.2rem);
+    max-width:560px;margin:clamp(3rem,6vw,4.4rem) auto 0;text-align:left;
+  }
+  .inquiry .field{display:flex;flex-direction:column;gap:.7rem;}
+  .inquiry .field--full{grid-column:1 / -1;}
+  .inquiry label{
+    font-family:var(--serif);font-weight:600;font-size:.58rem;
+    letter-spacing:.24em;text-transform:uppercase;color:var(--gray);
+  }
+  .inquiry input,.inquiry textarea{
+    font-family:var(--sans);font-weight:300;font-size:.92rem;color:var(--ink);
+    background:transparent;border:none;border-bottom:1px solid var(--hair-strong);
+    padding:.55rem 0;border-radius:0;line-height:1.7;resize:vertical;
+    transition:border-color .5s var(--ease);
+  }
+  .inquiry input::placeholder,.inquiry textarea::placeholder{color:var(--gray-2);}
+  .inquiry input:focus,.inquiry textarea:focus{outline:none;border-color:var(--ink);}
+  .inquiry .obtn{grid-column:1 / -1;justify-self:center;margin-top:.6rem;}
+  @media (max-width:540px){.inquiry{grid-template-columns:1fr;}}
+
   /* aircraft sub-tabs — a quiet row of 7 chips, one tier at a time */
   .tier-chips{
     display:flex;flex-wrap:wrap;justify-content:center;
@@ -830,6 +936,100 @@
       <a class="ulink clay" data-tab="aircraft" href="#aircraft">Explore the Fleet</a>
     </div>
   </div>
+  <div class="scrollcue" aria-hidden="true"><span class="bar"></span>Scroll</div>
+</section>
+
+<!-- HOME · positioning statement -->
+<section class="manifesto pad home-block">
+  <div class="wrap">
+    <p class="eyebrow reveal">A Private Standard</p>
+    <p class="statement reveal d1">
+      One number. One standard.
+      <span class="soft">The world,</span> <em>arranged</em>.
+    </p>
+    <div class="sub reveal d2">
+      <p class="lede">On-demand private aviation composed around a single traveler — your
+        schedule, your aircraft, your terms. Nothing generic ever leaves the ground.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOME · fleet teaser -->
+<section class="home-teaser pad home-block">
+  <div class="wrap">
+    <p class="eyebrow reveal">The Aircraft</p>
+    <h2 class="reveal d1">A Fleet For Every Horizon.</h2>
+    <p class="lede reveal d2">Seven tiers, from the shortest regional hop to the longest
+      intercontinental reach — each aircraft chosen for range, comfort, and quiet command of the sky.</p>
+    <ul class="tier-line reveal d2">
+      <li>Turbo Prop</li><li>Light</li><li>Mid Size</li><li>Super Mid</li>
+      <li>Heavy</li><li>Ultra Long Range</li><li>Obsidian</li>
+    </ul>
+    <a class="obtn reveal d3" data-tab="aircraft" href="#aircraft">Explore the Fleet</a>
+  </div>
+</section>
+
+<!-- HOME · experience teaser -->
+<section class="home-teaser pad home-block">
+  <div class="wrap">
+    <p class="eyebrow reveal">The Experience</p>
+    <h2 class="reveal d1">A Cabin That Quiets The World.</h2>
+    <p class="lede reveal d2">Cream leather, warm veneer, and the unhurried calm of space made
+      entirely your own. Aboard V2, the journey is the destination's equal.</p>
+    <a class="ulink clay reveal d3" data-tab="experience" href="#experience">Step Inside the Cabin</a>
+  </div>
+</section>
+
+<!-- HOME · why V2 — three pillars -->
+<section class="home-pillars pad home-block">
+  <div class="wrap">
+    <div class="head reveal">
+      <p class="eyebrow">Why V2</p>
+      <h2>Three Things, Without Compromise.</h2>
+    </div>
+    <div class="pillar-grid">
+      <div class="pillar reveal">
+        <p class="pno">01</p>
+        <h3>Access</h3>
+        <p>Anywhere a runway will receive you, on a schedule that is only ever yours — wheels-up in hours, not days.</p>
+      </div>
+      <div class="pillar reveal d1">
+        <p class="pno">02</p>
+        <h3>Discretion</h3>
+        <p>Quiet by design. Your travel is composed privately, handled by one advisor, and never spoken of beyond it.</p>
+      </div>
+      <div class="pillar reveal d2">
+        <p class="pno">03</p>
+        <h3>Certainty</h3>
+        <p>One standard, every leg. Independently vetted aircraft, audited operators, and the calm of knowing it is handled.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOME · safety teaser -->
+<section class="home-teaser pad home-block">
+  <div class="wrap">
+    <p class="eyebrow reveal">Safety &amp; Trust</p>
+    <h2 class="reveal d1">Cleared To The Highest Standard.</h2>
+    <p class="lede reveal d2">Every aircraft and operator on the V2 network is independently vetted,
+      audited continuously, and held to a standard no compromise is permitted to touch.</p>
+    <a class="ulink clay reveal d3" data-tab="safety" href="#safety">See Our Standards</a>
+  </div>
+</section>
+
+<!-- HOME · closing CTA -->
+<section class="final pad home-block">
+  <div class="wrap">
+    <p class="eyebrow reveal">Fly in Absolute Luxury</p>
+    <h2 class="reveal d1">The World <em>Awaits</em>.</h2>
+    <p class="lede reveal d2" style="margin-inline:auto;">Speak with a V2 flight advisor and let us
+      compose your next journey — discreetly, precisely, and entirely on your terms.</p>
+    <div class="actions reveal d2">
+      <a class="obtn" href="tel:+12122048422">Book Now</a>
+      <a class="ulink clay" data-tab="contact" href="#contact">Speak With An Advisor</a>
+    </div>
+  </div>
 </section>
 </section><!-- /#home -->
 
@@ -842,6 +1042,7 @@
       <h2>A fleet for every horizon.</h2>
       <p class="lede">From the shortest regional hop to the longest intercontinental
         reach, seven tiers — each chosen for range, comfort, and quiet command of the sky.</p>
+      <p class="lede" style="margin-top:1.4rem;font-size:clamp(.82rem,.78rem + .2vw,.92rem);color:var(--gray);">How to choose: let distance and party size lead — your advisor pairs the right tier to the journey.</p>
     </div>
 
     <!-- sub-tabs: one tier at a time -->
@@ -987,6 +1188,32 @@
         </div>
       </div>
     </div>
+
+    <!-- service touchpoints — qualitative, airy -->
+    <div class="exp-second">
+      <div class="head reveal" style="text-align:center;margin-bottom:clamp(3rem,6vh,4.4rem);">
+        <p class="eyebrow" style="justify-content:center;">Onboard &amp; Beyond</p>
+        <h2>Every Touchpoint, Considered.</h2>
+      </div>
+      <div class="touch-grid">
+        <div class="touch reveal">
+          <h3>Dining</h3>
+          <p>A galley stocked to your taste — curated menus, fine wine, or a quiet morning coffee at altitude.</p>
+        </div>
+        <div class="touch reveal d1">
+          <h3>Connectivity</h3>
+          <p>Stay reached when you wish, unreachable when you don't — the cabin works as your office or your retreat.</p>
+        </div>
+        <div class="touch reveal d2">
+          <h3>Concierge</h3>
+          <p>One advisor handles the journey end to end, anticipating the request before it is made.</p>
+        </div>
+        <div class="touch reveal d3">
+          <h3>Ground</h3>
+          <p>Private terminals, waiting transport, and a seamless step from car to cabin — door to door, unhurried.</p>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 </section><!-- /#experience -->
@@ -1004,6 +1231,31 @@
       <li>Aspen</li><li>St Barths</li><li>Geneva</li><li>Dubai</li>
       <li>Monaco</li><li>Tokyo</li><li>Mykonos</li><li>Los Angeles</li>
     </ul>
+
+    <!-- the booking journey — three quiet steps -->
+    <div class="steps reveal d2">
+      <div class="step">
+        <p class="sno">01</p>
+        <h3>Request</h3>
+        <p>Tell us where and when. One advisor takes it from there.</p>
+      </div>
+      <div class="step">
+        <p class="sno">02</p>
+        <h3>Curate</h3>
+        <p>We pair the aircraft to the journey and arrange every detail of the day.</p>
+      </div>
+      <div class="step">
+        <p class="sno">03</p>
+        <h3>Fly</h3>
+        <p>Arrive, board, and ascend — the world rearranged around your schedule.</p>
+      </div>
+    </div>
+
+    <!-- charter types, as a quiet line -->
+    <ul class="dest reveal d2" style="margin-top:clamp(2rem,4vw,3rem);">
+      <li>On-Demand</li><li>Managed</li><li>Group &amp; Event</li>
+    </ul>
+
     <a class="obtn reveal d3" data-tab="contact" href="#contact">Plan a Journey</a>
   </div>
 </section><!-- /#charter -->
@@ -1049,6 +1301,28 @@
             <div class="meta">Obsidian · By Invitation</div>
           </div>
           <div class="price">Enquire</div>
+        </div>
+      </div>
+
+      <!-- how the vault works — three quiet steps -->
+      <div class="vault-how reveal">
+        <p class="cardhead" style="margin-bottom:clamp(2.4rem,5vw,3.4rem);">How It Works</p>
+        <div class="steps">
+          <div class="step">
+            <p class="sno">01</p>
+            <h3>Join</h3>
+            <p>Request access and your advisor opens the members' channel to you.</p>
+          </div>
+          <div class="step">
+            <p class="sno">02</p>
+            <h3>Watch</h3>
+            <p>Empty legs and last-minute openings surface to members first, as they release.</p>
+          </div>
+          <div class="step">
+            <p class="sno">03</p>
+            <h3>Claim</h3>
+            <p>See a leg that fits — say the word, and it is held and flown on extraordinary terms.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -1105,6 +1379,33 @@
     </div>
   </div>
 </section>
+
+<!-- About · values triad -->
+<section class="home-pillars pad">
+  <div class="wrap">
+    <div class="head reveal">
+      <p class="eyebrow">What We Hold To</p>
+      <h2>The V2 Values.</h2>
+    </div>
+    <div class="pillar-grid">
+      <div class="pillar reveal">
+        <p class="pno">01</p>
+        <h3>The Guest, First</h3>
+        <p>Every decision begins with the person in the cabin — their comfort, their time, their intent.</p>
+      </div>
+      <div class="pillar reveal d1">
+        <p class="pno">02</p>
+        <h3>Quiet Excellence</h3>
+        <p>Mastery that never announces itself. The work is felt in the ease of the day, not the noise around it.</p>
+      </div>
+      <div class="pillar reveal d2">
+        <p class="pno">03</p>
+        <h3>No Compromise</h3>
+        <p>One standard, held on every leg — because trust is earned in the details that are never seen.</p>
+      </div>
+    </div>
+  </div>
+</section>
 </section><!-- /#about -->
 
 <!-- ===================== SAFETY (tab) ===================== -->
@@ -1135,6 +1436,25 @@
         <p class="l">ARGUS &amp; Wyvern Safety</p>
       </div>
     </div>
+
+    <!-- how we vet — qualitative, no new claims -->
+    <div class="steps reveal" style="margin-top:clamp(3.4rem,7vh,5rem);">
+      <div class="step">
+        <p class="sno">01</p>
+        <h3>Pilot Standards</h3>
+        <p>Seasoned crews, current on type, held to experience thresholds and recurrent training — every leg, every time.</p>
+      </div>
+      <div class="step">
+        <p class="sno">02</p>
+        <h3>Aircraft &amp; Operator Vetting</h3>
+        <p>Each aircraft and the operator behind it is independently screened, audited continuously, and cleared before it ever carries you.</p>
+      </div>
+      <div class="step">
+        <p class="sno">03</p>
+        <h3>Two Checks, Always</h3>
+        <p>Nothing flies on a single sign-off. Independent review backs our own — the second look that lets you simply travel.</p>
+      </div>
+    </div>
   </div>
 </section><!-- /#safety -->
 
@@ -1142,11 +1462,28 @@
 <section class="final pad tabpanel" id="brief" hidden>
   <div class="wrap">
     <p class="eyebrow reveal">The V2 Brief</p>
-    <h2 class="reveal d1">The world <em>awaits</em>.</h2>
-    <p class="lede reveal d2" style="margin-inline:auto;">Speak with a V2 flight advisor and let us compose your next journey —
-      discreetly, precisely, and entirely on your terms.</p>
+    <h2 class="reveal d1">A Private <em>Briefing</em>.</h2>
+    <p class="lede reveal d2" style="margin-inline:auto;">An occasional note for V2 clients — quiet intelligence on availability, new
+      additions to the fleet, and the seasons and destinations worth flying for. No noise, no broadcast; only what is worth your attention.</p>
+    <div class="steps reveal d2" style="margin-bottom:clamp(2.6rem,5vw,3.6rem);">
+      <div class="step">
+        <p class="sno">01</p>
+        <h3>Curated</h3>
+        <p>Hand-selected by your advisor — relevant to how and where you fly.</p>
+      </div>
+      <div class="step">
+        <p class="sno">02</p>
+        <h3>Discreet</h3>
+        <p>Shared privately with clients, never published or passed along.</p>
+      </div>
+      <div class="step">
+        <p class="sno">03</p>
+        <h3>Occasional</h3>
+        <p>Sent only when there is something genuinely worth saying.</p>
+      </div>
+    </div>
     <div class="actions reveal d2">
-      <a class="obtn" data-tab="contact" href="#contact">Book Now</a>
+      <a class="obtn" data-tab="contact" href="#contact">Request the Brief</a>
       <a class="ulink clay" data-tab="contact" href="#contact">Speak With An Advisor</a>
     </div>
   </div>
@@ -1165,6 +1502,31 @@
     </div>
     <p class="lede reveal d2" style="margin:2.6rem auto 0;">
       <a class="ulink" href="mailto:fly@v2jets.com">fly@v2jets.com</a>
+    </p>
+
+    <!-- a quiet, non-submitting inquiry form -->
+    <form class="inquiry reveal d2" onsubmit="return false" aria-label="Charter inquiry">
+      <div class="field">
+        <label for="c-name">Name</label>
+        <input id="c-name" type="text" name="name" autocomplete="name" placeholder="Your name" />
+      </div>
+      <div class="field">
+        <label for="c-email">Email</label>
+        <input id="c-email" type="email" name="email" autocomplete="email" placeholder="you@email.com" />
+      </div>
+      <div class="field">
+        <label for="c-route">Route</label>
+        <input id="c-route" type="text" name="route" placeholder="From — To" />
+      </div>
+      <div class="field field--full">
+        <label for="c-notes">How can we help?</label>
+        <textarea id="c-notes" name="notes" rows="3" placeholder="Dates, party size, and anything we should know."></textarea>
+      </div>
+      <button type="submit" class="obtn">Send Inquiry</button>
+    </form>
+
+    <p class="lede reveal d2" style="margin:2.6rem auto 0;font-size:.82rem;color:var(--gray);letter-spacing:.04em;">
+      Global flight desk · available 24 / 7 · wheels-up in hours.
     </p>
   </div>
 

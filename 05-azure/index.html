@@ -533,6 +533,105 @@
     .btn:hover,.fleet-card:hover,.svc-card:hover,.route:hover{transform:none;}
   }
 
+  /* ---------- home teaser blocks (glass) ---------- */
+  .home-statement{text-align:center;max-width:920px;margin:0 auto;}
+  .home-statement .big{
+    font-family:var(--font-display);font-weight:400;letter-spacing:.02em;line-height:1.16;
+    font-size:clamp(1.5rem,3.4vw,2.5rem);margin:16px auto 0;color:var(--ink);
+  }
+  .home-statement .big em{font-style:normal;}
+  .home-statement .sub{color:var(--muted);max-width:620px;margin:18px auto 0;font-size:clamp(1rem,1.3vw,1.16rem);}
+
+  /* glass teaser card — image-led, with a data-tab CTA */
+  .teaser-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,1.8vw,22px);}
+  .teaser{
+    position:relative;overflow:hidden;display:flex;flex-direction:column;
+    background:var(--glass-light);
+    backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);
+    border:1px solid var(--glass-border);border-radius:var(--r-frame);
+    box-shadow:var(--glass-glow);
+    transition:transform .4s cubic-bezier(.2,.7,.2,1),box-shadow .4s ease,border-color .4s ease;
+  }
+  .teaser::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;background:linear-gradient(160deg,rgba(255,255,255,.45) 0%,rgba(255,255,255,0) 30%);}
+  .teaser:hover{transform:translateY(-6px);box-shadow:0 36px 80px rgba(14,14,14,.2),inset 0 1px 0 rgba(255,255,255,.7);border-color:rgba(187,0,0,.42);}
+  .teaser-media{position:relative;z-index:1;aspect-ratio:16/9;overflow:hidden;border-radius:var(--r-frame) var(--r-frame) 0 0;background:var(--paper-2);}
+  .teaser-media img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.7,.2,1);}
+  .teaser:hover .teaser-media img{transform:scale(1.05);}
+  .teaser-body{position:relative;z-index:1;padding:clamp(20px,2.4vw,28px);display:flex;flex-direction:column;flex:1;}
+  .teaser-body .eyebrow{margin-bottom:0;}
+  .teaser-body h3{font-family:var(--font-display);font-weight:600;font-size:clamp(1.3rem,2.4vw,1.7rem);letter-spacing:.03em;text-transform:uppercase;margin:12px 0 0;line-height:1.12;}
+  .teaser-body p{color:var(--muted);margin:12px 0 0;flex:1;}
+  .teaser-body .t-cta{margin-top:18px;}
+
+  /* why-V2 pillars triad */
+  .pillar-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,1.6vw,20px);}
+  .pillar{
+    position:relative;overflow:hidden;
+    background:var(--glass-light-2);
+    backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);
+    border:1px solid var(--glass-border);border-radius:var(--r-card);padding:clamp(22px,2.6vw,30px);
+    box-shadow:var(--glass-glow);transition:transform .35s ease,box-shadow .35s ease,border-color .35s ease;
+  }
+  .pillar::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;background:linear-gradient(160deg,rgba(255,255,255,.5) 0%,rgba(255,255,255,0) 32%);}
+  .pillar>*{position:relative;z-index:1;}
+  .pillar:hover{transform:translateY(-5px);box-shadow:0 32px 70px rgba(14,14,14,.18),inset 0 1px 0 rgba(255,255,255,.7);border-color:rgba(187,0,0,.4);}
+  .pillar .pn{font-family:var(--font-display);font-weight:700;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--sky-1);}
+  .pillar h4{font-family:var(--font-display);font-weight:600;font-size:clamp(1.1rem,2vw,1.35rem);letter-spacing:.04em;text-transform:uppercase;margin:12px 0 8px;}
+  .pillar p{color:var(--muted);font-size:.96rem;margin:0;}
+
+  /* ---------- numbered process steps (glass) — shared by Vault / Charter ---------- */
+  .step-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,1.6vw,20px);}
+  .step{
+    position:relative;overflow:hidden;
+    background:var(--glass-light-2);
+    backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);
+    border:1px solid var(--glass-border);border-radius:var(--r-card);padding:clamp(22px,2.6vw,30px);
+    box-shadow:var(--glass-glow);transition:transform .35s ease,box-shadow .35s ease,border-color .35s ease;
+  }
+  .step::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;background:linear-gradient(160deg,rgba(255,255,255,.5) 0%,rgba(255,255,255,0) 32%);}
+  .step>*{position:relative;z-index:1;}
+  .step:hover{transform:translateY(-5px);box-shadow:0 32px 70px rgba(14,14,14,.18),inset 0 1px 0 rgba(255,255,255,.7);border-color:rgba(187,0,0,.4);}
+  .step .step-no{font-family:var(--font-display);font-weight:600;font-size:1.5rem;letter-spacing:.02em;line-height:1;background:var(--sky-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .step h4{font-family:var(--font-display);font-weight:600;font-size:1.1rem;letter-spacing:.04em;text-transform:uppercase;margin:14px 0 8px;}
+  .step p{color:var(--muted);font-size:.95rem;margin:0;}
+
+  /* ---------- contact panel: details + glass inquiry form ---------- */
+  .contact-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(20px,3vw,40px);align-items:stretch;}
+  .contact-card,.form-card{
+    position:relative;overflow:hidden;
+    background:var(--glass-light);
+    backdrop-filter:var(--glass-blur-strong);-webkit-backdrop-filter:var(--glass-blur-strong);
+    border:1px solid var(--glass-border);border-radius:var(--r-frame);padding:clamp(24px,3vw,34px);
+    box-shadow:var(--glass-glow);
+  }
+  .contact-card::after,.form-card::after{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;background:linear-gradient(160deg,rgba(255,255,255,.45) 0%,rgba(255,255,255,0) 30%);}
+  .contact-card>*,.form-card>*{position:relative;z-index:1;}
+  .contact-line{display:flex;flex-direction:column;gap:4px;padding:14px 0;border-bottom:1px solid var(--line);}
+  .contact-line:last-of-type{border-bottom:none;}
+  .contact-line .cl-l{font-family:var(--font-display);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--sky-1);font-weight:700;}
+  .contact-line .cl-v{font-family:var(--font-display);font-weight:600;font-size:1.06rem;color:var(--navy);}
+  .contact-line .cl-v:hover{color:var(--red);}
+  .form-field{display:flex;flex-direction:column;gap:7px;margin-bottom:16px;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .form-field label{font-family:var(--font-display);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);font-weight:600;}
+  .form-field input,.form-field textarea{
+    font-family:var(--font-body);font-size:.96rem;color:var(--ink);
+    background:rgba(255,255,255,.55);border:1px solid var(--line-strong);border-radius:12px;padding:12px 14px;
+    backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+    transition:border-color .25s ease,box-shadow .25s ease,background .25s ease;
+  }
+  .form-field input:focus,.form-field textarea:focus{outline:none;border-color:var(--red);background:#fff;box-shadow:0 0 0 3px rgba(187,0,0,.12);}
+  .form-field textarea{resize:vertical;min-height:96px;}
+  @media (max-width:820px){.contact-grid{grid-template-columns:1fr;}.form-row{grid-template-columns:1fr;}}
+
+  @media (max-width:1080px){
+    .teaser-grid{grid-template-columns:1fr;}
+    .pillar-grid,.step-grid{grid-template-columns:1fr;}
+  }
+  @media (max-width:680px){
+    .pillar-grid,.step-grid{grid-template-columns:1fr;}
+  }
+
   /* ============================================================
      TAB SYSTEM — frosted-glass bar + in-place panels (Azure skin)
      ============================================================ */
@@ -733,18 +832,141 @@
       </div>
     </div>
   </section>
+
+  <!-- brand statement -->
+  <section class="pad">
+    <div class="wrap home-statement">
+      <span class="eyebrow reveal" style="justify-content:center;">The Skies Are The Limit</span>
+      <p class="big reveal" data-d="1">With V2 Jets, flying isn't simply flying. Flying is <em class="grad-text">transcending.</em> One curated fleet, one standard of precision, and a single promise — the world awaits, and you decide when to meet it.</p>
+      <p class="sub reveal" data-d="2">Private aviation reimagined as a lifestyle: on-demand access, vetted operators, and a concierge that answers any hour, in any time zone.</p>
+    </div>
+  </section>
+
+  <!-- fleet + experience teasers -->
+  <section class="pad-sm">
+    <div class="wrap">
+      <div class="teaser-grid">
+        <article class="teaser reveal">
+          <div class="teaser-media"><img src="../assets/plane-exterior.jpg" alt="A V2 Jets aircraft on the tarmac, ready for departure" /></div>
+          <div class="teaser-body">
+            <span class="eyebrow">One fleet, seven ways to arrive</span>
+            <h3>The Aircraft</h3>
+            <p>From nimble turboprops into airfields the jets can't reach, to the intercontinental Obsidian flagship — every category is matched to your mission, your party, and your timeline.</p>
+            <div class="t-cta"><a class="btn btn-primary" data-tab="aircraft" href="#aircraft">Explore the Fleet <span class="btn-arrow">→</span></a></div>
+          </div>
+        </article>
+        <article class="teaser reveal" data-d="1">
+          <div class="teaser-media"><img src="../assets/interior-main.jpg" alt="V2 Jets main cabin with cream leather club seats" /></div>
+          <div class="teaser-body">
+            <span class="eyebrow">A cabin that answers only to you</span>
+            <h3>The Experience</h3>
+            <p>Cream leather, hand-laid veneer, and light that follows you through the day. Step aboard and the noise of getting there simply ends.</p>
+            <div class="t-cta"><a class="btn btn-ghost" data-tab="experience" href="#experience">Step Inside <span class="btn-arrow">→</span></a></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- why V2 — pillars triad -->
+  <section class="pad-sm">
+    <div class="wrap">
+      <div class="sec-head reveal" style="text-align:center;margin-left:auto;margin-right:auto;">
+        <span class="eyebrow" style="justify-content:center;">Why V2</span>
+        <h2>Access. Discretion. Certainty.</h2>
+      </div>
+      <div class="pillar-grid">
+        <div class="pillar reveal"><span class="pn">01</span><h4>Access</h4><p>Thousands of airports, on your schedule — including the fields the airlines will never serve. Name the city; we'll have the aircraft, the crew, and the clearances ready before you finish the thought.</p></div>
+        <div class="pillar reveal" data-d="1"><span class="pn">02</span><h4>Discretion</h4><p>A private, unhurried way to move. The boarding, the ground, the requests you'd rather not explain twice — all handled quietly, by a team that remembers how you like to fly.</p></div>
+        <div class="pillar reveal" data-d="2"><span class="pn">03</span><h4>Certainty</h4><p>Operators vetted to the last bolt and a concierge desk that answers any hour. From request to runway, the flight is built around you — discreetly, precisely, and faster than you'd think possible.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- safety teaser -->
+  <section class="pad-sm">
+    <div class="wrap">
+      <div class="teaser-grid">
+        <article class="teaser reveal">
+          <div class="teaser-media"><img src="../assets/hero-xl.jpg" alt="A V2 Jets aircraft, vetted and ready on the tarmac" /></div>
+          <div class="teaser-body">
+            <span class="eyebrow">Precision is the only standard</span>
+            <h3>Safety &amp; Trust</h3>
+            <p>Every aircraft and operator is audited before it ever carries you, and every flight passes through two sets of checks. Behind the calm is a discipline that never relaxes.</p>
+            <div class="t-cta"><a class="btn btn-ghost" data-tab="safety" href="#safety">Our Standards <span class="btn-arrow">→</span></a></div>
+          </div>
+        </article>
+        <article class="teaser reveal" data-d="1">
+          <div class="teaser-media"><img src="../assets/interior-bedroom.jpg" alt="V2 Vault members-only availability across the V2 Jets fleet" /></div>
+          <div class="teaser-body">
+            <span class="eyebrow">The availability the public never sees</span>
+            <h3>V2 Vault</h3>
+            <p>Empty legs, repositioning flights, and last-minute openings across the fleet — curated daily and released first to V2 Vault members.</p>
+            <div class="t-cta"><a class="btn btn-ghost" data-tab="vault" href="#vault">Unlock the Vault <span class="btn-arrow">→</span></a></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- closing CTA -->
+  <section class="pad-sm" style="padding-bottom:clamp(34px,5vw,60px);">
+    <div class="wrap">
+      <div class="final reveal">
+        <div class="final-inner">
+          <span class="eyebrow">Take To The Skies In Style</span>
+          <h2>The World Awaits.</h2>
+          <p>Tell us where you're going. Our team will build the flight around you — discreetly, precisely, and faster than you'd think possible.</p>
+          <div class="final-actions">
+            <a class="btn btn-light" href="tel:+12122048422">Call 212-204-8422 <span class="btn-arrow">→</span></a>
+            <a class="btn btn-line" data-tab="contact" href="#contact">Book Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
   </section>
   <!-- /home -->
 
   <!-- ============ ABOUT US (manifesto) ============ -->
   <section class="tabpanel" id="about" hidden>
-    <section class="manifesto pad">
+    <div class="wrap panel-inner">
+    <section class="manifesto pad-sm">
       <div class="wrap">
         <span class="eyebrow reveal">The Skies Are The Limit</span>
         <p class="big reveal" data-d="1">Flying is <em class="grad-text">transcending.</em> Where most see a journey, we engineer an arrival — every detail composed, every hour your own, the world rearranged to meet you.</p>
         <p class="sub reveal" data-d="2">V2 Jets is private aviation reimagined as a lifestyle. One curated fleet, one standard of precision, one promise: the world awaits, and you decide when to meet it.</p>
       </div>
     </section>
+
+    <!-- mission -->
+    <section class="pad-sm">
+      <div class="exp-row">
+        <div class="exp-text reveal">
+          <span class="eyebrow">Our Mission</span>
+          <h3>Give back the one thing money can't buy.</h3>
+          <p>Time. Every part of V2 Jets exists to compress the distance between deciding to go and being gone — a single point of contact, a fleet matched to the moment, and the friction of travel quietly removed. We don't sell seats; we hand you back the hours.</p>
+          <p>Flying private should feel less like a transaction and more like a standing invitation. That is the standard we hold, on the first flight and the hundredth.</p>
+        </div>
+        <div class="exp-media reveal" data-d="1">
+          <div class="frame"><img src="../assets/plane-exterior.jpg" alt="A V2 Jets aircraft on the tarmac, the world within reach" /></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- values triad -->
+    <section class="pad-sm">
+      <div class="sec-head reveal" style="text-align:center;margin-left:auto;margin-right:auto;">
+        <span class="eyebrow" style="justify-content:center;">What We Stand For</span>
+        <h2>Three values, no exceptions.</h2>
+      </div>
+      <div class="pillar-grid">
+        <div class="pillar reveal"><span class="pn">01</span><h4>Precision</h4><p>Every detail composed in advance, so nothing is left to chance in the air. The calm you feel on board is the product of work you never see.</p></div>
+        <div class="pillar reveal" data-d="1"><span class="pn">02</span><h4>Discretion</h4><p>A private way to move, and a private way to be known. We remember how you like to fly, and we keep it to ourselves.</p></div>
+        <div class="pillar reveal" data-d="2"><span class="pn">03</span><h4>Devotion</h4><p>One point of contact who treats your itinerary as their own. The unreasonable request is simply the next thing we make happen.</p></div>
+      </div>
+    </section>
+    </div>
   </section>
   <!-- /about -->
 
@@ -756,6 +978,8 @@
         <h2>One fleet, seven ways to arrive.</h2>
         <p style="margin-left:auto;margin-right:auto;">From nimble turboprops to intercontinental flagships, every category is matched to your mission, your party, and your timeline — then flown by operators we vet to the last bolt.</p>
       </div>
+
+      <p class="reveal" data-d="1" style="text-align:center;max-width:560px;margin:0 auto clamp(4px,1vw,10px);color:var(--muted);font-size:.96rem;">How to choose: start with your range and party size, then move up a category for more cabin and more reach. Not sure? Tell us the trip and we'll match the aircraft.</p>
 
       <div class="tier-chips" role="tablist" aria-label="Aircraft tiers">
         <button class="tier-chip active" type="button" data-tier="t1">Turbo Prop</button>
@@ -936,6 +1160,18 @@
           <div class="frame"><img src="../assets/interior-bedroom.jpg" alt="V2 Jets private bedroom suite with a full bed and warm wood finishes" /></div>
         </div>
       </div>
+
+      <!-- service touchpoints -->
+      <div class="sec-head reveal" style="text-align:center;margin-left:auto;margin-right:auto;margin-top:clamp(28px,3.4vw,44px);">
+        <span class="eyebrow" style="justify-content:center;">Every Touchpoint</span>
+        <h2>The flight is the smallest part.</h2>
+      </div>
+      <div class="svc-grid" style="margin-top:0;">
+        <div class="svc-card reveal"><span class="sn">E—01</span><h4>Dining</h4><p>A galley stocked to your profile before you board — favourite vintages, dietary preferences, the coffee you actually drink.</p></div>
+        <div class="svc-card reveal" data-d="1"><span class="sn">E—02</span><h4>Connectivity</h4><p>High-speed cabin-to-cloud connectivity that keeps pace with your day, so the only thing that changes is the view.</p></div>
+        <div class="svc-card reveal" data-d="2"><span class="sn">E—03</span><h4>Concierge</h4><p>One desk for the whole journey — reservations, transfers, and the quiet requests handled before you think to ask.</p></div>
+        <div class="svc-card reveal" data-d="3"><span class="sn">E—04</span><h4>Ground</h4><p>Private terminals and a car waiting on the apron. Step off the aircraft and the next leg is already in motion.</p></div>
+      </div>
     </div>
   </section>
   <!-- /experience -->
@@ -943,6 +1179,18 @@
   <!-- ============ CHARTER (world + services) ============ -->
   <section class="tabpanel" id="charter" hidden>
     <div class="wrap panel-inner">
+
+      <!-- booking journey -->
+      <div class="sec-head reveal" style="text-align:center;margin-left:auto;margin-right:auto;">
+        <span class="eyebrow" style="justify-content:center;">How It Works</span>
+        <h2>Request. Curate. Fly.</h2>
+      </div>
+      <div class="step-grid" style="margin-bottom:clamp(28px,3.4vw,44px);">
+        <div class="step reveal"><span class="step-no">01</span><h4>Request</h4><p>Tell us the trip — city, date, party, and anything that would make it yours. One message to a single point of contact is all it takes.</p></div>
+        <div class="step reveal" data-d="1"><span class="step-no">02</span><h4>Curate</h4><p>We match the aircraft to the mission and a vetted operator to the aircraft, then build the catering, ground, and timing around you.</p></div>
+        <div class="step reveal" data-d="2"><span class="step-no">03</span><h4>Fly</h4><p>Arrive at the private terminal and step aboard. From request to runway, the only thing left for you to do is decide where to look.</p></div>
+      </div>
+
       <div class="world">
         <div class="wrap" style="padding-top:clamp(28px,3.2vw,42px);padding-bottom:clamp(28px,3.2vw,42px);">
           <span class="eyebrow reveal">Charter</span>
@@ -1000,6 +1248,29 @@
           </div>
         </div>
       </div>
+
+      <!-- member benefits -->
+      <div class="sec-head reveal" style="text-align:center;margin-left:auto;margin-right:auto;margin-top:clamp(28px,3.4vw,44px);">
+        <span class="eyebrow" style="justify-content:center;">Member Benefits</span>
+        <h2>An advantage the market doesn't get.</h2>
+      </div>
+      <div class="svc-grid" style="margin-top:0;">
+        <div class="svc-card reveal"><span class="sn">V—01</span><h4>First Look</h4><p>Empty legs and last-minute openings released to members before they reach the open market — the best aircraft, at the moments others miss.</p></div>
+        <div class="svc-card reveal" data-d="1"><span class="sn">V—02</span><h4>Curated Daily</h4><p>Availability across the full fleet, hand-selected and refreshed each day, so what you see is what's genuinely worth flying.</p></div>
+        <div class="svc-card reveal" data-d="2"><span class="sn">V—03</span><h4>Priority Desk</h4><p>A dedicated line to the concierge for member requests — clearances, catering, and changes handled ahead of the queue.</p></div>
+        <div class="svc-card reveal" data-d="3"><span class="sn">V—04</span><h4>Transparent Value</h4><p>Repositioning and empty-leg pricing the public never sees, presented plainly — no opaque markups, no surprises.</p></div>
+      </div>
+
+      <!-- how it works -->
+      <div class="sec-head reveal" style="text-align:center;margin-left:auto;margin-right:auto;margin-top:clamp(28px,3.4vw,44px);">
+        <span class="eyebrow" style="justify-content:center;">How The Vault Works</span>
+        <h2>Three steps to the openings.</h2>
+      </div>
+      <div class="step-grid">
+        <div class="step reveal"><span class="step-no">01</span><h4>Join</h4><p>Request membership and tell us how you fly — your home airports, your usual party, the categories you favour.</p></div>
+        <div class="step reveal" data-d="1"><span class="step-no">02</span><h4>Get the Alert</h4><p>As curated availability opens across the fleet, matching flights reach you first — quietly, before the wider market.</p></div>
+        <div class="step reveal" data-d="2"><span class="step-no">03</span><h4>Claim It</h4><p>See one that fits and the concierge locks it in. The aircraft, the crew, and the clearances follow from there.</p></div>
+      </div>
     </div>
   </section>
   <!-- /vault -->
@@ -1019,6 +1290,18 @@
           <div class="stat"><div class="n">&lt;2hr</div><div class="l">Wheels-Up Callout</div><div class="d">From request to runway, when the moment demands it.</div></div>
         </div>
       </div>
+
+      <!-- how we vet -->
+      <div class="sec-head reveal" style="text-align:center;margin-left:auto;margin-right:auto;margin-top:clamp(28px,3.4vw,44px);">
+        <span class="eyebrow" style="justify-content:center;">How We Vet</span>
+        <h2>Two sets of eyes on every flight.</h2>
+      </div>
+      <div class="svc-grid" style="margin-top:0;">
+        <div class="svc-card reveal"><span class="sn">01</span><h4>Pilot Standards</h4><p>Crews held to demanding experience and recency requirements, with the specific aircraft in their type and current on every route they fly for you.</p></div>
+        <div class="svc-card reveal" data-d="1"><span class="sn">02</span><h4>Aircraft Review</h4><p>Maintenance records, airworthiness, and cabin condition reviewed before an aircraft is ever offered — no tail makes the fleet on reputation alone.</p></div>
+        <div class="svc-card reveal" data-d="2"><span class="sn">03</span><h4>Operator Vetting</h4><p>We work only with operators audited to the highest independent safety ratings, and we re-check them — a single rating is a starting point, not a free pass.</p></div>
+        <div class="svc-card reveal" data-d="3"><span class="sn">04</span><h4>Two-Check Ethos</h4><p>Nothing relies on one person's word. Every flight passes through our review and the operator's, because the second look is where the rare thing gets caught.</p></div>
+      </div>
     </div>
   </section>
   <!-- /safety -->
@@ -1026,13 +1309,26 @@
   <!-- ============ THE V2 BRIEF (final CTA) ============ -->
   <section class="tabpanel" id="brief" hidden>
     <div class="wrap panel-inner">
-      <div class="final reveal">
+
+      <div class="sec-head reveal" style="text-align:center;margin-left:auto;margin-right:auto;">
+        <span class="eyebrow" style="justify-content:center;">The V2 Brief</span>
+        <h2>A quiet word, before everyone else.</h2>
+        <p style="margin-left:auto;margin-right:auto;">The V2 Brief is our private briefing for clients — an occasional, no-noise note on where the fleet is heading, the routes worth flying this season, and the openings the wider market hasn't seen yet. No marketing, no clutter; just the things worth knowing if you fly with us.</p>
+      </div>
+
+      <div class="pillar-grid reveal" data-d="1" style="margin-bottom:clamp(28px,3.4vw,44px);">
+        <div class="pillar"><span class="pn">01</span><h4>Fleet &amp; Routes</h4><p>What's moving where, and the categories best matched to the season's most-flown trips.</p></div>
+        <div class="pillar"><span class="pn">02</span><h4>Quiet Openings</h4><p>A first look at curated availability and repositioning flights before they reach the open market.</p></div>
+        <div class="pillar"><span class="pn">03</span><h4>By Invitation</h4><p>Sent only to clients, never sold or shared. The Brief stays as private as the way you fly.</p></div>
+      </div>
+
+      <div class="final reveal" data-d="2">
         <div class="final-inner">
           <span class="eyebrow">Take To The Skies In Style</span>
-          <h2>The World Awaits.</h2>
-          <p>Tell us where you're going. Our team will build the flight around you — discreetly, precisely, and faster than you'd think possible.</p>
+          <h2>Be on the list.</h2>
+          <p>Tell us where you're going, and we'll add you to the Brief. Our team will build the flight around you — discreetly, precisely, and faster than you'd think possible.</p>
           <div class="final-actions">
-            <a class="btn btn-light" data-tab="contact" href="#contact">Book Now <span class="btn-arrow">→</span></a>
+            <a class="btn btn-light" data-tab="contact" href="#contact">Request the Brief <span class="btn-arrow">→</span></a>
             <a class="btn btn-line" data-tab="aircraft" href="#aircraft">Explore the Fleet</a>
           </div>
         </div>
@@ -1044,16 +1340,64 @@
   <!-- ============ CONTACT ============ -->
   <section class="tabpanel" id="contact" hidden>
     <div class="wrap panel-inner">
-      <div class="final reveal">
-        <div class="final-inner">
-          <span class="eyebrow">Take To The Skies In Style</span>
-          <h2>Book Now.</h2>
-          <p>Tell us where you're going. Our team will build the flight around you — discreetly, precisely, and faster than you'd think possible.</p>
-          <div class="final-actions">
-            <a class="btn btn-light" href="tel:+12122048422">Call 212-204-8422 <span class="btn-arrow">→</span></a>
-            <a class="btn btn-line" href="mailto:fly@v2jets.com">fly@v2jets.com</a>
+      <div class="sec-head reveal" style="text-align:center;margin-left:auto;margin-right:auto;">
+        <span class="eyebrow" style="justify-content:center;">Contact</span>
+        <h2>Book Now.</h2>
+        <p style="margin-left:auto;margin-right:auto;">Tell us where you're going. Our team will build the flight around you — discreetly, precisely, and faster than you'd think possible.</p>
+      </div>
+
+      <div class="contact-grid">
+        <!-- details -->
+        <div class="contact-card reveal">
+          <div class="contact-line">
+            <span class="cl-l">Charter Desk</span>
+            <a class="cl-v" href="tel:+12122048422">212-204-8422</a>
+          </div>
+          <div class="contact-line">
+            <span class="cl-l">Email</span>
+            <a class="cl-v" href="mailto:fly@v2jets.com">fly@v2jets.com</a>
+          </div>
+          <div class="contact-line">
+            <span class="cl-l">Availability</span>
+            <span class="cl-v">Concierge desk · 24 / 7</span>
+          </div>
+          <div class="contact-line">
+            <span class="cl-l">Response</span>
+            <span class="cl-v">A real person, any hour, in any time zone.</span>
+          </div>
+          <div style="margin-top:22px;">
+            <a class="btn btn-primary" href="tel:+12122048422">Call 212-204-8422 <span class="btn-arrow">→</span></a>
           </div>
         </div>
+
+        <!-- inquiry form (non-submitting) -->
+        <form class="form-card reveal" data-d="1" onsubmit="return false">
+          <div class="form-row">
+            <div class="form-field">
+              <label for="cf-name">Name</label>
+              <input id="cf-name" type="text" name="name" placeholder="Your name" autocomplete="name" />
+            </div>
+            <div class="form-field">
+              <label for="cf-email">Email</label>
+              <input id="cf-email" type="email" name="email" placeholder="you@email.com" autocomplete="email" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-field">
+              <label for="cf-route">From → To</label>
+              <input id="cf-route" type="text" name="route" placeholder="e.g. NYC → LON" />
+            </div>
+            <div class="form-field">
+              <label for="cf-date">Travel Dates</label>
+              <input id="cf-date" type="text" name="dates" placeholder="When are you flying?" />
+            </div>
+          </div>
+          <div class="form-field">
+            <label for="cf-msg">How can we help?</label>
+            <textarea id="cf-msg" name="message" placeholder="Party size, aircraft preference, and anything that would make the trip yours."></textarea>
+          </div>
+          <button class="btn btn-primary" type="submit" style="width:100%;">Send Inquiry <span class="btn-arrow">→</span></button>
+        </form>
       </div>
     </div>
   </section>
@@ -1062,7 +1406,7 @@
 </main>
 
 <!-- ============ FOOTER ============ -->
-<footer id="brief">
+<footer>
   <div class="wrap">
     <div class="foot-top">
       <div class="foot-brand">

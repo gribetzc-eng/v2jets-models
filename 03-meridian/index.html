@@ -794,6 +794,42 @@
   }
   .tabpanel.scroll-inner > section.pad-y:first-of-type{margin-top:0;}
 
+  /* ===== HOME as the MAIN landing page — hero band + editorial teaser blocks =====
+     #home is the .hero panel; it now scrolls INTERNALLY so the hero stays a full
+     screen and the magazine teaser blocks flow beneath it (all still inside #home). */
+  #home.tabpanel{
+    display:block;min-height:100vh;height:100vh;overflow-y:auto;-webkit-overflow-scrolling:touch;
+    padding-top:0;
+  }
+  /* the hero itself becomes the first full-height band inside the scroller */
+  #home > .home-hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden;}
+  /* the teaser stack below the hero rides the same paper magazine rhythm */
+  .home-extra{padding-top:clamp(8px,1.6vw,18px);}
+  .home-extra > section.pad-y:first-of-type{margin-top:var(--block-gap);}
+
+  /* HOME teaser: fleet glimpse — rounded category chips inside a paper block */
+  .home-fleetteaser .cats{
+    margin-top:clamp(28px,3.4vw,44px);display:grid;gap:clamp(12px,1.6vw,18px);
+    grid-template-columns:repeat(4,1fr);
+  }
+  .home-fleetteaser .cat{
+    border-radius:var(--r-media);padding:clamp(18px,2vw,26px);
+    background:var(--paper);border:1px solid var(--hair);box-shadow:var(--shadow-soft);
+    transition:transform .4s cubic-bezier(.2,.7,.3,1), border-color .4s;
+  }
+  .home-fleetteaser .cat:hover{transform:translateY(-4px);border-color:rgba(187,0,0,0.3);}
+  .home-fleetteaser .cat .n{font-family:var(--display);font-size:11px;letter-spacing:.16em;color:var(--red);font-weight:700;}
+  .home-fleetteaser .cat h3{font-family:var(--display);font-weight:500;font-size:clamp(17px,1.6vw,21px);margin-top:8px;color:var(--ink);}
+  .home-fleetteaser .cat p{margin-top:6px;font-size:13px;color:var(--text-soft);font-weight:300;line-height:1.5;}
+  .home-fleetteaser .cta-row{margin-top:clamp(30px,3.4vw,42px);display:flex;flex-wrap:wrap;gap:14px;}
+
+  /* HOME experience teaser — paper block with a rounded photo + copy */
+  .home-exp .grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,3.6vw,56px);align-items:center;}
+  .home-exp .media{border-radius:var(--r-media);overflow:hidden;box-shadow:var(--shadow-warm);}
+  .home-exp .media img{width:100%;height:clamp(240px,30vw,420px);object-fit:cover;display:block;}
+  .home-exp .cta-row{margin-top:26px;display:flex;flex-wrap:wrap;gap:14px;}
+  @media(max-width:880px){.home-fleetteaser .cats{grid-template-columns:1fr 1fr;}.home-exp .grid{grid-template-columns:1fr;}}
+
   /* Experience is the EXCEPTION — it holds the scroll-scrub film, so it may grow */
   #experience.tabpanel{display:block;min-height:100vh;padding-top:0;}
   /* the copy block clears the fixed bar; the film below stays full-bleed */
@@ -854,6 +890,35 @@
   .contact-cta{margin-top:clamp(34px,4vw,52px);display:flex;flex-wrap:wrap;gap:14px;}
   @media (max-width:880px){.contact-grid{grid-template-columns:1fr;}}
 
+  /* ===== CONTACT — inquiry form (non-submitting) on the dark trust block ===== */
+  .contact-hours{
+    margin-top:clamp(28px,3vw,40px);font-family:var(--display);font-weight:300;
+    font-size:clamp(15px,1.4vw,18px);color:var(--text-onteal-dim);letter-spacing:.01em;
+  }
+  .contact-hours b{color:var(--amber);font-weight:500;}
+  .inquiry{
+    margin-top:clamp(30px,3.6vw,46px);border-radius:var(--r-media);
+    padding:clamp(26px,3vw,40px);text-align:left;
+    background:rgba(250,250,250,0.05);border:1px solid rgba(250,250,250,0.16);
+  }
+  .inquiry .ih{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--amber);font-weight:700;}
+  .inquiry h3{font-family:var(--display);font-weight:400;color:var(--offwhite);font-size:clamp(20px,2vw,28px);margin-top:10px;}
+  .inquiry .fields{margin-top:clamp(22px,2.6vw,30px);display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,1.8vw,20px);}
+  .field{display:flex;flex-direction:column;gap:8px;}
+  .field.full{grid-column:1 / -1;}
+  .field label{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--text-onteal-dim);font-weight:600;}
+  .field input,.field textarea{
+    font-family:var(--body);font-size:15px;color:var(--offwhite);
+    background:rgba(14,14,14,0.35);border:1px solid rgba(250,250,250,0.18);
+    border-radius:14px;padding:.85em 1em;width:100%;transition:border-color .3s, background .3s;
+  }
+  .field textarea{min-height:120px;resize:vertical;line-height:1.5;}
+  .field input::placeholder,.field textarea::placeholder{color:rgba(181,181,181,0.6);}
+  .field input:focus,.field textarea:focus{outline:none;border-color:rgba(187,0,0,0.6);background:rgba(14,14,14,0.5);}
+  .inquiry .submit-row{margin-top:clamp(20px,2.4vw,28px);display:flex;flex-wrap:wrap;align-items:center;gap:14px;}
+  .inquiry .note{font-size:12.5px;color:var(--text-onteal-dim);font-weight:300;}
+  @media (max-width:680px){.inquiry .fields{grid-template-columns:1fr;}}
+
   /* nav drawer on narrow screens */
   @media (max-width:900px){
     nav.tabnav{
@@ -901,28 +966,135 @@
 
 <main class="tabhost">
 
-<!-- ============ HOME ============ -->
+<!-- ============ HOME — the MAIN landing page (hero band + editorial teasers) ============ -->
 <section class="hero tabpanel" id="home">
-  <img class="bg" src="../assets/hero-xl.jpg" alt="A V2 Jets private aircraft on the tarmac at golden hour" />
-  <video class="hero-bgvid" autoplay muted playsinline preload="auto" poster="../assets/hero-xl.jpg" aria-hidden="true">
-    <source src="../assets/clips/03-wing-coastline.mp4" type="video/mp4">
-  </video>
-  <div class="overlay-warm"></div>
-  <div class="overlay-glow"></div>
-  <div class="inner wrap">
-    <p class="eyebrow reveal in">Ultra-Luxury Private Aviation</p>
-    <h1 class="reveal in">The World <em>Awaits</em></h1>
-    <p class="sub reveal in d1">With V2 Jets, flying isn't simply flying. Flying is transcending. Tap into a world where luxury is a lifestyle.</p>
-    <div class="cta-row reveal in d2">
-      <a class="btn btn-primary" href="tel:+12122048422">Book Now</a>
-      <a class="btn btn-ghost" data-tab="aircraft" href="#aircraft">Explore the Fleet</a>
+
+  <!-- hero band (existing visual + copy, kept verbatim) -->
+  <div class="home-hero">
+    <img class="bg" src="../assets/hero-xl.jpg" alt="A V2 Jets private aircraft on the tarmac at golden hour" />
+    <video class="hero-bgvid" autoplay muted playsinline preload="auto" poster="../assets/hero-xl.jpg" aria-hidden="true">
+      <source src="../assets/clips/03-wing-coastline.mp4" type="video/mp4">
+    </video>
+    <div class="overlay-warm"></div>
+    <div class="overlay-glow"></div>
+    <div class="inner wrap">
+      <p class="eyebrow reveal in">Ultra-Luxury Private Aviation</p>
+      <h1 class="reveal in">The World <em>Awaits</em></h1>
+      <p class="sub reveal in d1">With V2 Jets, flying isn't simply flying. Flying is transcending. Tap into a world where luxury is a lifestyle.</p>
+      <div class="cta-row reveal in d2">
+        <a class="btn btn-primary" href="tel:+12122048422">Book Now</a>
+        <a class="btn btn-ghost" data-tab="aircraft" href="#aircraft">Explore the Fleet</a>
+      </div>
     </div>
+    <div class="scrollcue" aria-hidden="true"><span>Scroll</span><i></i></div>
   </div>
-  <div class="scrollcue" aria-hidden="true"><span>Scroll</span><i></i></div>
+
+  <!-- editorial teaser stack — magazine blocks that link into the deep tabs -->
+  <div class="home-extra">
+
+    <!-- positioning statement -->
+    <section class="pad-y" id="home-positioning">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <p class="eyebrow">A Lifestyle, Not A Flight</p>
+          <h2>Flying isn't simply flying. <em>Flying is transcending.</em></h2>
+          <p class="lede">V2 Jets is bespoke ultra-luxury private aviation — on-demand charter, aircraft management, and the members-only V2 Vault, all run by a standing concierge built around your time and your taste. One call opens an entire fleet and a planet's worth of runways. The skies are the limit.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- fleet teaser -->
+    <section class="pad-y home-fleetteaser" id="home-fleet">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <p class="eyebrow">The Fleet</p>
+          <h2>A fleet for <em>every horizon</em></h2>
+          <p class="lede">Seven categories, one standard of care — from a quick coastal hop to a continent in a single leg. Choose the aircraft, and we'll bring the world a little closer.</p>
+        </div>
+        <div class="cats">
+          <div class="cat reveal"><div class="n">01 · 02</div><h3>Turbo &amp; Light</h3><p>Short hops and quick getaways — the most direct route to the places the airlines forgot.</p></div>
+          <div class="cat reveal d1"><div class="n">03 · 04</div><h3>Mid &amp; Super Mid</h3><p>Stand-up cabins and transcontinental reach, with room to settle in.</p></div>
+          <div class="cat reveal d2"><div class="n">05 · 06</div><h3>Heavy &amp; Ultra</h3><p>Full galleys, private divans, and the legs to cross oceans in one unhurried evening.</p></div>
+          <div class="cat reveal d3"><div class="n">07</div><h3>Obsidian</h3><p>Our flagship private experience — a standard of service we keep deliberately rare.</p></div>
+        </div>
+        <div class="cta-row reveal d1">
+          <a class="btn btn-primary" data-tab="aircraft" href="#aircraft">Explore the Fleet</a>
+          <a class="btn btn-ghost-ink" href="tel:+12122048422">Book Now</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- experience teaser -->
+    <section class="pad-y home-exp" id="home-experience">
+      <div class="wrap">
+        <div class="grid">
+          <div class="media reveal">
+            <img src="../assets/interior-main.jpg" alt="A V2 Jets cabin with cream leather club seats and warm wood veneer" loading="lazy" />
+          </div>
+          <div class="reveal d1">
+            <p class="eyebrow">The Experience</p>
+            <h2 style="font-size:clamp(30px,4.4vw,56px);margin-top:18px;line-height:1.02;">Rest at <em style="font-style:italic;color:var(--terracotta);">45,000 feet</em></h2>
+            <p class="lede">A V2 cabin is less a means of travel than a place to be still — soft cream leather, warm wood, and a calm that follows you from the runway to the door of wherever you're going. We design the in-flight hours around how you want to arrive: rested, clear, and ready.</p>
+            <div class="cta-row">
+              <a class="btn btn-primary" data-tab="experience" href="#experience">Step Inside the Cabin</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- why V2 — value triad (dark manifesto block) -->
+    <section class="manifesto pad-y" id="home-why">
+      <div class="wrap">
+        <p class="eyebrow reveal">Why V2</p>
+        <blockquote class="reveal d1">Access. Discretion. <em>Certainty.</em></blockquote>
+        <p class="body reveal d2">Three things define the way we fly. Open access to the right aircraft the moment you need it; absolute discretion around your travel and your privacy; and the certainty that every detail — crew, route, and the small impossible asks — is handled before you think to mention it.</p>
+        <div class="pillars">
+          <div class="pillar reveal d1"><h3>Access</h3><p>One call opens an entire fleet — wheels-up in hours, not days, to a planet's worth of runways.</p></div>
+          <div class="pillar reveal d2"><h3>Discretion</h3><p>A private, members-first world. Your travel, your privacy, your name — kept quiet by design.</p></div>
+          <div class="pillar reveal d3"><h3>Certainty</h3><p>Vetted operators, certified crews, and a standing concierge so the only thing left is to arrive.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- safety teaser -->
+    <section class="pad-y" id="home-safety">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <p class="eyebrow">Safety &amp; Trust</p>
+          <h2>Luxury is a lifestyle. <em>Safety is the foundation.</em></h2>
+          <p class="lede">Every operator is independently vetted, every crew certified, and every aircraft held to a rigorous standard before it ever carries you. Discretion and care aren't features — they're the ground we build on.</p>
+        </div>
+        <div class="cta-row reveal d1" style="margin-top:clamp(28px,3.4vw,40px);display:flex;flex-wrap:wrap;gap:14px;">
+          <a class="btn btn-primary" data-tab="safety" href="#safety">Our Standards</a>
+          <a class="btn btn-ghost-ink" data-tab="about" href="#about">About V2</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- closing CTA -->
+    <section class="final pad-y" id="home-cta">
+      <img class="bg" src="../assets/plane-exterior.jpg" alt="A V2 Jets aircraft banking against a golden sky" loading="lazy" />
+      <div class="veil"></div>
+      <div class="veil2"></div>
+      <div class="wrap">
+        <p class="eyebrow reveal">Take To The Skies In Style</p>
+        <h2 class="reveal d1">The World <em>Awaits</em></h2>
+        <p class="reveal d2">Name the place that's been calling you. A V2 advisor will craft the aircraft, the route, and every detail in between — so all that's left for you is to arrive.</p>
+        <div class="cta-row reveal d2">
+          <a class="btn btn-amber" href="tel:+12122048422">Book Now</a>
+          <a class="btn btn-ghost" data-tab="contact" href="#contact">Contact a V2 Advisor</a>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /.home-extra -->
 </section>
 
-<!-- ============ ABOUT US (Manifesto) ============ -->
-<section class="manifesto pad-y tabpanel scroll-inner" id="about">
+<!-- ============ ABOUT US (Manifesto + story) ============ -->
+<section class="tabpanel scroll-inner" id="about">
+
+  <section class="manifesto pad-y">
   <div class="wrap">
     <p class="eyebrow reveal">The V2 Philosophy</p>
     <blockquote class="reveal d1">Flying is <em>transcending.</em></blockquote>
@@ -942,6 +1114,40 @@
       </div>
     </div>
   </div>
+  </section>
+
+  <!-- Mission + values triad (paper block) -->
+  <section class="pad-y">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <p class="eyebrow">Our Mission</p>
+        <h2>To make the journey the <em>best part</em></h2>
+        <p class="lede">V2 Jets exists to turn private travel into something restorative rather than merely fast. We curate a world around your time and your taste — choosing the aircraft, shaping the route, and handling every detail in between — so that arriving feels like the beginning of rest, not the end of the road.</p>
+      </div>
+      <div class="svc-grid" style="margin-top:clamp(36px,4.4vw,56px);">
+        <article class="svc reveal">
+          <div class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v6c0 4-3.5 7-8 8-4.5-1-8-4-8-8V7z"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <h3>Discretion</h3>
+          <p>A private, members-first world built on confidentiality. Your travel and your name stay quiet by design.</p>
+        </article>
+        <article class="svc reveal d1">
+          <div class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+          <h3>Care</h3>
+          <p>Every detail tuned to comfort and rest — from cabin air and light to the menu that travels with you.</p>
+        </article>
+        <article class="svc reveal d2">
+          <div class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 14l9-3 4-9 2 1-2 8 5 2v2l-6-1-2 5-2-1 1-5-6 1z"/></svg></div>
+          <h3>Certainty</h3>
+          <p>One call, and the aircraft, the crew, and every arrangement are handled — so the only thing left is to arrive.</p>
+        </article>
+      </div>
+      <div class="cta-row reveal d1" style="margin-top:clamp(30px,3.4vw,42px);display:flex;flex-wrap:wrap;gap:14px;">
+        <a class="btn btn-primary" href="tel:+12122048422">Book Now</a>
+        <a class="btn btn-ghost-ink" data-tab="contact" href="#contact">Speak With an Advisor</a>
+      </div>
+    </div>
+  </section>
+
 </section>
 
 <!-- ============ THE AIRCRAFT — 7 tiers as sub-tabs, one tier per screen ============ -->
@@ -952,6 +1158,7 @@
         <p class="eyebrow">The Aircraft</p>
         <h2>A fleet for <em>every horizon</em></h2>
         <p class="lede">Seven categories, one standard. From a quick hop along the coast to a continent in a single leg — choose the aircraft, and we'll bring the world a little closer.</p>
+        <p class="lede" style="margin-top:14px;font-size:clamp(14px,1.3vw,16px);"><strong style="color:var(--ink);font-weight:500;">How to choose:</strong> let range and guest count guide you — shorter hops favor turbo props and light jets, transcontinental days suit mid and super-mid cabins, and oceans call for heavy or ultra-long-range aircraft. Unsure? An advisor will match the category to your itinerary.</p>
       </div>
     </div>
 
@@ -1124,6 +1331,26 @@
         <p>Close the door, dim the light, and let the miles disappear. The suite turns a long flight into a full night's rest — so you land at your destination, not at the end of yourself.</p>
       </div>
     </div>
+
+    <!-- onboard service touchpoints -->
+    <div class="exp-grid" style="margin-top:clamp(24px,3vw,40px);grid-template-columns:repeat(4,1fr);align-items:stretch;">
+      <div class="pillar reveal" style="border-radius:var(--r-card);padding:clamp(22px,2.4vw,30px);background:rgba(250,250,250,0.05);border:1px solid rgba(250,250,250,0.14);">
+        <h3 style="font-family:var(--display);font-size:clamp(18px,1.6vw,22px);color:var(--amber);font-weight:500;">Dining</h3>
+        <p style="margin-top:10px;font-size:14.5px;color:var(--text-onteal-dim);font-weight:300;line-height:1.6;">Chef-led menus and your own favorites, prepared to your taste and served on your schedule.</p>
+      </div>
+      <div class="pillar reveal d1" style="border-radius:var(--r-card);padding:clamp(22px,2.4vw,30px);background:rgba(250,250,250,0.05);border:1px solid rgba(250,250,250,0.14);">
+        <h3 style="font-family:var(--display);font-size:clamp(18px,1.6vw,22px);color:var(--amber);font-weight:500;">Connectivity</h3>
+        <p style="margin-top:10px;font-size:14.5px;color:var(--text-onteal-dim);font-weight:300;line-height:1.6;">Stay reachable or stay unreachable — the cabin is yours to work, stream, or simply switch off.</p>
+      </div>
+      <div class="pillar reveal d2" style="border-radius:var(--r-card);padding:clamp(22px,2.4vw,30px);background:rgba(250,250,250,0.05);border:1px solid rgba(250,250,250,0.14);">
+        <h3 style="font-family:var(--display);font-size:clamp(18px,1.6vw,22px);color:var(--amber);font-weight:500;">Concierge</h3>
+        <p style="margin-top:10px;font-size:14.5px;color:var(--text-onteal-dim);font-weight:300;line-height:1.6;">Villas, reservations, and the small impossible asks — arranged before you think to mention them.</p>
+      </div>
+      <div class="pillar reveal d3" style="border-radius:var(--r-card);padding:clamp(22px,2.4vw,30px);background:rgba(250,250,250,0.05);border:1px solid rgba(250,250,250,0.14);">
+        <h3 style="font-family:var(--display);font-size:clamp(18px,1.6vw,22px);color:var(--amber);font-weight:500;">Ground</h3>
+        <p style="margin-top:10px;font-size:14.5px;color:var(--text-onteal-dim);font-weight:300;line-height:1.6;">Private terminals and door-to-door transfers, so the calm of the cabin starts before you board.</p>
+      </div>
+    </div>
   </div>
   </section>
 
@@ -1180,13 +1407,45 @@
   </div>
 </section>
 
+<!-- Booking journey — 3-step process -->
+<section class="pad-y" id="charter-process">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">How It Works</p>
+      <h2>From a thought to <em>wheels-up</em></h2>
+      <p class="lede">Three steps, one call. Tell us where the world is calling you, and we'll handle the aircraft, the route, and every detail in between.</p>
+    </div>
+    <div class="svc-grid" style="margin-top:clamp(32px,4vw,52px);grid-template-columns:repeat(3,1fr);">
+      <article class="svc reveal" style="background:var(--paper-2);">
+        <span class="num" style="display:inline-block;align-self:flex-start;font-family:var(--display);font-size:12px;color:var(--red);letter-spacing:.14em;font-weight:700;padding:.42em .95em;border-radius:var(--r-pill);background:rgba(187,0,0,0.08);border:1px solid rgba(187,0,0,0.18);">Step 01 — Request</span>
+        <h3 style="margin-top:16px;">Tell us the trip</h3>
+        <p>Share where you're going, when, and who's traveling. One call to an advisor is all it takes to begin.</p>
+      </article>
+      <article class="svc reveal d1" style="background:var(--paper-2);">
+        <span class="num" style="display:inline-block;align-self:flex-start;font-family:var(--display);font-size:12px;color:var(--red);letter-spacing:.14em;font-weight:700;padding:.42em .95em;border-radius:var(--r-pill);background:rgba(187,0,0,0.08);border:1px solid rgba(187,0,0,0.18);">Step 02 — Curate</span>
+        <h3 style="margin-top:16px;">We craft it</h3>
+        <p>We match the aircraft to your itinerary, shape the route, and arrange the cabin, dining, and ground details.</p>
+      </article>
+      <article class="svc reveal d2" style="background:var(--paper-2);">
+        <span class="num" style="display:inline-block;align-self:flex-start;font-family:var(--display);font-size:12px;color:var(--red);letter-spacing:.14em;font-weight:700;padding:.42em .95em;border-radius:var(--r-pill);background:rgba(187,0,0,0.08);border:1px solid rgba(187,0,0,0.18);">Step 03 — Fly</span>
+        <h3 style="margin-top:16px;">Just arrive</h3>
+        <p>Wheels-up in hours, not days. Step aboard, settle in, and let the only thing left be the journey.</p>
+      </article>
+    </div>
+    <div class="cta-row reveal d1" style="margin-top:clamp(30px,3.4vw,42px);display:flex;flex-wrap:wrap;gap:14px;">
+      <a class="btn btn-primary" href="tel:+12122048422">Book Now</a>
+      <a class="btn btn-ghost-ink" data-tab="contact" href="#contact">Contact an Advisor</a>
+    </div>
+  </div>
+</section>
+
 <!-- Services strip — folded into the Charter panel -->
 <section class="services pad-y" id="services">
   <div class="wrap">
     <div class="sec-head reveal">
       <p class="eyebrow">What We Do</p>
       <h2>Built around <em>your life</em></h2>
-      <p class="lede">From a single charter to the management of your own aircraft, V2 is a standing concierge for everywhere you need to be — and everywhere you'd rather.</p>
+      <p class="lede">From a single on-demand charter to managed aircraft and group or event travel, V2 is a standing concierge for everywhere you need to be — and everywhere you'd rather.</p>
     </div>
 
     <div class="svc-grid">
@@ -1227,7 +1486,9 @@
 </div><!-- /#charter -->
 
 <!-- ============ V2 VAULT ============ -->
-<section class="vault pad-y tabpanel scroll-inner" id="vault">
+<section class="tabpanel scroll-inner" id="vault">
+
+  <section class="vault pad-y">
   <div class="wrap">
     <div class="grid">
       <div class="reveal">
@@ -1276,10 +1537,64 @@
       </div>
     </div>
   </div>
+  </section>
+
+  <!-- Member benefits + how it works (paper block) -->
+  <section class="pad-y">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <p class="eyebrow">Inside the Vault</p>
+        <h2>What membership <em>opens</em></h2>
+        <p class="lede">The Vault is V2's private side door to the fleet. Members see availability first, hold priority on the aircraft they love, and travel with a standing concierge who already knows how they like to fly.</p>
+      </div>
+      <div class="svc-grid" style="margin-top:clamp(32px,4vw,52px);">
+        <article class="svc reveal">
+          <div class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v6c0 4-3.5 7-8 8-4.5-1-8-4-8-8V7z"/></svg></div>
+          <h3>First Access</h3>
+          <p>Repositioning legs, open seats, and rare windows on the fleet — surfaced to members before anyone else.</p>
+        </article>
+        <article class="svc reveal d1">
+          <div class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg></div>
+          <h3>Member Pricing</h3>
+          <p>Curated availability priced for those already inside — the limit, made a little more generous.</p>
+        </article>
+        <article class="svc reveal d2">
+          <div class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3c2 3 2 5 0 8s-2 7 0 10"/></svg></div>
+          <h3>A Concierge Who Knows You</h3>
+          <p>One standing point of contact who learns your preferences and arranges everything around them.</p>
+        </article>
+      </div>
+
+      <div class="svc-grid" style="margin-top:clamp(24px,3vw,36px);grid-template-columns:repeat(3,1fr);">
+        <article class="svc reveal" style="background:var(--paper-2);">
+          <span class="num" style="display:inline-block;align-self:flex-start;font-family:var(--display);font-size:12px;color:var(--red);letter-spacing:.14em;font-weight:700;padding:.42em .95em;border-radius:var(--r-pill);background:rgba(187,0,0,0.08);border:1px solid rgba(187,0,0,0.18);">Step 01</span>
+          <h3 style="margin-top:16px;">Request an Invitation</h3>
+          <p>Reach out, and an advisor walks you through the program and how you like to travel.</p>
+        </article>
+        <article class="svc reveal d1" style="background:var(--paper-2);">
+          <span class="num" style="display:inline-block;align-self:flex-start;font-family:var(--display);font-size:12px;color:var(--red);letter-spacing:.14em;font-weight:700;padding:.42em .95em;border-radius:var(--r-pill);background:rgba(187,0,0,0.08);border:1px solid rgba(187,0,0,0.18);">Step 02</span>
+          <h3 style="margin-top:16px;">Set Your Profile</h3>
+          <p>We capture your preferred aircraft, routes, and the details that make every trip feel like yours.</p>
+        </article>
+        <article class="svc reveal d2" style="background:var(--paper-2);">
+          <span class="num" style="display:inline-block;align-self:flex-start;font-family:var(--display);font-size:12px;color:var(--red);letter-spacing:.14em;font-weight:700;padding:.42em .95em;border-radius:var(--r-pill);background:rgba(187,0,0,0.08);border:1px solid rgba(187,0,0,0.18);">Step 03</span>
+          <h3 style="margin-top:16px;">Fly First</h3>
+          <p>Curated availability arrives in your feed — see it first, hold it fast, and go.</p>
+        </article>
+      </div>
+      <div class="cta-row reveal d1" style="margin-top:clamp(30px,3.4vw,42px);display:flex;flex-wrap:wrap;gap:14px;">
+        <a class="btn btn-primary" href="tel:+12122048422">Request an Invitation</a>
+        <a class="btn btn-ghost-ink" data-tab="contact" href="#contact">Speak With an Advisor</a>
+      </div>
+    </div>
+  </section>
+
 </section>
 
 <!-- ============ SAFETY (Trust / Credentials) ============ -->
-<section class="trust pad-y tabpanel scroll-inner" id="safety">
+<section class="tabpanel scroll-inner" id="safety">
+
+  <section class="trust pad-y">
   <div class="wrap">
     <p class="eyebrow reveal">Safety &amp; Trust</p>
     <h2 class="reveal d1">Luxury is a lifestyle. <em>Safety is the foundation.</em></h2>
@@ -1296,22 +1611,93 @@
       <span class="badge">Discreet &amp; Private</span>
     </div>
   </div>
+  </section>
+
+  <!-- How we vet — qualitative standards (paper block) -->
+  <section class="pad-y">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <p class="eyebrow">Our Standards</p>
+        <h2>Vetted before you ever <em>step aboard</em></h2>
+        <p class="lede">Behind the calm of a V2 cabin is a quiet, uncompromising process. We hold every crew, aircraft, and operator to a rigorous standard — and we check it twice, because the foundation should never be the thing you have to think about.</p>
+      </div>
+      <div class="svc-grid" style="margin-top:clamp(32px,4vw,52px);grid-template-columns:repeat(3,1fr);">
+        <article class="svc reveal">
+          <div class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></div>
+          <h3>Pilot Standards</h3>
+          <p>Experienced, certified flight crews held to demanding training and currency requirements before they ever fly for V2.</p>
+        </article>
+        <article class="svc reveal d1">
+          <div class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 14l9-3 4-9 2 1-2 8 5 2v2l-6-1-2 5-2-1 1-5-6 1z"/></svg></div>
+          <h3>Aircraft &amp; Operator Vetting</h3>
+          <p>Every aircraft and the operator behind it is independently reviewed for maintenance, compliance, and a clean record of care.</p>
+        </article>
+        <article class="svc reveal d2">
+          <div class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v6c0 4-3.5 7-8 8-4.5-1-8-4-8-8V7z"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <h3>Always Two Checks</h3>
+          <p>An always-two-checks ethos: nothing carries you until it has cleared more than one set of eyes, every single time.</p>
+        </article>
+      </div>
+      <div class="cta-row reveal d1" style="margin-top:clamp(30px,3.4vw,42px);display:flex;flex-wrap:wrap;gap:14px;">
+        <a class="btn btn-primary" href="tel:+12122048422">Book Now</a>
+        <a class="btn btn-ghost-ink" data-tab="contact" href="#contact">Ask About Safety</a>
+      </div>
+    </div>
+  </section>
+
 </section>
 
-<!-- ============ THE V2 BRIEF (Final CTA) ============ -->
-<section class="final pad-y tabpanel" id="brief">
-  <img class="bg" src="../assets/plane-exterior.jpg" alt="A V2 Jets aircraft banking against a golden sky" />
-  <div class="veil"></div>
-  <div class="veil2"></div>
-  <div class="wrap">
-    <p class="eyebrow reveal">Take To The Skies In Style</p>
-    <h2 class="reveal d1">Your next <em>departure</em> begins here</h2>
-    <p class="reveal d2">Tell us where the world is calling you. A V2 advisor will craft the aircraft, the route, and every detail in between — so all that's left for you is to arrive.</p>
-    <div class="cta-row reveal d2">
-      <a class="btn btn-amber" href="tel:+12122048422">Book Now</a>
-      <a class="btn btn-ghost" data-tab="contact" href="#contact">Contact a V2 Advisor</a>
+<!-- ============ THE V2 BRIEF (private briefing + CTA) ============ -->
+<section class="tabpanel scroll-inner" id="brief">
+
+  <!-- what the Brief is (paper block) -->
+  <section class="pad-y">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <p class="eyebrow">The V2 Brief</p>
+        <h2>A private briefing, <em>for clients only</em></h2>
+        <p class="lede">The V2 Brief is our quiet line to the people who fly with us — a private dispatch curated for clients and members. It's where the world's most rewarding journeys, the rare windows on the fleet, and the places worth crossing an ocean for arrive before they're anywhere else.</p>
+      </div>
+      <div class="svc-grid" style="margin-top:clamp(32px,4vw,52px);">
+        <article class="svc reveal">
+          <div class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v14H3z"/><path d="M3 5l9 7 9-7"/></svg></div>
+          <h3>Curated, Not Crowded</h3>
+          <p>A considered dispatch rather than a newsletter — the few things worth your attention, and nothing that isn't.</p>
+        </article>
+        <article class="svc reveal d1">
+          <div class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg></div>
+          <h3>First to Know</h3>
+          <p>Rare availability, seasonal escapes, and member windows on the fleet — shared with the Brief before anywhere else.</p>
+        </article>
+        <article class="svc reveal d2">
+          <div class="ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v6c0 4-3.5 7-8 8-4.5-1-8-4-8-8V7z"/></svg></div>
+          <h3>Private by Design</h3>
+          <p>Reserved for clients and members. To join the list, simply reach out — an advisor will take it from there.</p>
+        </article>
+      </div>
+      <div class="cta-row reveal d1" style="margin-top:clamp(30px,3.4vw,42px);display:flex;flex-wrap:wrap;gap:14px;">
+        <a class="btn btn-primary" href="mailto:fly@v2jets.com?subject=Join%20the%20V2%20Brief">Request the Brief</a>
+        <a class="btn btn-ghost-ink" data-tab="contact" href="#contact">Contact an Advisor</a>
+      </div>
     </div>
-  </div>
+  </section>
+
+  <!-- closing photo CTA (kept verbatim) -->
+  <section class="final pad-y">
+    <img class="bg" src="../assets/plane-exterior.jpg" alt="A V2 Jets aircraft banking against a golden sky" />
+    <div class="veil"></div>
+    <div class="veil2"></div>
+    <div class="wrap">
+      <p class="eyebrow reveal">Take To The Skies In Style</p>
+      <h2 class="reveal d1">Your next <em>departure</em> begins here</h2>
+      <p class="reveal d2">Tell us where the world is calling you. A V2 advisor will craft the aircraft, the route, and every detail in between — so all that's left for you is to arrive.</p>
+      <div class="cta-row reveal d2">
+        <a class="btn btn-amber" href="tel:+12122048422">Book Now</a>
+        <a class="btn btn-ghost" data-tab="contact" href="#contact">Contact a V2 Advisor</a>
+      </div>
+    </div>
+  </section>
+
 </section>
 
 <!-- ============ CONTACT (panel) ============ -->
@@ -1336,6 +1722,41 @@
         <p class="sub">24/7 concierge &amp; flight support, every hour.</p>
       </div>
     </div>
+
+    <p class="contact-hours reveal d1"><b>Advisors on the line, around the clock —</b> 24/7, every day of the year. Wheels-up in hours, not days.</p>
+
+    <!-- inquiry form layout (non-submitting) -->
+    <form class="inquiry reveal d1" onsubmit="return false" aria-label="V2 Jets inquiry">
+      <span class="ih">Start an Inquiry</span>
+      <h3>Tell us where the world is calling you</h3>
+      <div class="fields">
+        <div class="field">
+          <label for="cf-name">Name</label>
+          <input id="cf-name" type="text" name="name" placeholder="Your name" autocomplete="name" />
+        </div>
+        <div class="field">
+          <label for="cf-email">Email</label>
+          <input id="cf-email" type="email" name="email" placeholder="you@example.com" autocomplete="email" />
+        </div>
+        <div class="field">
+          <label for="cf-phone">Phone</label>
+          <input id="cf-phone" type="tel" name="phone" placeholder="Best number to reach you" autocomplete="tel" />
+        </div>
+        <div class="field">
+          <label for="cf-route">Route &amp; Dates</label>
+          <input id="cf-route" type="text" name="route" placeholder="e.g. New York → Aspen, this weekend" />
+        </div>
+        <div class="field full">
+          <label for="cf-msg">How can we help?</label>
+          <textarea id="cf-msg" name="message" placeholder="Guests, aircraft preference, or anything we should know."></textarea>
+        </div>
+      </div>
+      <div class="submit-row">
+        <button class="btn btn-amber" type="submit">Send Inquiry</button>
+        <span class="note">Prefer to talk? Call <a href="tel:+12122048422" style="color:var(--amber);">212-204-8422</a> any time.</span>
+      </div>
+    </form>
+
     <div class="contact-cta reveal d2">
       <a class="btn btn-amber" href="tel:+12122048422">Book Now</a>
       <a class="btn btn-ghost" href="mailto:fly@v2jets.com">Email an Advisor</a>

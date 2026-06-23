@@ -671,39 +671,14 @@
   }
 
   /* =========================================================
-     CINEMATIC INTERLUDE — scroll-scrubbed plate
+     CINEMATIC INTERLUDE — scroll-film (frame-sequence canvas)
   ========================================================= */
-  .scrub{position:relative;height:220vh;}
-  .scrub__stage{
-    position:sticky;top:0;height:100vh;
-    overflow:hidden;
-    background:var(--noir);
-    color:var(--on-noir);
-    display:flex;
-    align-items:flex-end;
-    border-top:2px solid var(--red);
-    border-bottom:2px solid var(--red);
-  }
-  .film{
-    position:absolute;inset:0;
-    width:100%;height:100%;
-    object-fit:cover;
-    filter:grayscale(100%) contrast(1.05);
-    z-index:0;
-    will-change:transform,opacity;
-    backface-visibility:hidden;
-  }
-  .scrub__stage::after{
-    content:"";position:absolute;inset:0;z-index:1;
-    background:linear-gradient(to top, rgba(10,10,10,.78), rgba(10,10,10,.18) 52%, rgba(10,10,10,.40));
-  }
-  .scrub__cap{
-    position:relative;z-index:2;
-    width:100%;
-    max-width:1440px;
-    margin:0 auto;
-    padding:clamp(34px,6vw,90px) var(--gutter) clamp(34px,5vw,72px);
-  }
+  .filmscroll{position:relative;height:280vh;border-top:2px solid var(--red);border-bottom:2px solid var(--red);}
+  .filmscroll__stage{position:sticky;top:0;height:100vh;overflow:hidden;background:#0E0E0E;color:var(--on-noir);}
+  .filmscroll__stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block;filter:grayscale(1) contrast(1.05);}
+  .filmscroll__scrim{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,.30),transparent 26%,transparent 60%,rgba(0,0,0,.55));}
+  .filmscroll__cap{position:absolute;left:0;right:0;bottom:0;z-index:2;max-width:1440px;margin-inline:auto;padding:0 var(--gutter) clamp(40px,9vh,90px);color:#fff;}
+  @media(prefers-reduced-motion:reduce){.filmscroll{height:100vh}.filmscroll__stage{position:relative}}
   .interlude .il-cap{
     font-family:var(--serif);
     font-style:italic;
@@ -1267,13 +1242,12 @@
     </div>
   </section>
 
-  <!-- ============================== CINEMATIC INTERLUDE (scroll-scrubbed) ============================== -->
-  <section class="scrub interlude" aria-label="Interlude — Departure">
-    <div class="scrub__stage">
-      <video class="film" muted playsinline preload="auto" poster="../assets/plane-exterior.jpg">
-        <source src="../assets/clips/01-departure-dusk.mp4" type="video/mp4" />
-      </video>
-      <div class="scrub__cap il-inner">
+  <!-- ============================== CINEMATIC INTERLUDE (scroll-film: frame-sequence canvas) ============================== -->
+  <section class="filmscroll scrub interlude" aria-label="Interlude — Departure" data-frames="../assets/frames/departure-dusk" data-count="112">
+    <div class="filmscroll__stage">
+      <canvas></canvas>
+      <div class="filmscroll__scrim" aria-hidden="true"></div>
+      <div class="filmscroll__cap il-inner">
         <p class="il-cap">Pl. — Departure</p>
         <blockquote class="il-quote">
           <span class="q">“</span>The world <span class="it">awaits.</span><span class="q">”</span>
@@ -1482,54 +1456,27 @@
     revealEls.forEach(function(el){ io.observe(el); });
   }
 
-  /* ---- Interlude film: scroll-scrubbed ---- */
-  (function(){
-    const s=document.querySelector('.scrub'),v=s&&s.querySelector('video');
-    if(!s||!v)return;
-    const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let target=0;
-    v.addEventListener('loadedmetadata',()=>v.pause());
-    function compute(){
-      const r=s.getBoundingClientRect();
-      const total=r.height-innerHeight;
-      const p=Math.min(1,Math.max(0,-r.top/Math.max(1,total)));
-      target=p*(v.duration||0);
-    }
-    function tick(){
-      if(v.duration){
-        const cur=v.currentTime,next=cur+(target-cur)*0.12;
-        if(Math.abs(target-cur)>0.01){
-          if(v.fastSeek)v.fastSeek(Math.max(0,next));else v.currentTime=next;
-        }
-      }
-      requestAnimationFrame(tick);
-    }
-    if(!reduce){
-      addEventListener('scroll',compute,{passive:true});
-      addEventListener('resize',compute);
-      compute();tick();
-    }
-  })();
 })();
 </script>
 
 <script>
-/* scrub hardening: back the sticky stage with the poster so it never flashes blank, and paint the first frame */
-(function(){
-  document.querySelectorAll('.scrub').forEach(function(s){
-    var v=s.querySelector('video'); if(!v) return;
-    var stage=s.querySelector('.scrub__stage')||v.parentElement;
-    var poster=v.getAttribute('poster');
-    if(poster && !stage.querySelector('.scrub__poster')){
-      var pd=document.createElement('div'); pd.className='scrub__poster';
-      var f=getComputedStyle(v).filter;
-      pd.style.cssText='position:absolute;inset:0;background:#0E0E0E url("'+poster+'") center/cover;'+(f&&f!=='none'?'filter:'+f+';':'');
-      stage.insertBefore(pd, stage.firstChild);
-    }
-    function paint(){ try{ v.fastSeek?v.fastSeek(0.05):(v.currentTime=0.05); }catch(e){} }
-    if(v.readyState>=2) paint(); else v.addEventListener('loadeddata',paint,{once:true});
-  });
-})();
+/* scroll-film: frame-sequence canvas, eased scrub */
+(function(){var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ document.querySelectorAll('.filmscroll').forEach(function(sec){
+  var base=sec.getAttribute('data-frames'),count=+sec.getAttribute('data-count');
+  var canvas=sec.querySelector('canvas'),ctx=canvas.getContext('2d');
+  var imgs=new Array(count),dpr=Math.min(2,window.devicePixelRatio||1),W=0,H=0,cur=0,target=0,ready=false;
+  function pad(n){n=''+n;while(n.length<3)n='0'+n;return n;}
+  for(var i=0;i<count;i++){var im=new Image();im.src=base+'/'+pad(i+1)+'.jpg';imgs[i]=im;}
+  function cover(im){if(!im||!im.complete||!im.naturalWidth)return;var s=Math.max(W/im.naturalWidth,H/im.naturalHeight),w=im.naturalWidth*s,h=im.naturalHeight*s;ctx.drawImage(im,(W-w)/2,(H-h)/2,w,h);}
+  function draw(idx){var i=Math.max(0,Math.min(count-1,Math.round(idx)));ctx.clearRect(0,0,W,H);cover(imgs[i]);}
+  function resize(){var r=canvas.getBoundingClientRect();W=r.width;H=r.height;canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);draw(cur);}
+  function compute(){var r=sec.getBoundingClientRect();var total=r.height-window.innerHeight;var p=total>0?(-r.top/total):0;target=Math.min(1,Math.max(0,p))*(count-1);}
+  function tick(){if(reduce){draw(target);}else{cur+=(target-cur)*0.16;if(Math.abs(target-cur)<0.05)cur=target;draw(cur);}requestAnimationFrame(tick);}
+  function start(){if(ready)return;ready=true;resize();compute();tick();}
+  imgs[0].onload=start;if(imgs[0].complete&&imgs[0].naturalWidth)start();
+  window.addEventListener('resize',resize);window.addEventListener('scroll',compute,{passive:true});
+ });})();
 </script>
 <button class="replay-btn" type="button" aria-label="Replay films">
   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><polyline points="21 3 21 9 15 9"/></svg>

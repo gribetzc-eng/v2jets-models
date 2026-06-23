@@ -517,6 +517,15 @@
     max-width:16ch;
   }
 
+  /* =========== SCROLL-FILM (frame-sequence canvas) =========== */
+  .filmscroll{position:relative;height:280vh;border-block:1px solid var(--hairline)}
+  .filmscroll__stage{position:sticky;top:0;height:100vh;overflow:hidden;background:#0E0E0E}
+  .filmscroll__stage canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+  .filmscroll__scrim{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(14,14,14,.30),transparent 28%,transparent 62%,rgba(14,14,14,.55))}
+  .filmscroll__cap{position:absolute;left:0;right:0;bottom:0;z-index:2;max-width:var(--maxw,1280px);margin-inline:auto;padding:0 clamp(20px,5vw,80px) clamp(40px,9vh,90px);color:#fff}
+  .filmscroll__cap .film-sec__eyebrow{margin-bottom:clamp(16px,2.4vh,26px)}
+  @media(prefers-reduced-motion:reduce){.filmscroll{height:100vh}.filmscroll__stage{position:relative}}
+
   /* =========== V2 VAULT =========== */
   .vault{position:relative}
   .vault-card{
@@ -854,23 +863,6 @@
   </div>
 </section>
 
-<!-- ===================== CINEMATIC MOMENT (play-once video) ===================== -->
-<section class="film-sec filmplay" id="ascent" aria-label="Ascent">
-  <div class="filmplay__stage">
-    <video class="film" muted playsinline preload="auto" poster="../assets/hero-xl.jpg" aria-hidden="true">
-      <source src="../assets/clips/ascent.mp4" type="video/mp4">
-    </video>
-    <div class="film-sec__scrim" aria-hidden="true"></div>
-    <div class="film-sec__inner">
-      <div class="film-sec__eyebrow reveal">
-        <span class="tick"></span>
-        <span class="eyebrow">Wheels-Up · Ascent</span>
-      </div>
-      <h2 class="reveal d1">The Skies Are The Limit</h2>
-    </div>
-  </div>
-</section>
-
 <!-- ===================== V2 VAULT ===================== -->
 <section class="sec vault" id="vault">
   <div class="wrap">
@@ -929,6 +921,21 @@
     <div class="actions reveal d1">
       <a href="mailto:charter@v2jets.com" class="btn btn--solid">Request a Charter <span class="arr">→</span></a>
       <a href="#portal" class="btn">Client Portal <span class="arr">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CINEMATIC MOMENT (scroll-film, frame sequence) ===================== -->
+<section class="filmscroll" id="ascent" aria-label="Ascent" data-frames="../assets/frames/ascent" data-count="112">
+  <div class="filmscroll__stage">
+    <canvas></canvas>
+    <div class="filmscroll__scrim" aria-hidden="true"></div>
+    <div class="filmscroll__cap">
+      <div class="film-sec__eyebrow reveal">
+        <span class="tick"></span>
+        <span class="eyebrow">Wheels-Up · Ascent</span>
+      </div>
+      <h2 class="reveal d1" style="font-family:var(--serif);font-weight:400;font-size:clamp(36px,7.5vw,100px);line-height:1;letter-spacing:.04em;text-transform:uppercase;color:var(--pure-white);text-shadow:0 2px 60px rgba(0,0,0,.55);max-width:16ch">The Skies Are The Limit</h2>
     </div>
   </div>
 </section>
@@ -1046,31 +1053,23 @@
   }
 })();
 
-/* ---- CINEMATIC MOMENT: play ONCE on scroll-into-view, hold last frame (no loop, no scrub) ---- */
-(function(){
-  const sec=document.getElementById('ascent');
-  const v=sec&&sec.querySelector('video');
-  if(!sec||!v)return;
-  v.muted=true; v.setAttribute('playsinline',''); v.loop=false;
-  let played=false;
-  function playOnce(){
-    if(played)return; played=true;
-    const p=v.play();
-    if(p&&p.catch){ p.catch(function(){ played=false; }); }
-  }
-  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(reduce){ return; } /* poster holds */
-  if('IntersectionObserver' in window){
-    const io=new IntersectionObserver(function(entries){
-      entries.forEach(function(en){
-        if(en.isIntersecting){ playOnce(); io.unobserve(en.target); }
-      });
-    },{threshold:0.4});
-    io.observe(sec);
-  } else {
-    playOnce();
-  }
-})();
+/* ---- SCROLL-FILM: frame-sequence on canvas, LERP-eased, drives every .filmscroll ---- */
+(function(){var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ document.querySelectorAll('.filmscroll').forEach(function(sec){
+  var base=sec.getAttribute('data-frames'),count=+sec.getAttribute('data-count');
+  var canvas=sec.querySelector('canvas'),ctx=canvas.getContext('2d');
+  var imgs=new Array(count),dpr=Math.min(2,window.devicePixelRatio||1),W=0,H=0,cur=0,target=0,ready=false;
+  function pad(n){n=''+n;while(n.length<3)n='0'+n;return n;}
+  for(var i=0;i<count;i++){var im=new Image();im.src=base+'/'+pad(i+1)+'.jpg';imgs[i]=im;}
+  function cover(im){if(!im||!im.complete||!im.naturalWidth)return;var s=Math.max(W/im.naturalWidth,H/im.naturalHeight),w=im.naturalWidth*s,h=im.naturalHeight*s;ctx.drawImage(im,(W-w)/2,(H-h)/2,w,h);}
+  function draw(idx){var i=Math.max(0,Math.min(count-1,Math.round(idx)));ctx.clearRect(0,0,W,H);cover(imgs[i]);}
+  function resize(){var r=canvas.getBoundingClientRect();W=r.width;H=r.height;canvas.width=Math.round(W*dpr);canvas.height=Math.round(H*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);draw(cur);}
+  function compute(){var r=sec.getBoundingClientRect();var total=r.height-window.innerHeight;var p=total>0?(-r.top/total):0;target=Math.min(1,Math.max(0,p))*(count-1);}
+  function tick(){if(reduce){draw(target);}else{cur+=(target-cur)*0.16;if(Math.abs(target-cur)<0.05)cur=target;draw(cur);}requestAnimationFrame(tick);}
+  function start(){if(ready)return;ready=true;resize();compute();tick();}
+  imgs[0].onload=start;if(imgs[0].complete&&imgs[0].naturalWidth)start();
+  window.addEventListener('resize',resize);window.addEventListener('scroll',compute,{passive:true});
+ });})();
 </script>
 
 <button class="replay-btn" type="button" aria-label="Replay films">

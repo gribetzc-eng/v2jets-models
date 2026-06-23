@@ -42,6 +42,17 @@
     --r-pill:999px;
     --maxw:1240px;
     --head-h:74px;
+
+    /* ---- glass configurator system (additive) ---- */
+    --glass-light:rgba(255,255,255,.58);
+    --glass-light-2:rgba(255,255,255,.42);
+    --glass-dark:rgba(255,255,255,.10);
+    --glass-border:rgba(255,255,255,.55);
+    --glass-border-dark:rgba(255,255,255,.22);
+    --glass-blur:blur(18px) saturate(150%);
+    --glass-blur-strong:blur(22px) saturate(160%);
+    --glass-glow:0 24px 60px rgba(14,14,14,.16),inset 0 1px 0 rgba(255,255,255,.6);
+    --glass-glow-dark:0 30px 70px rgba(14,14,14,.4),inset 0 1px 0 rgba(255,255,255,.08);
   }
 
   *{box-sizing:border-box;}
@@ -57,6 +68,15 @@
     -webkit-font-smoothing:antialiased;
     text-rendering:optimizeLegibility;
     overflow-x:hidden;
+  }
+  /* soft ambient gradient field behind the glass — so blur always has something to read */
+  body::before{
+    content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background:
+      radial-gradient(60% 50% at 12% 8%,rgba(187,0,0,.10) 0%,rgba(187,0,0,0) 60%),
+      radial-gradient(55% 45% at 88% 22%,rgba(187,0,0,.07) 0%,rgba(187,0,0,0) 58%),
+      radial-gradient(70% 60% at 78% 96%,rgba(14,14,14,.06) 0%,rgba(14,14,14,0) 60%),
+      linear-gradient(180deg,#FCFCFC 0%,#F4F4F5 48%,#FAFAFA 100%);
   }
   img{display:block;max-width:100%;}
   a{color:inherit;text-decoration:none;}
@@ -214,41 +234,71 @@
   .manifesto .big em{font-style:normal;}
   .manifesto .sub{color:var(--muted);max-width:620px;margin:20px auto 0;font-size:clamp(1rem,1.3vw,1.16rem);}
 
-  /* ---------- fleet ---------- */
-  .fleet-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,1.4vw,18px);}
+  /* ---------- fleet — glassy product configurator cards ---------- */
+  .fleet-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(14px,1.6vw,20px);}
   .fleet-card{
-    background:var(--card);border:1px solid var(--line);border-radius:var(--r-card);
-    padding:22px 24px 20px;box-shadow:var(--shadow-sm);
+    background:var(--glass-light);
+    backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);
+    border:1px solid var(--glass-border);border-radius:var(--r-card);
+    padding:0 0 20px;box-shadow:var(--glass-glow);
     transition:transform .4s cubic-bezier(.2,.7,.2,1),box-shadow .4s ease,border-color .4s ease;
     display:flex;flex-direction:column;min-height:170px;position:relative;overflow:hidden;
   }
-  .fleet-card:hover{transform:translateY(-6px) scale(1.01);box-shadow:var(--shadow);border-color:rgba(187,0,0,.5);}
+  /* faint top-light sheen so the frosted surface reads as glass */
+  .fleet-card::after{
+    content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;
+    background:linear-gradient(160deg,rgba(255,255,255,.5) 0%,rgba(255,255,255,0) 32%);
+  }
+  .fleet-card:hover{transform:translateY(-8px) scale(1.012);box-shadow:0 36px 80px rgba(14,14,14,.22),inset 0 1px 0 rgba(255,255,255,.7);border-color:rgba(187,0,0,.45);}
+  .fleet-card.selected{border-color:var(--red);box-shadow:0 30px 70px rgba(187,0,0,.24),inset 0 1px 0 rgba(255,255,255,.7);}
   .fleet-media{
-    position:relative;display:block;width:calc(100% + 48px);margin:-22px -24px 16px;
-    aspect-ratio:3/2;overflow:hidden;border-radius:var(--r-card) var(--r-card) 14px 14px;background:var(--paper-2);
+    position:relative;display:block;width:100%;margin:0 0 14px;
+    aspect-ratio:3/2;overflow:hidden;border-radius:var(--r-card) var(--r-card) 0 0;background:var(--paper-2);
   }
   .fleet-media img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.7,.2,1);}
-  .fleet-card:hover .fleet-media img{transform:scale(1.045);}
-  .fleet-card.obsidian .fleet-media{
-    width:100%;margin:0 0 18px;aspect-ratio:16/9;border-radius:16px;
-    border:1px solid rgba(255,255,255,.12);box-shadow:0 18px 44px rgba(14,14,14,.4);
+  .fleet-card:hover .fleet-media img{transform:scale(1.06);}
+  /* glass badge floating on the product image */
+  .fleet-media .idx{
+    position:absolute;top:12px;left:12px;z-index:2;margin:0;
+    background:rgba(255,255,255,.5);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    border:1px solid rgba(255,255,255,.6);border-radius:var(--r-pill);padding:6px 13px;
+    font-family:var(--font-display);font-size:10.5px;letter-spacing:.16em;color:var(--navy);font-weight:600;text-transform:uppercase;
   }
-  .fleet-card .idx{font-family:var(--font-display);font-size:11px;letter-spacing:.18em;color:var(--sky-1);font-weight:500;}
-  .fleet-card h3{font-family:var(--font-display);font-weight:600;font-size:1.3rem;letter-spacing:.04em;text-transform:uppercase;margin:10px 0 0;}
+  .fleet-body{display:flex;flex-direction:column;flex:1;padding:0 22px;position:relative;z-index:1;}
+  .fleet-card h3{font-family:var(--font-display);font-weight:600;font-size:1.3rem;letter-spacing:.04em;text-transform:uppercase;margin:2px 0 0;}
   .fleet-card .blurb{color:var(--muted);font-size:.95rem;margin:10px 0 0;flex:1;}
   .fleet-divider{height:1px;background:var(--line);margin:14px 0 11px;}
   .fleet-spec{font-family:var(--font-display);font-size:.8rem;color:var(--navy);letter-spacing:.02em;display:flex;flex-wrap:wrap;gap:6px 10px;}
   .fleet-spec .dot{color:var(--sky-2);}
+  /* configurator "Select" CTA — red is the active/selected accent */
+  .fleet-select{
+    margin-top:16px;display:flex;align-items:center;justify-content:space-between;gap:12px;
+    font-family:var(--font-display);font-weight:600;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--navy);background:rgba(255,255,255,.4);border:1px solid var(--line-strong);
+    border-radius:var(--r-pill);padding:11px 18px;cursor:pointer;width:100%;
+    transition:background .3s ease,color .3s ease,border-color .3s ease,box-shadow .3s ease;
+  }
+  .fleet-select .sel-dot{width:9px;height:9px;border-radius:50%;border:1.5px solid var(--gray-2);transition:background .3s ease,border-color .3s ease,box-shadow .3s ease;}
+  .fleet-card:hover .fleet-select{border-color:var(--red);color:var(--red);}
+  .fleet-card:hover .fleet-select .sel-dot{border-color:var(--red);}
+  .fleet-card.selected .fleet-select{background:var(--sky-grad);color:#fff;border-color:transparent;box-shadow:0 12px 26px rgba(187,0,0,.34);}
+  .fleet-card.selected .fleet-select .sel-dot{background:#fff;border-color:#fff;box-shadow:0 0 0 3px rgba(255,255,255,.35);}
 
-  /* Obsidian flagship dark glass card */
+  /* Obsidian flagship dark glass card — frosted-dark configurator hero */
   .fleet-card.obsidian{
-    grid-column:span 3;
+    grid-column:span 3;backdrop-filter:none;-webkit-backdrop-filter:none;
     background:
       radial-gradient(120% 160% at 85% 0%,rgba(187,0,0,.42) 0%,rgba(187,0,0,0) 55%),
       linear-gradient(135deg,#0E0E0E 0%,#1A1A1A 60%,#0E0E0E 100%);
     border:1px solid rgba(187,0,0,.32);color:#fff;min-height:auto;
     display:grid;grid-template-columns:1.3fr 1fr;gap:clamp(20px,3vw,44px);align-items:center;
     box-shadow:0 30px 70px rgba(14,14,14,.4),inset 0 1px 0 rgba(255,255,255,.06);padding:clamp(24px,3vw,36px);
+  }
+  .fleet-card.obsidian::after{display:none;}
+  .fleet-card.obsidian .obs-main{position:relative;z-index:2;}
+  .fleet-card.obsidian .fleet-media{
+    width:100%;margin:0 0 18px;aspect-ratio:16/9;border-radius:16px;padding:0;
+    border:1px solid rgba(255,255,255,.12);box-shadow:0 18px 44px rgba(14,14,14,.4);
   }
   .fleet-card.obsidian::before{
     content:"";position:absolute;width:340px;height:340px;border-radius:50%;
@@ -296,11 +346,22 @@
   .float-glass .fg-n{font-family:var(--font-display);font-weight:600;font-size:1.5rem;letter-spacing:.02em;color:var(--navy);}
   .float-glass .fg-l{font-family:var(--font-display);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:2px;}
 
-  /* services strip under experience */
+  /* services strip — glass product cards */
   .svc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,1.6vw,20px);margin-top:clamp(28px,3.4vw,44px);}
-  .svc-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r-card);padding:20px;box-shadow:var(--shadow-sm);transition:transform .35s ease,box-shadow .35s ease;}
-  .svc-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);}
-  .svc-card .sn{font-family:var(--font-display);font-size:11px;letter-spacing:.18em;color:var(--sky-1);}
+  .svc-card{
+    position:relative;overflow:hidden;
+    background:var(--glass-light-2);
+    backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);
+    border:1px solid var(--glass-border);border-radius:var(--r-card);padding:22px;
+    box-shadow:var(--glass-glow);transition:transform .35s ease,box-shadow .35s ease,border-color .35s ease;
+  }
+  .svc-card::after{
+    content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;
+    background:linear-gradient(160deg,rgba(255,255,255,.5) 0%,rgba(255,255,255,0) 34%);
+  }
+  .svc-card>*{position:relative;z-index:1;}
+  .svc-card:hover{transform:translateY(-5px);box-shadow:0 32px 70px rgba(14,14,14,.2),inset 0 1px 0 rgba(255,255,255,.7);border-color:rgba(187,0,0,.4);}
+  .svc-card .sn{font-family:var(--font-display);font-size:11px;letter-spacing:.18em;color:var(--sky-1);font-weight:600;}
   .svc-card h4{font-family:var(--font-display);font-weight:600;font-size:1.08rem;margin:12px 0 8px;letter-spacing:.04em;text-transform:uppercase;}
   .svc-card p{color:var(--muted);font-size:.92rem;margin:0;}
 
@@ -313,10 +374,18 @@
     font-family:var(--font-display);font-weight:500;letter-spacing:.03em;line-height:1.1;text-transform:uppercase;
     font-size:clamp(1.6rem,3.2vw,2.5rem);margin:14px 0 0;color:var(--ink);
   }
+  /* glass frame around the video interlude */
+  .film-frame{
+    position:relative;padding:clamp(10px,1.2vw,16px);border-radius:clamp(22px,2.8vw,30px);
+    background:var(--glass-light-2);
+    backdrop-filter:var(--glass-blur-strong);-webkit-backdrop-filter:var(--glass-blur-strong);
+    border:1px solid var(--glass-border);
+    box-shadow:0 36px 90px rgba(187,0,0,.18),inset 0 1px 0 rgba(255,255,255,.6);
+  }
   .film-card{
-    position:relative;border-radius:clamp(18px,2.4vw,24px);overflow:hidden;
-    box-shadow:0 36px 90px rgba(187,0,0,.22),0 12px 30px rgba(14,14,14,.12);
-    background:var(--card);aspect-ratio:21/9;width:100%;max-height:380px;margin:0 auto;
+    position:relative;border-radius:clamp(16px,2.2vw,22px);overflow:hidden;
+    box-shadow:0 18px 44px rgba(14,14,14,.18);
+    background:var(--card);aspect-ratio:21/9;width:100%;max-height:360px;margin:0 auto;
   }
   .film-card .film{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
   .film-card::after{
@@ -365,9 +434,19 @@
   .vault-leg .price{font-family:var(--font-display);font-size:.84rem;color:var(--sky-1);font-weight:600;white-space:nowrap;}
   .vault-leg .price .strike{color:var(--muted);text-decoration:line-through;margin-right:8px;font-weight:400;}
 
-  /* ---------- credentials / stats ---------- */
-  .stats{background:var(--card);border:1px solid var(--line);border-radius:clamp(24px,4vw,40px);box-shadow:var(--shadow);overflow:hidden;}
-  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);}
+  /* ---------- credentials / stats — glass panel ---------- */
+  .stats{
+    position:relative;overflow:hidden;border-radius:clamp(24px,4vw,40px);
+    background:var(--glass-light-2);
+    backdrop-filter:var(--glass-blur-strong);-webkit-backdrop-filter:var(--glass-blur-strong);
+    border:1px solid var(--glass-border);
+    box-shadow:var(--glass-glow);
+  }
+  .stats::after{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(160deg,rgba(255,255,255,.45) 0%,rgba(255,255,255,0) 30%);
+  }
+  .stats-grid{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,1fr);}
   .stat{padding:clamp(22px,2.6vw,34px) clamp(22px,2.6vw,40px);border-right:1px solid var(--line);}
   .stat:last-child{border-right:none;}
   .stat .n{font-family:var(--font-display);font-weight:600;letter-spacing:.01em;font-size:clamp(2.4rem,4.6vw,3.4rem);line-height:1;background:var(--sky-grad);-webkit-background-clip:text;background-clip:text;color:transparent;}
@@ -551,57 +630,69 @@
 
       <div class="fleet-grid">
         <article class="fleet-card reveal">
-          <span class="fleet-media"><img src="../assets/fleet/turbo-prop.jpg" alt="V2 Jets — Turbo Prop" loading="lazy" width="1200" height="800" /></span>
-          <span class="idx">01 / Turbo Prop</span>
-          <h3>Turbo Prop</h3>
-          <p class="blurb">Short-hop efficiency into airfields the jets can't reach. The smart way to skip the connection.</p>
-          <div class="fleet-divider"></div>
-          <div class="fleet-spec"><span>1,000 nm range</span><span class="dot">·</span><span>6 — 8 pax</span></div>
+          <span class="fleet-media"><span class="idx">01 / Turbo Prop</span><img src="../assets/fleet/turbo-prop.jpg" alt="V2 Jets — Turbo Prop" loading="lazy" width="1200" height="800" /></span>
+          <div class="fleet-body">
+            <h3>Turbo Prop</h3>
+            <p class="blurb">Short-hop efficiency into airfields the jets can't reach. The smart way to skip the connection.</p>
+            <div class="fleet-divider"></div>
+            <div class="fleet-spec"><span>1,000 nm range</span><span class="dot">·</span><span>6 — 8 pax</span></div>
+            <button class="fleet-select" type="button" aria-pressed="false">Select <span class="sel-dot" aria-hidden="true"></span></button>
+          </div>
         </article>
 
         <article class="fleet-card reveal" data-d="1">
-          <span class="fleet-media"><img src="../assets/fleet/light-jet.jpg" alt="V2 Jets — Light Jet" loading="lazy" width="1200" height="800" /></span>
-          <span class="idx">02 / Light Jet</span>
-          <h3>Light Jet</h3>
-          <p class="blurb">Regional speed with a cabin that works. Ideal for the day-trip that ends back home tonight.</p>
-          <div class="fleet-divider"></div>
-          <div class="fleet-spec"><span>1,800 nm range</span><span class="dot">·</span><span>6 — 7 pax</span></div>
+          <span class="fleet-media"><span class="idx">02 / Light Jet</span><img src="../assets/fleet/light-jet.jpg" alt="V2 Jets — Light Jet" loading="lazy" width="1200" height="800" /></span>
+          <div class="fleet-body">
+            <h3>Light Jet</h3>
+            <p class="blurb">Regional speed with a cabin that works. Ideal for the day-trip that ends back home tonight.</p>
+            <div class="fleet-divider"></div>
+            <div class="fleet-spec"><span>1,800 nm range</span><span class="dot">·</span><span>6 — 7 pax</span></div>
+            <button class="fleet-select" type="button" aria-pressed="false">Select <span class="sel-dot" aria-hidden="true"></span></button>
+          </div>
         </article>
 
         <article class="fleet-card reveal" data-d="2">
-          <span class="fleet-media"><img src="../assets/fleet/mid-size.jpg" alt="V2 Jets — Mid Size" loading="lazy" width="1200" height="800" /></span>
-          <span class="idx">03 / Mid Size</span>
-          <h3>Mid Size</h3>
-          <p class="blurb">Stand-up comfort and coast-to-coast reach. The everyday workhorse of the discerning flyer.</p>
-          <div class="fleet-divider"></div>
-          <div class="fleet-spec"><span>2,800 nm range</span><span class="dot">·</span><span>7 — 9 pax</span></div>
+          <span class="fleet-media"><span class="idx">03 / Mid Size</span><img src="../assets/fleet/mid-size.jpg" alt="V2 Jets — Mid Size" loading="lazy" width="1200" height="800" /></span>
+          <div class="fleet-body">
+            <h3>Mid Size</h3>
+            <p class="blurb">Stand-up comfort and coast-to-coast reach. The everyday workhorse of the discerning flyer.</p>
+            <div class="fleet-divider"></div>
+            <div class="fleet-spec"><span>2,800 nm range</span><span class="dot">·</span><span>7 — 9 pax</span></div>
+            <button class="fleet-select" type="button" aria-pressed="false">Select <span class="sel-dot" aria-hidden="true"></span></button>
+          </div>
         </article>
 
         <article class="fleet-card reveal">
-          <span class="fleet-media"><img src="../assets/fleet/super-mid.jpg" alt="V2 Jets — Super Mid" loading="lazy" width="1200" height="800" /></span>
-          <span class="idx">04 / Super Mid</span>
-          <h3>Super Mid</h3>
-          <p class="blurb">Transcontinental range, fuller cabin, faster cruise. Where business travel becomes effortless.</p>
-          <div class="fleet-divider"></div>
-          <div class="fleet-spec"><span>3,600 nm range</span><span class="dot">·</span><span>8 — 10 pax</span></div>
+          <span class="fleet-media"><span class="idx">04 / Super Mid</span><img src="../assets/fleet/super-mid.jpg" alt="V2 Jets — Super Mid" loading="lazy" width="1200" height="800" /></span>
+          <div class="fleet-body">
+            <h3>Super Mid</h3>
+            <p class="blurb">Transcontinental range, fuller cabin, faster cruise. Where business travel becomes effortless.</p>
+            <div class="fleet-divider"></div>
+            <div class="fleet-spec"><span>3,600 nm range</span><span class="dot">·</span><span>8 — 10 pax</span></div>
+            <button class="fleet-select" type="button" aria-pressed="false">Select <span class="sel-dot" aria-hidden="true"></span></button>
+          </div>
         </article>
 
         <article class="fleet-card reveal" data-d="1">
-          <span class="fleet-media"><img src="../assets/fleet/heavy-jet.jpg" alt="V2 Jets — Heavy Jet" loading="lazy" width="1200" height="800" /></span>
-          <span class="idx">05 / Heavy Jet</span>
-          <h3>Heavy Jet</h3>
-          <p class="blurb">A true cabin in the sky — galleys, divans, room to host. Long legs without the layover.</p>
-          <div class="fleet-divider"></div>
-          <div class="fleet-spec"><span>4,500 nm range</span><span class="dot">·</span><span>10 — 14 pax</span></div>
+          <span class="fleet-media"><span class="idx">05 / Heavy Jet</span><img src="../assets/fleet/heavy-jet.jpg" alt="V2 Jets — Heavy Jet" loading="lazy" width="1200" height="800" /></span>
+          <div class="fleet-body">
+            <h3>Heavy Jet</h3>
+            <p class="blurb">A true cabin in the sky — galleys, divans, room to host. Long legs without the layover.</p>
+            <div class="fleet-divider"></div>
+            <div class="fleet-spec"><span>4,500 nm range</span><span class="dot">·</span><span>10 — 14 pax</span></div>
+            <button class="fleet-select" type="button" aria-pressed="false">Select <span class="sel-dot" aria-hidden="true"></span></button>
+          </div>
         </article>
 
         <article class="fleet-card reveal" data-d="2">
-          <span class="fleet-media"><img src="../assets/fleet/ultra-long-range.jpg" alt="V2 Jets — Ultra Long Range" loading="lazy" width="1200" height="800" /></span>
-          <span class="idx">06 / Ultra Long Range</span>
-          <h3>Ultra Long Range</h3>
-          <p class="blurb">Continents in a single hop. Sleep over one ocean and land for breakfast on the next.</p>
-          <div class="fleet-divider"></div>
-          <div class="fleet-spec"><span>6,500 nm range</span><span class="dot">·</span><span>14 — 16 pax</span></div>
+          <span class="fleet-media"><span class="idx">06 / Ultra Long Range</span><img src="../assets/fleet/ultra-long-range.jpg" alt="V2 Jets — Ultra Long Range" loading="lazy" width="1200" height="800" /></span>
+          <div class="fleet-body">
+            <h3>Ultra Long Range</h3>
+            <p class="blurb">Continents in a single hop. Sleep over one ocean and land for breakfast on the next.</p>
+            <div class="fleet-divider"></div>
+            <div class="fleet-spec"><span>6,500 nm range</span><span class="dot">·</span><span>14 — 16 pax</span></div>
+            <button class="fleet-select" type="button" aria-pressed="false">Select <span class="sel-dot" aria-hidden="true"></span></button>
+          </div>
         </article>
 
         <!-- Obsidian flagship dark glass card -->
@@ -688,13 +779,15 @@
         <span class="eyebrow">On-Demand Access</span>
         <h2>Wheels up in under two hours.</h2>
       </div>
-      <div class="film-card reveal" data-d="1">
-        <video class="film" muted loop playsinline preload="metadata" poster="../assets/plane-exterior.jpg">
-          <source src="../assets/clips/07-vector-out.mp4" type="video/mp4" />
-        </video>
-        <div class="film-chip">
-          <div class="fc-l">V2 Jets · Charter</div>
-          <div class="fc-t">Fly in absolute luxury</div>
+      <div class="film-frame reveal" data-d="1">
+        <div class="film-card">
+          <video class="film" muted loop playsinline preload="metadata" poster="../assets/plane-exterior.jpg">
+            <source src="../assets/clips/07-vector-out.mp4" type="video/mp4" />
+          </video>
+          <div class="film-chip">
+            <div class="fc-l">V2 Jets · Charter</div>
+            <div class="fc-t">Fly in absolute luxury</div>
+          </div>
         </div>
       </div>
     </div>
@@ -903,6 +996,24 @@
     }, {threshold:0.14, rootMargin:"0px 0px -8% 0px"});
     reveals.forEach(function(el){ io.observe(el); });
   }
+
+  // fleet configurator: single-select active (red) state across product cards
+  var selectBtns = document.querySelectorAll(".fleet-select");
+  selectBtns.forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var card = btn.closest(".fleet-card");
+      var already = card.classList.contains("selected");
+      document.querySelectorAll(".fleet-card.selected").forEach(function(c){
+        c.classList.remove("selected");
+        var b = c.querySelector(".fleet-select");
+        if (b){ b.setAttribute("aria-pressed","false"); }
+      });
+      if (!already){
+        card.classList.add("selected");
+        btn.setAttribute("aria-pressed","true");
+      }
+    });
+  });
 
   // cinematic interlude: play on scroll-into-view, pause on leave
   var film = document.querySelector(".film");

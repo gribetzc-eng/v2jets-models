@@ -32,6 +32,8 @@
 
     --font-display:'Libre Franklin','Helvetica Neue',Arial,sans-serif;
     --font-body:'Roboto','Helvetica Neue',Arial,sans-serif;
+    /* mono stack for editorial chrome (labels / figure nums / running heads) */
+    --font-mono:ui-monospace,'SFMono-Regular',Menlo,'Roboto Mono','DejaVu Sans Mono',monospace;
 
     /* ===== legacy aliases mapped to V2 kit (layout/feel unchanged) ===== */
     --accent:var(--red);
@@ -43,6 +45,11 @@
     --gutter:clamp(20px, 5vw, 88px);
     --rule:1px solid var(--ink);
     --hairthin:var(--hair-tok);
+
+    /* ===== DENSE-JOURNAL grid tokens (additive) ===== */
+    --col-gap:clamp(12px,1.6vw,26px);   /* gutter between the 12 columns */
+    --hairline:1px solid var(--hair-tok);/* low-contrast cell rule */
+    --cell-pad:clamp(14px,1.6vw,26px);   /* tight padding inside grid cells */
   }
 
   *{box-sizing:border-box;}
@@ -52,8 +59,8 @@
     background:var(--paper);
     color:var(--ink);
     font-family:var(--grotesk);
-    font-size:16px;
-    line-height:1.5;
+    font-size:15px;            /* denser base */
+    line-height:1.35;          /* tighter leading — journal density */
     -webkit-font-smoothing:antialiased;
     text-rendering:optimizeLegibility;
     overflow-x:hidden;
@@ -97,6 +104,67 @@
     line-height:.9;
   }
 
+  /* ---------- Editorial chrome (mono labels / figure nums / running heads) ---------- */
+  .mono{
+    font-family:var(--font-mono);
+    font-size:clamp(9px,.82vw,10.5px);
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    color:var(--muted);
+    font-weight:500;
+  }
+  .mono .accent,.mono .red{color:var(--red);}
+  .fig{
+    font-family:var(--font-mono);
+    font-size:clamp(9px,.82vw,10.5px);
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--red);
+    font-weight:600;
+  }
+  /* running head: a thin label rail that sits atop a grid block */
+  .runhead{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:14px;
+    flex-wrap:wrap;
+    border-top:1px solid var(--ink);
+    border-bottom:var(--hairline);
+    padding:8px 0;
+  }
+  .runhead .rh-sig{
+    font-family:var(--font-mono);
+    font-size:clamp(9px,.85vw,11px);
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color:var(--ink);
+    font-weight:600;
+  }
+  .runhead .rh-sig .red{color:var(--red);}
+  .runhead .rh-meta{
+    font-family:var(--font-mono);
+    font-size:clamp(9px,.8vw,10px);
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+
+  /* ---------- 12-column dense grid backbone ---------- */
+  .j12{
+    display:grid;
+    grid-template-columns:repeat(12,1fr);
+    column-gap:var(--col-gap);
+    row-gap:0;
+  }
+  /* hairline cell helpers — used to draw the journal's ruled cells */
+  .cell-l{border-left:var(--hairline);padding-left:var(--cell-pad);}
+  .cell-t{border-top:var(--hairline);padding-top:var(--cell-pad);}
+  /* column-span utilities (asymmetric placement) */
+  .c2{grid-column:span 2;}  .c3{grid-column:span 3;}  .c4{grid-column:span 4;}
+  .c5{grid-column:span 5;}  .c6{grid-column:span 6;}  .c7{grid-column:span 7;}
+  .c8{grid-column:span 8;}  .c9{grid-column:span 9;}  .c12{grid-column:1 / -1;}
+
   /* ---------- Layout shell ---------- */
   .wrap{
     max-width:1440px;
@@ -106,27 +174,35 @@
   .section{position:relative;}
   .section-rule{border-top:var(--rule);}
 
+  /* section marker reworked into a dense running-head rail */
   .section-marker{
-    display:flex;
+    display:grid;
+    grid-template-columns:repeat(12,1fr);
+    column-gap:var(--col-gap);
     align-items:baseline;
-    gap:clamp(14px,2vw,26px);
-    padding:clamp(28px,4vw,52px) 0 clamp(20px,3vw,34px);
-    flex-wrap:wrap;
+    border-top:1px solid var(--ink);
+    border-bottom:var(--hairline);
+    padding:clamp(12px,1.5vw,18px) 0;
+    margin:clamp(22px,3vw,44px) 0 clamp(18px,2.4vw,30px);
   }
   .section-marker .sig{
-    font-family:var(--serif);
-    font-size:clamp(13px,1.3vw,15px);
-    letter-spacing:.06em;
+    grid-column:span 4;
+    font-family:var(--font-mono);
+    font-size:clamp(11px,1.1vw,14px);
+    letter-spacing:.14em;
+    text-transform:uppercase;
     color:var(--ink);
     font-weight:600;
   }
-  .section-marker .sig em{font-style:italic;color:var(--red);font-weight:600;}
+  .section-marker .sig em{font-style:normal;color:var(--red);font-weight:600;}
   .section-marker .lead{
-    margin-left:auto;
-    max-width:34ch;
-    font-size:clamp(12.5px,1.05vw,14px);
+    grid-column:8 / -1;
+    max-width:42ch;
+    justify-self:end;
+    text-align:right;
+    font-size:clamp(11.5px,.95vw,13px);
     color:var(--muted);
-    line-height:1.55;
+    line-height:1.5;
   }
 
   /* =========================================================
@@ -220,18 +296,39 @@
      HERO
   ========================================================= */
   .hero{
-    padding-top:clamp(96px,11vw,150px);
+    padding-top:clamp(92px,10vw,140px);
     padding-bottom:0;
   }
+  /* masthead strip — dense mono colophon spanning 12 cols */
   .hero-top{
-    display:flex;
-    align-items:baseline;
-    justify-content:space-between;
-    gap:18px;
-    padding-bottom:clamp(18px,2.4vw,30px);
+    align-items:stretch;
+    border-top:1px solid var(--ink);
     border-bottom:var(--rule);
-    flex-wrap:wrap;
   }
+  .hero-top .ht-cell{
+    padding:10px clamp(10px,1.4vw,18px);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:5px;
+    min-height:clamp(52px,5vw,68px);
+  }
+  .hero-top .ht-cell .k{
+    font-family:var(--font-mono);
+    font-size:clamp(8.5px,.78vw,10px);
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+  .hero-top .ht-cell .v{
+    font-family:var(--font-mono);
+    font-size:clamp(10px,.95vw,12px);
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--ink);
+    font-weight:600;
+  }
+  .hero-top .ht-cell .v .accent{color:var(--red);}
   .hero-issue{
     font-family:var(--grotesk);
     font-weight:600;
@@ -248,13 +345,10 @@
   }
 
   .hero-split{
-    display:grid;
-    grid-template-columns:1.05fr 0.95fr;
-    gap:0;
     align-items:stretch;
   }
   .hero-words{
-    padding:clamp(26px,4vw,60px) clamp(20px,3vw,52px) clamp(26px,4vw,54px) 0;
+    padding:clamp(22px,3vw,46px) clamp(18px,2.4vw,40px) clamp(22px,3vw,44px) 0;
     border-right:var(--rule);
     display:flex;
     flex-direction:column;
@@ -263,18 +357,18 @@
   .hero-headline{
     font-family:var(--serif);
     font-weight:500;
-    line-height:.92;
+    line-height:.9;
     letter-spacing:-.015em;
-    font-size:clamp(52px,9.2vw,150px);
+    font-size:clamp(48px,8.4vw,138px);
     margin:0;
   }
   .hero-headline .it{font-style:italic;font-weight:500;}
   .hero-headline .line{display:block;}
   .hero-sub{
-    margin-top:clamp(24px,3vw,40px);
-    max-width:46ch;
-    font-size:clamp(14px,1.15vw,16.5px);
-    line-height:1.65;
+    margin-top:clamp(18px,2.4vw,32px);
+    max-width:42ch;
+    font-size:clamp(13px,1.05vw,15px);
+    line-height:1.55;
     color:var(--ink);
   }
   .hero-sub .lede{color:var(--muted);}
@@ -354,14 +448,14 @@
     flex-wrap:wrap;
   }
   .hero-foot .ticker{
-    font-family:var(--grotesk);
+    font-family:var(--font-mono);
     font-weight:500;
-    font-size:11px;
-    letter-spacing:.22em;
+    font-size:10px;
+    letter-spacing:.16em;
     text-transform:uppercase;
     color:var(--muted);
     display:flex;
-    gap:clamp(14px,2vw,30px);
+    gap:clamp(12px,1.8vw,26px);
     flex-wrap:wrap;
   }
   .hero-foot .ticker b{color:var(--ink);font-weight:600;}
@@ -372,32 +466,36 @@
   /* =========================================================
      MANIFESTO
   ========================================================= */
-  .manifesto{padding:clamp(64px,9vw,140px) 0 clamp(56px,8vw,120px);}
+  .manifesto{padding:clamp(40px,5vw,80px) 0 clamp(40px,5vw,80px);}
   .manifesto .grid{
     display:grid;
-    grid-template-columns:minmax(0,2.6fr) minmax(0,1fr);
-    gap:clamp(24px,4vw,64px);
+    grid-template-columns:repeat(12,1fr);
+    column-gap:var(--col-gap);
     align-items:start;
   }
   .manifesto-quote{
+    grid-column:span 8;
     font-family:var(--serif);
     font-weight:500;
-    line-height:1.04;
+    line-height:1.02;
     letter-spacing:-.012em;
-    font-size:clamp(34px,5.8vw,92px);
+    font-size:clamp(32px,5.4vw,86px);
     margin:0;
   }
   .manifesto-quote .it{font-style:italic;}
   .manifesto-quote .q{color:var(--red);font-weight:600;}
   .manifesto-aside{
-    padding-top:clamp(8px,1vw,16px);
+    grid-column:9 / -1;
+    padding-top:clamp(8px,1vw,14px);
+    padding-left:var(--cell-pad);
     border-top:2px solid var(--red);
+    border-left:var(--hairline);
   }
   .manifesto-aside p{
-    font-size:clamp(13.5px,1.1vw,15.5px);
-    line-height:1.7;
+    font-size:clamp(12.5px,1vw,14px);
+    line-height:1.55;
     color:var(--ink);
-    margin:0 0 16px;
+    margin:0 0 14px;
   }
   .manifesto-aside p.muted{color:var(--muted);}
   .manifesto-aside .sigline{
@@ -411,30 +509,56 @@
   /* =========================================================
      THE FLEET (indexed table)
   ========================================================= */
-  .fleet{padding-bottom:clamp(40px,5vw,72px);}
-  .fleet-table{border-top:var(--rule);}
+  .fleet{padding-bottom:clamp(34px,4vw,60px);}
+
+  /* shared dense-grid template for the spec table (header + rows align) */
+  .fleet-table{
+    border-top:1px solid var(--ink);
+    --fleet-cols:clamp(46px,5vw,74px) clamp(96px,11vw,150px) minmax(120px,2.1fr) minmax(0,3fr) clamp(80px,8vw,118px) clamp(96px,10vw,150px);
+  }
+  /* column header rail */
+  .fleet-head{
+    display:grid;
+    grid-template-columns:var(--fleet-cols);
+    align-items:end;
+    gap:0 clamp(10px,1.4vw,22px);
+    padding:8px 0;
+    border-bottom:var(--hairline);
+  }
+  .fleet-head span{
+    font-family:var(--font-mono);
+    font-size:clamp(8.5px,.78vw,10px);
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--muted);
+    font-weight:600;
+  }
+  .fleet-head .fh-spec{text-align:right;}
+
   .fleet-row{
     display:grid;
-    grid-template-columns:clamp(70px,9vw,140px) auto minmax(0,1fr) minmax(0,1.4fr) clamp(90px,11vw,170px);
+    grid-template-columns:var(--fleet-cols);
     align-items:center;
-    gap:clamp(12px,2vw,32px);
-    padding:clamp(20px,2.8vw,38px) 0;
-    border-bottom:var(--rule);
+    gap:0 clamp(10px,1.4vw,22px);
+    padding:clamp(11px,1.4vw,18px) 0;
+    border-bottom:var(--hairline);
     position:relative;
-    transition:background .35s ease, padding-left .35s ease, padding-right .35s ease;
+    transition:background .3s ease;
   }
   .fleet-row:hover{background:var(--paper-deep);}
   .fleet-row .f-num{
-    font-family:var(--serif);
-    font-weight:500;
-    font-size:clamp(26px,3.4vw,50px);
+    font-family:var(--font-mono);
+    font-weight:600;
+    font-size:clamp(13px,1.2vw,16px);
     color:var(--red);
-    line-height:.85;
+    line-height:1;
+    letter-spacing:.04em;
   }
   .fleet-row .f-plate{
     position:relative;
     aspect-ratio:3 / 2;
-    width:clamp(96px,12vw,164px);
+    width:100%;
+    max-width:clamp(96px,11vw,150px);
     overflow:hidden;
     border:1px solid var(--hair-tok);
     background:var(--paper-2);
@@ -448,26 +572,37 @@
   .fleet-row .f-name{
     font-family:var(--serif);
     font-weight:600;
-    font-size:clamp(24px,3.5vw,52px);
-    line-height:.98;
+    font-size:clamp(17px,1.9vw,28px);
+    line-height:1;
     letter-spacing:-.01em;
   }
   .fleet-row .f-desc{
-    font-size:clamp(12.5px,1.05vw,14.5px);
-    line-height:1.55;
+    font-size:clamp(11.5px,.95vw,13px);
+    line-height:1.4;
     color:var(--muted);
-    max-width:46ch;
+    max-width:54ch;
   }
-  .fleet-row .f-spec{
-    font-family:var(--grotesk);
+  /* split spec columns: guests / range as discrete mono cells */
+  .fleet-row .f-guests,
+  .fleet-row .f-range{
+    font-family:var(--font-mono);
     font-weight:600;
-    font-size:11px;
-    letter-spacing:.14em;
-    text-transform:uppercase;
+    font-size:clamp(10.5px,1vw,13px);
+    letter-spacing:.04em;
     color:var(--ink);
     text-align:right;
+    line-height:1.15;
   }
-  .fleet-row .f-spec span{display:block;color:var(--muted);font-weight:500;font-size:10.5px;margin-top:3px;letter-spacing:.1em;}
+  .fleet-row .f-guests span,
+  .fleet-row .f-range span{
+    display:block;
+    color:var(--muted);
+    font-weight:500;
+    font-size:clamp(8px,.72vw,9px);
+    margin-top:4px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+  }
 
   /* Obsidian featured spread */
   .obsidian{
@@ -491,10 +626,10 @@
     gap:24px;
   }
   .obsidian .ob-tag{
-    font-family:var(--grotesk);
+    font-family:var(--font-mono);
     font-weight:600;
-    font-size:11px;
-    letter-spacing:.3em;
+    font-size:10px;
+    letter-spacing:.2em;
     text-transform:uppercase;
     color:rgba(250,250,248,.6);
   }
@@ -543,7 +678,7 @@
   }
   .obsidian .ob-meta div{min-width:90px;}
   .obsidian .ob-meta .k{
-    font-family:var(--grotesk);font-weight:600;font-size:10px;letter-spacing:.2em;
+    font-family:var(--font-mono);font-weight:600;font-size:9px;letter-spacing:.16em;
     text-transform:uppercase;color:rgba(250,250,248,.5);
   }
   .obsidian .ob-meta .v{font-family:var(--serif);font-size:clamp(18px,1.6vw,24px);margin-top:6px;}
@@ -567,13 +702,17 @@
   /* =========================================================
      THE CABIN / EXPERIENCE
   ========================================================= */
-  .cabin{padding-bottom:clamp(40px,5vw,72px);}
+  .cabin{padding-bottom:clamp(34px,4vw,60px);}
   .cabin-grid{
     display:grid;
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:repeat(12,1fr);
     gap:0;
-    border-top:var(--rule);
+    border-top:1px solid var(--ink);
   }
+  /* asymmetric spread: tall plate holds 5 cols × 2 rows; text then small plate fill the 7-col flank */
+  .cabin-grid > .plate.tall{grid-column:1 / span 5;grid-row:span 2;}
+  .cabin-grid > .cabin-text{grid-column:6 / -1;}
+  .cabin-grid > .plate:not(.tall){grid-column:6 / -1;}
   .plate{
     position:relative;
     overflow:hidden;
@@ -594,32 +733,34 @@
   }
   .plate .plate-tag .caption{display:block;}
   .cabin-text{
-    padding:clamp(28px,3.5vw,52px);
+    padding:clamp(20px,2.6vw,40px);
     background:var(--paper);
-    border-right:var(--rule);
-    border-bottom:var(--rule);
+    border-left:var(--hairline);
+    border-bottom:var(--hairline);
     display:flex;
     flex-direction:column;
     justify-content:center;
-    gap:18px;
+    gap:14px;
   }
   .cabin-text .knum{
-    font-family:var(--serif);font-weight:500;font-size:clamp(30px,4vw,60px);color:var(--red);line-height:.8;
+    font-family:var(--font-mono);font-weight:600;font-size:clamp(10px,.9vw,12px);
+    letter-spacing:.16em;text-transform:uppercase;color:var(--red);line-height:1;
   }
   .cabin-text h3{
     font-family:var(--serif);font-weight:500;
-    font-size:clamp(26px,3.4vw,46px);line-height:1;letter-spacing:-.01em;margin:0;
+    font-size:clamp(24px,3vw,40px);line-height:1;letter-spacing:-.01em;margin:0;
   }
   .cabin-text h3 .it{font-style:italic;font-weight:500;}
-  .cabin-text p{font-size:clamp(13px,1.05vw,15px);line-height:1.7;color:var(--muted);margin:0;max-width:42ch;}
+  .cabin-text p{font-size:clamp(12.5px,1vw,14px);line-height:1.5;color:var(--muted);margin:0;max-width:40ch;}
   .cabin-feats{
-    list-style:none;padding:0;margin:6px 0 0;
-    display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;
+    list-style:none;padding:0;margin:4px 0 0;
+    display:grid;grid-template-columns:1fr 1fr;gap:7px 16px;
+    border-top:var(--hairline);padding-top:14px;
   }
   .cabin-feats li{
-    font-family:var(--grotesk);font-weight:500;font-size:11.5px;letter-spacing:.06em;
+    font-family:var(--font-mono);font-weight:500;font-size:10px;letter-spacing:.1em;
     text-transform:uppercase;color:var(--ink);
-    padding-left:16px;position:relative;
+    padding-left:15px;position:relative;
   }
   .cabin-feats li::before{
     content:"";position:absolute;left:0;top:6px;width:7px;height:7px;
@@ -629,45 +770,50 @@
   /* =========================================================
      THE WORLD AWAITS — destinations
   ========================================================= */
-  .world{padding-bottom:clamp(48px,6vw,90px);}
+  .world{padding-bottom:clamp(40px,5vw,72px);}
   .world-head{
     display:grid;
-    grid-template-columns:1.4fr 1fr;
-    gap:clamp(24px,4vw,60px);
+    grid-template-columns:repeat(12,1fr);
+    column-gap:var(--col-gap);
     align-items:end;
-    padding-bottom:clamp(28px,4vw,52px);
-    border-bottom:var(--rule);
+    padding-bottom:clamp(20px,2.6vw,38px);
+    border-bottom:1px solid var(--ink);
   }
   .world-head h2{
+    grid-column:span 8;
     font-family:var(--serif);font-weight:500;
-    font-size:clamp(44px,8vw,128px);line-height:.9;letter-spacing:-.02em;margin:0;
+    font-size:clamp(40px,7vw,116px);line-height:.88;letter-spacing:-.02em;margin:0;
   }
   .world-head h2 .it{font-style:italic;font-weight:500;}
   .world-head p{
-    font-size:clamp(13px,1.1vw,15.5px);line-height:1.7;color:var(--muted);margin:0 0 6px;max-width:38ch;
+    grid-column:9 / -1;
+    align-self:end;
+    font-size:clamp(12px,1vw,14px);line-height:1.5;color:var(--muted);margin:0 0 6px;max-width:36ch;
   }
+  /* dense 4-column index — hairline ruled on all four sides */
   .dest-grid{
     display:grid;
     grid-template-columns:repeat(4,1fr);
+    column-gap:var(--col-gap);
   }
   .dest{
-    padding:clamp(22px,2.6vw,34px) clamp(14px,1.5vw,22px) clamp(22px,2.6vw,34px) 0;
-    border-bottom:var(--rule);
-    border-right:1px solid var(--hairthin);
+    padding:clamp(14px,1.6vw,24px) clamp(12px,1.4vw,18px) clamp(16px,1.8vw,26px) 0;
+    border-bottom:var(--hairline);
   }
-  .dest:nth-child(4n){border-right:none;}
   .dest .d-num{
-    font-family:var(--serif);font-size:13px;color:var(--red);font-weight:600;letter-spacing:.04em;
+    font-family:var(--font-mono);font-size:clamp(9px,.82vw,11px);color:var(--red);
+    font-weight:600;letter-spacing:.14em;text-transform:uppercase;
   }
   .dest .d-city{
-    font-family:var(--serif);font-weight:600;font-size:clamp(20px,2.2vw,30px);line-height:1.02;margin:10px 0 4px;
+    font-family:var(--serif);font-weight:600;font-size:clamp(18px,2vw,26px);line-height:1.02;margin:8px 0 3px;
   }
   .dest .d-route{
-    font-family:var(--grotesk);font-weight:500;font-size:10.5px;letter-spacing:.18em;
+    font-family:var(--font-mono);font-weight:500;font-size:9.5px;letter-spacing:.14em;
     text-transform:uppercase;color:var(--muted);
   }
   .dest .d-time{
-    margin-top:14px;font-family:var(--serif);font-style:italic;font-size:13px;color:var(--ink);
+    margin-top:10px;padding-top:8px;border-top:var(--hairline);
+    font-family:var(--serif);font-style:italic;font-size:12px;color:var(--ink);
   }
 
   /* =========================================================
@@ -710,11 +856,13 @@
     background:var(--ink);color:var(--paper);
     border-top:2px solid var(--red);
   }
-  .vault .wrap{padding-top:clamp(56px,7vw,110px);padding-bottom:clamp(56px,7vw,110px);}
+  .vault .wrap{padding-top:clamp(40px,5vw,84px);padding-bottom:clamp(40px,5vw,84px);}
   .vault-grid{
-    display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(28px,5vw,80px);align-items:center;
+    display:grid;grid-template-columns:repeat(12,1fr);column-gap:var(--col-gap);align-items:center;
   }
-  .vault-left .label{color:rgba(250,250,248,.55);}
+  .vault-left{grid-column:span 4;border-right:1px solid rgba(250,250,248,.18);padding-right:var(--cell-pad);}
+  .vault-right{grid-column:6 / -1;}
+  .vault-left .label{color:rgba(250,250,248,.55);font-family:var(--font-mono);letter-spacing:.16em;}
   .vault-left .vnum{
     font-family:var(--serif);font-weight:500;font-size:clamp(60px,9vw,150px);
     color:var(--red);line-height:.8;margin:14px 0 0;
@@ -730,15 +878,15 @@
   .vault-right h2 .it{font-style:italic;font-weight:500;}
   .vault-right h2 .q{color:var(--red);}
   .vault-right p{
-    font-size:clamp(13.5px,1.1vw,16px);line-height:1.7;color:rgba(250,250,248,.78);
-    margin:22px 0 0;max-width:50ch;
+    font-size:clamp(12.5px,1vw,14.5px);line-height:1.55;color:rgba(250,250,248,.78);
+    margin:16px 0 0;max-width:54ch;
   }
   .vault-list{
-    margin:30px 0 0;border-top:1px solid rgba(250,250,248,.2);
+    margin:22px 0 0;border-top:1px solid rgba(250,250,248,.2);
   }
   .vault-list .vl-row{
     display:flex;align-items:baseline;justify-content:space-between;gap:18px;
-    padding:16px 0;border-bottom:1px solid rgba(250,250,248,.16);
+    padding:11px 0;border-bottom:1px solid rgba(250,250,248,.16);
   }
   .vault-list .vl-route{font-family:var(--serif);font-size:clamp(16px,1.5vw,21px);}
   .vault-list .vl-route em{font-style:italic;color:rgba(250,250,248,.7);font-size:.78em;margin-left:8px;}
@@ -755,53 +903,53 @@
   /* =========================================================
      CREDENTIALS / TRUST
   ========================================================= */
-  .trust{padding:clamp(56px,7vw,110px) 0 clamp(40px,5vw,72px);}
+  .trust{padding:clamp(40px,5vw,80px) 0 clamp(34px,4vw,60px);}
   .trust-head{
     display:flex;align-items:baseline;justify-content:space-between;gap:18px;flex-wrap:wrap;
-    border-bottom:var(--rule);padding-bottom:clamp(20px,2.6vw,34px);
+    border-bottom:1px solid var(--ink);padding-bottom:clamp(14px,1.8vw,24px);
   }
   .trust-head h2{
-    font-family:var(--serif);font-weight:600;font-size:clamp(26px,3.4vw,48px);
+    font-family:var(--serif);font-weight:600;font-size:clamp(24px,3vw,42px);
     line-height:1;letter-spacing:-.01em;margin:0;
   }
   .trust-head h2 .it{font-style:italic;}
-  .trust-head .label{max-width:30ch;text-align:right;}
+  .trust-head .label{max-width:30ch;text-align:right;font-family:var(--font-mono);letter-spacing:.14em;}
   .trust-grid{
-    display:grid;grid-template-columns:repeat(4,1fr);
+    display:grid;grid-template-columns:repeat(4,1fr);column-gap:var(--col-gap);
   }
   .stat{
-    padding:clamp(28px,3.4vw,48px) clamp(14px,1.6vw,24px) clamp(24px,3vw,38px) 0;
-    border-bottom:var(--rule);border-right:1px solid var(--hairthin);
+    padding:clamp(18px,2.2vw,32px) clamp(12px,1.4vw,20px) clamp(16px,2vw,28px) 0;
+    border-bottom:var(--hairline);
   }
-  .stat:nth-child(4n){border-right:none;}
   .stat .s-fig{
-    font-family:var(--serif);font-weight:600;font-size:clamp(40px,5.4vw,82px);
+    font-family:var(--serif);font-weight:600;font-size:clamp(34px,4.6vw,68px);
     line-height:.86;letter-spacing:-.02em;
   }
   .stat .s-fig sup{font-size:.42em;color:var(--red);font-weight:600;top:-1.1em;}
   .stat .s-fig .small{font-size:.4em;}
   .stat .s-lab{
-    margin-top:14px;font-family:var(--grotesk);font-weight:600;font-size:11px;
+    margin-top:12px;padding-top:10px;border-top:var(--hairline);
+    font-family:var(--font-mono);font-weight:600;font-size:10px;
     letter-spacing:.14em;text-transform:uppercase;color:var(--ink);
   }
-  .stat .s-sub{margin-top:6px;font-size:12px;line-height:1.5;color:var(--muted);max-width:24ch;}
+  .stat .s-sub{margin-top:6px;font-size:11.5px;line-height:1.4;color:var(--muted);max-width:24ch;}
 
   .cert-strip{
-    display:flex;flex-wrap:wrap;gap:clamp(14px,2vw,34px);align-items:center;
-    padding:clamp(26px,3vw,40px) 0;border-bottom:var(--rule);
+    display:flex;flex-wrap:wrap;gap:clamp(12px,1.6vw,26px);align-items:center;
+    padding:clamp(16px,2vw,28px) 0;border-bottom:var(--rule);
   }
   .cert-strip .cert{
-    font-family:var(--grotesk);font-weight:600;font-size:11px;letter-spacing:.18em;
+    font-family:var(--font-mono);font-weight:600;font-size:10px;letter-spacing:.14em;
     text-transform:uppercase;color:var(--muted);
-    display:flex;align-items:center;gap:10px;
+    display:flex;align-items:center;gap:9px;
   }
   .cert-strip .cert::before{content:"§";font-family:var(--serif);color:var(--red);font-style:italic;}
 
   /* =========================================================
      FINAL CTA
   ========================================================= */
-  .finale{padding:clamp(72px,10vw,150px) 0;text-align:center;}
-  .finale .eyebrow{color:var(--muted);}
+  .finale{padding:clamp(56px,8vw,128px) 0;text-align:center;}
+  .finale .eyebrow{color:var(--muted);font-family:var(--font-mono);letter-spacing:.2em;}
   .finale h2{
     font-family:var(--serif);font-weight:500;
     font-size:clamp(46px,10vw,168px);line-height:.86;letter-spacing:-.02em;
@@ -840,8 +988,9 @@
   }
   .foot-brand .fb-tag .q{color:var(--red);font-style:normal;}
   .foot-col h4{
-    font-family:var(--grotesk);font-weight:600;font-size:11px;letter-spacing:.2em;
-    text-transform:uppercase;color:rgba(250,250,248,.5);margin:0 0 18px;
+    font-family:var(--font-mono);font-weight:600;font-size:10px;letter-spacing:.16em;
+    text-transform:uppercase;color:rgba(250,250,248,.5);
+    margin:0 0 14px;padding-bottom:10px;border-bottom:1px solid rgba(250,250,248,.18);
   }
   .foot-col ul{list-style:none;margin:0;padding:0;}
   .foot-col li{margin-bottom:11px;}
@@ -904,42 +1053,68 @@
     header.site{border-bottom-color:var(--hairthin);}
     .nav-toggle{display:block;z-index:130;}
 
+    /* dense grid collapses to single column on tablet */
+    .hero-top{grid-template-columns:1fr 1fr;}
+    .hero-top .ht-cell{grid-column:auto;}
+    .hero-top .ht-cell:nth-child(odd){border-left:none;}
+    .hero-top .ht-cell:nth-child(even){border-left:var(--hairline);}
+    .hero-top .ht-cell:nth-child(n+3){border-top:var(--hairline);}
     .hero-split{grid-template-columns:1fr;}
+    .hero-words,.hero-plate{grid-column:auto;}
     .hero-words{border-right:none;border-bottom:var(--rule);padding-right:0;}
     .hero-plate{min-height:clamp(360px,52vh,520px);}
 
-    .manifesto .grid{grid-template-columns:1fr;}
+    .section-marker{grid-template-columns:1fr;row-gap:8px;}
+    .section-marker .sig,.section-marker .lead{grid-column:auto;}
+    .section-marker .lead{justify-self:start;text-align:left;}
+
+    .manifesto .grid{grid-template-columns:1fr;row-gap:clamp(20px,3vw,32px);}
+    .manifesto-quote,.manifesto-aside{grid-column:auto;}
+    .manifesto-aside{border-left:none;padding-left:0;}
+
+    /* fleet drops the prose column at tablet to stay tight */
+    .fleet-table{--fleet-cols:clamp(44px,5vw,64px) clamp(96px,13vw,140px) minmax(120px,1.6fr) clamp(74px,9vw,100px) clamp(90px,11vw,128px);}
+    .fleet-head .fh-desc,.fleet-row .f-desc{display:none;}
+
     .obsidian .ob-grid{grid-template-columns:1fr;}
     .obsidian .ob-img{min-height:340px;order:-1;}
 
     .cabin-grid{grid-template-columns:1fr;}
-    .plate.tall{grid-row:auto;}
-    .cabin-text{border-right:none;}
+    .cabin-grid > .plate.tall,
+    .cabin-grid > .cabin-text,
+    .cabin-grid > .plate:not(.tall){grid-column:auto;grid-row:auto;}
+    .cabin-text{border-left:none;}
 
-    .world-head{grid-template-columns:1fr;align-items:start;gap:16px;}
+    .world-head{grid-template-columns:1fr;align-items:start;row-gap:16px;}
+    .world-head h2,.world-head p{grid-column:auto;}
     .dest-grid{grid-template-columns:1fr 1fr;}
-    .dest:nth-child(4n){border-right:1px solid var(--hairthin);}
-    .dest:nth-child(2n){border-right:none;}
 
-    .vault-grid{grid-template-columns:1fr;gap:28px;}
+    .vault-grid{grid-template-columns:1fr;row-gap:28px;}
+    .vault-left,.vault-right{grid-column:auto;}
+    .vault-left{border-right:none;padding-right:0;border-bottom:1px solid rgba(250,250,248,.18);padding-bottom:22px;}
     .trust-grid{grid-template-columns:1fr 1fr;}
-    .stat:nth-child(4n){border-right:1px solid var(--hairthin);}
-    .stat:nth-child(2n){border-right:none;}
     .foot-top{grid-template-columns:1fr 1fr;}
   }
   @media (max-width:560px){
     :root{--gutter:18px;}
+    .fleet-head{display:none;}
     .fleet-row{
-      grid-template-columns:48px 1fr;
-      grid-template-areas:"num name" "plate plate" ". desc" ". spec";
-      gap:8px 14px;
-      row-gap:10px;
+      grid-template-columns:36px 1fr auto;
+      grid-template-areas:
+        "num name name"
+        "num plate plate"
+        "num desc desc"
+        "num guests range";
+      gap:6px 12px;
+      align-items:start;
+      padding:14px 0;
     }
     .fleet-row .f-num{grid-area:num;align-self:start;}
-    .fleet-row .f-plate{grid-area:plate;width:100%;margin-top:4px;}
+    .fleet-row .f-plate{grid-area:plate;max-width:none;width:100%;margin-top:2px;}
     .fleet-row .f-name{grid-area:name;}
-    .fleet-row .f-desc{grid-area:desc;}
-    .fleet-row .f-spec{grid-area:spec;text-align:left;}
+    .fleet-row .f-desc{grid-area:desc;display:block;max-width:none;}
+    .fleet-row .f-guests{grid-area:guests;text-align:left;margin-top:4px;}
+    .fleet-row .f-range{grid-area:range;text-align:right;margin-top:4px;}
     .dest-grid{grid-template-columns:1fr;}
     .dest{border-right:none !important;}
     .trust-grid{grid-template-columns:1fr;}
@@ -991,15 +1166,29 @@
   <section class="hero">
     <div class="wrap">
 
-      <div class="hero-top reveal">
-        <div class="hero-issue">Issue Nº 01 · <span class="accent">Private Aviation</span></div>
-        <div class="hero-date">The Atelier Edition — MMXXVI</div>
+      <div class="hero-top j12 reveal">
+        <div class="ht-cell c3">
+          <span class="k">Issue</span>
+          <span class="v">Nº 01 · <span class="accent">Private Aviation</span></span>
+        </div>
+        <div class="ht-cell c3 cell-l">
+          <span class="k">Edition</span>
+          <span class="v">The Atelier — MMXXVI</span>
+        </div>
+        <div class="ht-cell c3 cell-l">
+          <span class="k">Folio</span>
+          <span class="v">§ I–VI · 07 Plates</span>
+        </div>
+        <div class="ht-cell c3 cell-l">
+          <span class="k">Set In</span>
+          <span class="v">Libre Franklin · Roboto</span>
+        </div>
       </div>
 
-      <div class="hero-split">
-        <div class="hero-words reveal">
+      <div class="hero-split j12">
+        <div class="hero-words c7 reveal">
           <div>
-            <p class="eyebrow accent" style="margin:0 0 clamp(20px,3vw,40px);">§ Cover — The World Awaits</p>
+            <p class="fig" style="margin:0 0 clamp(18px,2.4vw,34px);">Fig. 01 — Cover · The World Awaits</p>
             <h1 class="hero-headline">
               <span class="line">Flying Is</span>
               <span class="line"><span class="it">Transcending</span></span>
@@ -1016,7 +1205,7 @@
           </div>
         </div>
 
-        <figure class="hero-plate reveal d1" style="margin:0;">
+        <figure class="hero-plate c5 reveal d1" style="margin:0;">
           <video class="hero-plate-vid" autoplay muted playsinline preload="auto" poster="../assets/plane-exterior.jpg">
             <source src="../assets/clips/07-vector-out.mp4" type="video/mp4" />
           </video>
@@ -1069,48 +1258,62 @@
         <span class="lead">Seven categories, indexed. The aircraft is the instrument; the experience is the composition. Obsidian leads the collection.</span>
       </div>
 
-      <div class="fleet-table">
+      <div class="fleet-table reveal">
+        <div class="fleet-head" aria-hidden="true">
+          <span class="fh-num">Cat.</span>
+          <span class="fh-plate">Plate</span>
+          <span class="fh-name">Category</span>
+          <span class="fh-desc">Profile</span>
+          <span class="fh-spec">Capacity</span>
+          <span class="fh-spec">Range</span>
+        </div>
         <div class="fleet-row reveal">
           <div class="f-num">01</div>
           <div class="f-plate"><img src="../assets/fleet/turbo-prop.jpg" alt="V2 Jets — Turbo Prop" loading="lazy" width="1200" height="800" /></div>
           <div class="f-name">Turbo Prop</div>
           <div class="f-desc">The agile short-hauler. Direct access to regional runways the jets can't reach, with the same uncompromising V2 cabin standard.</div>
-          <div class="f-spec">2–8 Guests<span>≈ 600 nm range</span></div>
+          <div class="f-guests">2–8<span>Guests</span></div>
+          <div class="f-range">≈ 600 nm<span>Range</span></div>
         </div>
         <div class="fleet-row reveal">
           <div class="f-num">02</div>
           <div class="f-plate"><img src="../assets/fleet/light-jet.jpg" alt="V2 Jets — Light Jet" loading="lazy" width="1200" height="800" /></div>
           <div class="f-name">Light Jet</div>
           <div class="f-desc">Effortless city-to-city velocity. The everyday workhorse of private travel, refined for the V2 traveler who values time above all.</div>
-          <div class="f-spec">5–7 Guests<span>≈ 1,500 nm range</span></div>
+          <div class="f-guests">5–7<span>Guests</span></div>
+          <div class="f-range">≈ 1,500 nm<span>Range</span></div>
         </div>
         <div class="fleet-row reveal">
           <div class="f-num">03</div>
           <div class="f-plate"><img src="../assets/fleet/mid-size.jpg" alt="V2 Jets — Mid Size" loading="lazy" width="1200" height="800" /></div>
           <div class="f-name">Mid Size</div>
           <div class="f-desc">More cabin, more reach. Stand-up comfort and coast-to-coast capability for the productive, unhurried flight.</div>
-          <div class="f-spec">7–9 Guests<span>≈ 2,800 nm range</span></div>
+          <div class="f-guests">7–9<span>Guests</span></div>
+          <div class="f-range">≈ 2,800 nm<span>Range</span></div>
         </div>
         <div class="fleet-row reveal">
           <div class="f-num">04</div>
           <div class="f-plate"><img src="../assets/fleet/super-mid.jpg" alt="V2 Jets — Super Mid" loading="lazy" width="1200" height="800" /></div>
           <div class="f-name">Super Mid</div>
           <div class="f-desc">The transcontinental sweet spot. Generous cabins, intercontinental legs, and a galley appointed for genuine dining at altitude.</div>
-          <div class="f-spec">8–10 Guests<span>≈ 3,500 nm range</span></div>
+          <div class="f-guests">8–10<span>Guests</span></div>
+          <div class="f-range">≈ 3,500 nm<span>Range</span></div>
         </div>
         <div class="fleet-row reveal">
           <div class="f-num">05</div>
           <div class="f-plate"><img src="../assets/fleet/heavy-jet.jpg" alt="V2 Jets — Heavy Jet" loading="lazy" width="1200" height="800" /></div>
           <div class="f-name">Heavy Jet</div>
           <div class="f-desc">Statement and substance. Dedicated zones for work, rest, and dining — the airborne residence for the larger party.</div>
-          <div class="f-spec">10–16 Guests<span>≈ 4,500 nm range</span></div>
+          <div class="f-guests">10–16<span>Guests</span></div>
+          <div class="f-range">≈ 4,500 nm<span>Range</span></div>
         </div>
         <div class="fleet-row reveal">
           <div class="f-num">06</div>
           <div class="f-plate"><img src="../assets/fleet/ultra-long-range.jpg" alt="V2 Jets — Ultra Long Range" loading="lazy" width="1200" height="800" /></div>
           <div class="f-name">Ultra Long Range</div>
           <div class="f-desc">Continents, nonstop. New York to Tokyo without a tankstop — a true private suite carrying you across the world while you sleep.</div>
-          <div class="f-spec">12–19 Guests<span>≈ 7,500 nm range</span></div>
+          <div class="f-guests">12–19<span>Guests</span></div>
+          <div class="f-range">≈ 7,500 nm<span>Range</span></div>
         </div>
       </div>
 
@@ -1157,7 +1360,7 @@
         </figure>
 
         <div class="cabin-text reveal d1">
-          <div class="knum">02</div>
+          <div class="knum">§ III · Fig. 02 — The Cabin</div>
           <h3>An interior <span class="it">composed,</span><br />never decorated.</h3>
           <p>Cream leather, hand-finished veneer, and light that follows you across time zones. The cabin is arranged for the way you actually travel — to work, to host, to rest.</p>
           <ul class="cabin-feats">
@@ -1168,7 +1371,7 @@
           </ul>
         </div>
 
-        <figure class="plate reveal d1" style="margin:0;border-right:var(--rule);border-bottom:var(--rule);">
+        <figure class="plate reveal d1" style="margin:0;border-left:var(--hairline);border-bottom:var(--hairline);">
           <img src="../assets/interior-bedroom.jpg" alt="A private bedroom suite aboard a V2 Jets aircraft, with a full bed dressed in cream linens and dark wood accents." />
           <figcaption class="plate-tag"><span class="caption">Pl. 03 — The Suite</span></figcaption>
         </figure>

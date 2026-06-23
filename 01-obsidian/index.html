@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>V2 Jets — Obsidian | Ultra-Luxury Private Jet Charter</title>
+<meta name="description" content="With V2 Jets, flying isn't simply flying. Flying is transcending. Tap into a world where luxury is a lifestyle. Private charter, aircraft management, and bespoke concierge.">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* ===== V2 STRICT BRAND KIT ===== */
+    --paper:#F2F0E9; --paper-2:#E8E5DB;
+    --ink:#12161B; --ink-soft:#5A6066; --hair:rgba(18,22,27,.14);
+    --noir:#0C0F13; --noir-2:#14181D; --on-noir:#F2F0E9; --on-noir-soft:#9AA0A6; --hair-d:rgba(242,240,233,.16);
+    --on-noir-2:#CDD0D4;
+    --blue:#2E6E96; --blue-2:#5FA3C9; --navy:#13314B;
+
+    --font-display:'Jost',system-ui,sans-serif;
+    --font-body:'Inter',system-ui,sans-serif;
+    --font-mono:'JetBrains Mono',ui-monospace,monospace;
+
+    /* ----- legacy token names remapped onto the kit (Obsidian = dark surface) ----- */
+    --obsidian:var(--noir);
+    --graphite:var(--noir-2);
+    --graphite-2:var(--noir-2);
+    --aubergine:var(--noir);
+    --pure-white:var(--on-noir);
+    --ink-soft:var(--on-noir-2);
+    --ink-mute:var(--on-noir-soft);
+    --ink-faint:#6B7177;
+    --hairline:var(--hair-d);
+    --hairline-soft:rgba(242,240,233,.07);
+    --plat-1:var(--blue);
+    --plat-2:var(--blue-2);
+    --plat-3:var(--blue);
+    --plat-grad:linear-gradient(105deg,var(--blue-2) 0%,var(--blue) 60%,var(--navy) 100%);
+    --serif:var(--font-display);
+    --sans:var(--font-body);
+    --mono:var(--font-mono);
+    --gut:clamp(20px,5vw,80px);
+    --maxw:1280px;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{
+    background:var(--obsidian);
+    color:var(--ink-soft);
+    font-family:var(--sans);
+    font-weight:400;
+    line-height:1.6;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  /* faint starfield / grain over the entire dark page */
+  body::before{
+    content:"";
+    position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(1px 1px at 18% 22%,rgba(255,255,255,.30),transparent),
+      radial-gradient(1px 1px at 72% 14%,rgba(255,255,255,.22),transparent),
+      radial-gradient(1px 1px at 41% 64%,rgba(255,255,255,.18),transparent),
+      radial-gradient(1px 1px at 88% 48%,rgba(255,255,255,.20),transparent),
+      radial-gradient(1px 1px at 8% 78%,rgba(255,255,255,.16),transparent),
+      radial-gradient(1px 1px at 58% 88%,rgba(255,255,255,.14),transparent),
+      radial-gradient(1.4px 1.4px at 30% 40%,rgba(255,255,255,.12),transparent),
+      radial-gradient(1.4px 1.4px at 92% 80%,rgba(255,255,255,.10),transparent);
+    background-repeat:no-repeat;
+    opacity:.6;
+  }
+
+  img{display:block;max-width:100%;height:auto}
+  a{color:inherit;text-decoration:none}
+
+  .wrap{max-width:var(--maxw);margin-inline:auto;padding-inline:var(--gut)}
+  section{position:relative;z-index:1}
+
+  /* ---- typographic primitives ---- */
+  .eyebrow{
+    font-family:var(--mono);
+    text-transform:uppercase;
+    letter-spacing:.34em;
+    font-size:clamp(9px,1vw,11px);
+    color:var(--ink-mute);
+    font-weight:400;
+  }
+  .platinum{
+    color:var(--blue-2);
+  }
+  .rule{
+    height:1px;width:100%;
+    background:linear-gradient(90deg,transparent,var(--plat-3),var(--plat-1),var(--plat-3),transparent);
+    opacity:.5;
+    border:0;
+  }
+  .serif{font-family:var(--serif);font-weight:300;letter-spacing:.01em}
+
+  /* ---- buttons ---- */
+  .btn{
+    display:inline-flex;align-items:center;gap:.7em;
+    font-family:var(--mono);
+    font-size:clamp(11px,1vw,12.5px);
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    padding:1.05em 2.1em;
+    border:1px solid var(--plat-3);
+    color:var(--plat-1);
+    background:transparent;
+    cursor:pointer;
+    transition:background .5s cubic-bezier(.16,1,.3,1),color .5s cubic-bezier(.16,1,.3,1),border-color .5s ease,transform .5s ease;
+    position:relative;
+    line-height:1;
+  }
+  .btn .arr{transition:transform .5s cubic-bezier(.16,1,.3,1)}
+  .btn:hover{
+    background:var(--plat-1);
+    color:var(--obsidian);
+    border-color:var(--plat-1);
+  }
+  .btn:hover .arr{transform:translateX(5px)}
+  .btn--solid{
+    background:var(--plat-grad);
+    color:var(--obsidian);
+    border-color:transparent;
+  }
+  .btn--solid:hover{filter:brightness(1.08);background:var(--pure-white);color:var(--obsidian)}
+  .btn--ghost-fine{border-color:var(--hairline);color:var(--ink-soft)}
+  .btn--ghost-fine:hover{background:var(--plat-1);color:var(--obsidian);border-color:var(--plat-1)}
+
+  /* =========== HEADER =========== */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    transition:background .55s ease,backdrop-filter .55s ease,border-color .55s ease,padding .45s ease;
+    border-bottom:1px solid transparent;
+  }
+  header .bar{
+    display:flex;align-items:center;justify-content:space-between;
+    max-width:var(--maxw);margin-inline:auto;
+    padding:clamp(18px,2.4vw,30px) var(--gut);
+    transition:padding .45s ease;
+  }
+  header.scrolled{
+    background:rgba(12,15,19,.78);
+    backdrop-filter:blur(18px) saturate(120%);
+    -webkit-backdrop-filter:blur(18px) saturate(120%);
+    border-bottom:1px solid var(--hairline-soft);
+  }
+  header.scrolled .bar{padding-top:clamp(12px,1.6vw,18px);padding-bottom:clamp(12px,1.6vw,18px)}
+  .brand img{height:clamp(20px,2.2vw,27px);width:auto;opacity:.96}
+  nav.primary{display:flex;align-items:center;gap:clamp(16px,2vw,30px)}
+  nav.primary a{
+    font-family:var(--mono);
+    font-size:11.5px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    opacity:.82;
+    transition:opacity .3s ease,color .3s ease;
+    white-space:nowrap;
+  }
+  nav.primary a:hover{opacity:1;color:var(--pure-white)}
+  .portal{
+    font-family:var(--mono);
+    font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+    padding:.85em 1.5em;
+    border:1px solid var(--plat-3);
+    color:var(--plat-1);
+    transition:background .45s ease,color .45s ease;
+  }
+  .portal:hover{background:var(--plat-1);color:var(--obsidian)}
+  .nav-cta{display:flex;align-items:center;gap:18px}
+
+  .burger{display:none;background:none;border:0;cursor:pointer;width:34px;height:34px;position:relative}
+  .burger span{position:absolute;left:5px;right:5px;height:1.3px;background:var(--plat-1);transition:transform .4s ease,opacity .3s ease}
+  .burger span:nth-child(1){top:11px}
+  .burger span:nth-child(2){top:17px}
+  .burger span:nth-child(3){top:23px}
+  body.menu-open .burger span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+  body.menu-open .burger span:nth-child(2){opacity:0}
+  body.menu-open .burger span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+
+  /* mobile drawer */
+  .mobile-nav{
+    position:fixed;inset:0;z-index:99;
+    background:rgba(12,15,19,.97);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+    display:flex;flex-direction:column;justify-content:center;
+    padding:var(--gut);
+    transform:translateY(-100%);
+    transition:transform .6s cubic-bezier(.76,0,.24,1);
+    pointer-events:none;
+  }
+  body.menu-open .mobile-nav{transform:translateY(0);pointer-events:auto}
+  .mobile-nav a{
+    font-family:var(--serif);
+    font-size:clamp(28px,7vw,40px);
+    font-weight:300;
+    color:var(--ink-soft);
+    padding:.28em 0;
+    border-bottom:1px solid var(--hairline-soft);
+    letter-spacing:.01em;
+  }
+  .mobile-nav a:last-of-type{border-bottom:0}
+  .mobile-nav .portal{
+    font-family:var(--mono);font-size:13px;margin-top:30px;align-self:flex-start;
+    padding:1.1em 2em;
+  }
+
+  /* =========== HERO =========== */
+  .hero{
+    position:relative;
+    min-height:100svh;
+    display:flex;align-items:flex-end;
+    overflow:hidden;
+  }
+  .hero__img{
+    position:absolute;inset:0;
+    background:#070A0D url("../assets/plane-exterior.jpg") center 38%/cover no-repeat;
+    z-index:0;
+  }
+  /* cinematic hero background video — sits above the photo fallback, below every scrim */
+  .hero-bgvid{
+    position:absolute;inset:0;z-index:0;
+    width:100%;height:100%;
+    object-fit:cover;object-position:center 38%;
+    pointer-events:none;
+  }
+  .hero__scrim{
+    position:absolute;inset:0;z-index:1;
+    background:
+      linear-gradient(180deg,rgba(12,15,19,.72) 0%,rgba(12,15,19,.10) 26%,rgba(12,15,19,.05) 46%,rgba(12,15,19,.62) 78%,rgba(12,15,19,.96) 100%),
+      radial-gradient(120% 80% at 50% 120%,rgba(12,15,19,.9) 0%,transparent 60%),
+      linear-gradient(90deg,rgba(12,15,19,.5) 0%,transparent 30%,transparent 70%,rgba(12,15,19,.5) 100%);
+  }
+  /* starfield sheen specific to hero */
+  .hero__stars{
+    position:absolute;inset:0;z-index:2;pointer-events:none;
+    background:
+      radial-gradient(1px 1px at 22% 28%,rgba(255,255,255,.5),transparent),
+      radial-gradient(1px 1px at 64% 18%,rgba(255,255,255,.4),transparent),
+      radial-gradient(1.2px 1.2px at 80% 60%,rgba(255,255,255,.32),transparent),
+      radial-gradient(1px 1px at 38% 72%,rgba(255,255,255,.3),transparent),
+      radial-gradient(1px 1px at 12% 52%,rgba(255,255,255,.26),transparent);
+    background-repeat:no-repeat;opacity:.7;
+  }
+  .hero__inner{
+    position:relative;z-index:3;
+    width:100%;
+    max-width:var(--maxw);margin-inline:auto;
+    padding:0 var(--gut) clamp(48px,8vh,110px);
+  }
+  .hero__eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:clamp(20px,3vh,34px)}
+  .hero__eyebrow .tick{width:42px;height:1px;background:var(--plat-3);opacity:.7}
+  .hero h1{
+    font-family:var(--serif);
+    font-weight:300;
+    font-size:clamp(50px,11.5vw,170px);
+    line-height:.94;
+    letter-spacing:-.01em;
+    color:var(--pure-white);
+    text-shadow:0 2px 60px rgba(0,0,0,.55);
+    max-width:14ch;
+  }
+  .hero h1 em{font-style:italic;font-weight:300}
+  .hero__sub{
+    margin-top:clamp(22px,3vh,38px);
+    max-width:46ch;
+    font-size:clamp(14px,1.5vw,18px);
+    color:var(--ink-soft);
+    font-weight:300;
+    line-height:1.65;
+  }
+  .hero__actions{
+    margin-top:clamp(30px,4vh,46px);
+    display:flex;flex-wrap:wrap;gap:16px;
+  }
+  .hero__coords{
+    position:absolute;z-index:3;
+    top:auto;bottom:clamp(20px,3vh,40px);right:var(--gut);
+    font-family:var(--mono);font-size:10px;letter-spacing:.28em;
+    color:var(--ink-mute);text-align:right;line-height:2;
+    display:none;
+  }
+  @media(min-width:900px){.hero__coords{display:block}}
+  .scroll-cue{
+    position:absolute;left:50%;bottom:18px;transform:translateX(-50%);z-index:3;
+    font-family:var(--mono);font-size:9px;letter-spacing:.3em;color:var(--ink-mute);
+    text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:10px;
+  }
+  .scroll-cue .line{width:1px;height:46px;background:linear-gradient(var(--plat-3),transparent);animation:drip 2.6s ease-in-out infinite}
+  @keyframes drip{0%,100%{transform:scaleY(.4);transform-origin:top;opacity:.4}50%{transform:scaleY(1);opacity:1}}
+
+  /* =========== SECTION SCAFFOLD =========== */
+  .sec{padding-block:clamp(80px,13vh,180px)}
+  .sec-head{display:flex;align-items:baseline;gap:18px;margin-bottom:clamp(40px,6vh,80px)}
+  .sec-head .num{font-family:var(--mono);font-size:11px;letter-spacing:.28em;color:var(--ink-faint)}
+  .sec-head .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.28em;color:var(--ink-mute);text-transform:uppercase}
+
+  /* =========== MANIFESTO =========== */
+  .manifesto{text-align:left}
+  .manifesto .quote{
+    font-family:var(--serif);
+    font-weight:300;
+    font-size:clamp(30px,5.4vw,78px);
+    line-height:1.08;
+    letter-spacing:-.005em;
+    color:var(--ink-soft);
+    max-width:18ch;
+  }
+  .manifesto .quote .hi{color:var(--pure-white)}
+  .manifesto .tail{
+    margin-top:clamp(30px,4vh,50px);
+    display:grid;grid-template-columns:1fr;gap:26px;
+    max-width:560px;
+    margin-left:auto;
+    font-size:clamp(14px,1.4vw,17px);
+    color:var(--ink-mute);
+    line-height:1.7;
+  }
+  @media(min-width:900px){
+    .manifesto-grid{display:grid;grid-template-columns:1.4fr .9fr;gap:clamp(40px,6vw,90px);align-items:end}
+    .manifesto .tail{margin-top:0}
+  }
+
+  /* =========== FLEET LEDGER =========== */
+  .ledger{border-top:1px solid var(--hairline)}
+  .fleet-row{
+    display:grid;
+    grid-template-columns:auto 1fr auto;
+    align-items:center;
+    gap:clamp(14px,3vw,40px);
+    padding:clamp(26px,3.6vh,42px) clamp(8px,2vw,28px);
+    border-bottom:1px solid var(--hairline-soft);
+    position:relative;
+    transition:background .55s ease,padding .45s ease;
+  }
+  .fleet-row:hover{background:rgba(255,255,255,.025)}
+  .fleet-row .tier-no{font-family:var(--mono);font-size:11px;color:var(--ink-faint);letter-spacing:.16em;align-self:center}
+  .fleet-row .tier-name{
+    font-family:var(--serif);
+    font-weight:300;
+    font-size:clamp(26px,4.6vw,56px);
+    line-height:1;
+    color:var(--ink-soft);
+    letter-spacing:.005em;
+    transition:color .4s ease,letter-spacing .5s ease;
+  }
+  .fleet-row:hover .tier-name{color:var(--pure-white);letter-spacing:.02em}
+  .fleet-row .tier-desc{
+    display:block;
+    font-family:var(--sans);font-weight:300;
+    font-size:clamp(11px,1.2vw,13px);
+    color:var(--ink-faint);
+    letter-spacing:.02em;
+    margin-top:8px;
+    max-width:42ch;
+  }
+  .fleet-row .specs{
+    text-align:right;
+    font-family:var(--mono);
+    font-size:clamp(11px,1.2vw,13.5px);
+    letter-spacing:.06em;
+    color:var(--ink-mute);
+    white-space:nowrap;
+  }
+  .fleet-row .specs .pax{display:block;color:var(--ink-faint);font-size:.82em;margin-top:6px;letter-spacing:.12em}
+
+  /* Obsidian flagship row — inverted / illuminated */
+  .fleet-row--flagship{
+    background:
+      linear-gradient(100deg,rgba(95,163,201,.10) 0%,rgba(46,110,150,.05) 50%,rgba(12,15,19,.2) 100%),
+      var(--graphite);
+    border:1px solid var(--hairline);
+    border-radius:2px;
+    margin-block:6px;
+    box-shadow:0 0 0 1px rgba(95,163,201,.05),0 30px 80px -40px rgba(95,163,201,.18);
+    padding-inline:clamp(14px,2.4vw,34px);
+  }
+  .fleet-row--flagship .tier-name{color:var(--pure-white)}
+  .fleet-row--flagship:hover{background:
+      linear-gradient(100deg,rgba(95,163,201,.16) 0%,rgba(46,110,150,.07) 50%,rgba(12,15,19,.2) 100%),
+      var(--graphite)}
+  .fleet-row--flagship .tier-no{color:var(--plat-2)}
+  .fleet-row--flagship .specs{color:var(--plat-2)}
+  .flagship-tag{
+    display:inline-block;
+    font-family:var(--mono);font-size:9.5px;letter-spacing:.28em;text-transform:uppercase;
+    color:var(--obsidian);
+    background:var(--plat-grad);
+    padding:.45em .85em;border-radius:1px;margin-bottom:12px;
+    vertical-align:middle;
+  }
+
+  /* =========== EXPERIENCE / CABIN =========== */
+  .plate{
+    position:relative;
+    border:1px solid var(--hairline);
+    padding:10px;
+    background:var(--aubergine);
+  }
+  .plate::after{
+    content:"";position:absolute;inset:10px;border:1px solid var(--hairline-soft);pointer-events:none;z-index:2;
+  }
+  .plate img{width:100%;height:100%;object-fit:cover;display:block}
+  .plate--tall{aspect-ratio:3/4}
+  .plate--wide{aspect-ratio:4/3}
+  .exp-grid{display:grid;grid-template-columns:1fr;gap:clamp(28px,4vw,56px);align-items:center}
+  @media(min-width:900px){.exp-grid{grid-template-columns:1.05fr .95fr}}
+  .exp-copy h3{
+    font-family:var(--serif);font-weight:300;
+    font-size:clamp(30px,4.6vw,60px);line-height:1.04;color:var(--pure-white);
+    margin-bottom:24px;letter-spacing:-.005em;
+  }
+  .exp-copy p{font-size:clamp(14px,1.4vw,17px);color:var(--ink-mute);line-height:1.75;max-width:48ch;margin-bottom:20px}
+  .exp-feats{margin-top:clamp(34px,5vh,54px);display:grid;gap:0;border-top:1px solid var(--hairline-soft)}
+  .exp-feat{padding:22px 0;border-bottom:1px solid var(--hairline-soft);display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:baseline}
+  .exp-feat .k{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;color:var(--ink-faint);text-transform:uppercase}
+  .exp-feat .v{color:var(--ink-soft);font-weight:300}
+  .exp-feat .v strong{color:var(--pure-white);font-weight:400;display:block;font-size:clamp(15px,1.6vw,19px);font-family:var(--serif);letter-spacing:.01em}
+
+  .exp-second{margin-top:clamp(40px,7vh,90px)}
+  .exp-second .exp-grid{grid-template-columns:1fr}
+  @media(min-width:900px){.exp-second .exp-grid{grid-template-columns:.95fr 1.05fr}.exp-second .plate{order:2}.exp-second .exp-copy{order:1}}
+
+  /* =========== THE WORLD AWAITS / DESTINATIONS =========== */
+  .world{position:relative;overflow:hidden;border-block:1px solid var(--hairline)}
+  .world__bg{
+    position:absolute;inset:0;z-index:0;
+    background:#070A0D url("../assets/hero-xl.jpg") center 40%/cover no-repeat;
+    opacity:.42;
+  }
+  .world__scrim{
+    position:absolute;inset:0;z-index:1;
+    background:linear-gradient(180deg,rgba(12,15,19,.95) 0%,rgba(12,15,19,.55) 40%,rgba(12,15,19,.72) 70%,rgba(12,15,19,.97) 100%);
+  }
+  .world .wrap{position:relative;z-index:2}
+  .world h2{
+    font-family:var(--serif);font-weight:300;
+    font-size:clamp(42px,9vw,128px);line-height:.95;color:var(--pure-white);
+    letter-spacing:-.01em;text-align:center;
+  }
+  .world .lead{
+    text-align:center;max-width:54ch;margin:clamp(24px,3vh,36px) auto 0;
+    color:var(--ink-soft);font-size:clamp(14px,1.5vw,18px);line-height:1.7;
+  }
+  .dest-grid{
+    margin-top:clamp(46px,7vh,80px);
+    display:grid;grid-template-columns:repeat(2,1fr);gap:1px;
+    background:var(--hairline-soft);
+    border:1px solid var(--hairline-soft);
+  }
+  @media(min-width:760px){.dest-grid{grid-template-columns:repeat(4,1fr)}}
+  .dest{
+    background:rgba(12,15,19,.7);
+    padding:clamp(22px,3vw,36px) clamp(16px,2vw,28px);
+    transition:background .5s ease;
+  }
+  .dest:hover{background:rgba(20,24,29,.85)}
+  .dest .code{font-family:var(--mono);font-size:11px;letter-spacing:.2em;color:var(--plat-2)}
+  .dest .city{font-family:var(--serif);font-size:clamp(22px,2.6vw,30px);color:var(--ink-soft);font-weight:300;margin-top:14px;line-height:1.1}
+  .dest .note{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;color:var(--ink-faint);text-transform:uppercase;margin-top:12px}
+
+  /* =========== CINEMATIC INTERLUDE (scroll-scrubbed) =========== */
+  .scrub{position:relative;height:220vh}
+  .film-sec{
+    border-block:1px solid var(--hairline);
+    background:var(--obsidian);
+  }
+  .scrub__stage{
+    position:sticky;top:0;height:100vh;overflow:hidden;
+    display:flex;align-items:flex-end;
+  }
+  .film{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none}
+  .film-sec__scrim{
+    position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:
+      linear-gradient(180deg,rgba(12,15,19,.78) 0%,rgba(12,15,19,.18) 30%,rgba(12,15,19,.18) 58%,rgba(12,15,19,.88) 100%),
+      linear-gradient(90deg,rgba(12,15,19,.46) 0%,transparent 32%,transparent 68%,rgba(12,15,19,.46) 100%);
+  }
+  .scrub__cap,.film-sec__inner{
+    position:relative;z-index:2;
+    width:100%;
+    max-width:var(--maxw);margin-inline:auto;
+    padding:0 var(--gut) clamp(48px,9vh,110px);
+  }
+  .film-sec__eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:clamp(16px,2.4vh,26px)}
+  .film-sec__eyebrow .tick{width:42px;height:1px;background:var(--plat-3);opacity:.7}
+  .film-sec h2{
+    font-family:var(--serif);font-weight:300;
+    font-size:clamp(38px,8vw,108px);line-height:.96;
+    letter-spacing:-.01em;color:var(--pure-white);
+    text-shadow:0 2px 60px rgba(0,0,0,.55);
+    max-width:16ch;
+  }
+
+  /* =========== V2 VAULT =========== */
+  .vault{position:relative}
+  .vault-card{
+    border:1px solid var(--hairline);
+    background:
+      radial-gradient(120% 140% at 100% 0%,rgba(19,49,75,.9) 0%,transparent 55%),
+      linear-gradient(160deg,var(--graphite) 0%,var(--aubergine) 100%);
+    padding:clamp(34px,5vw,72px);
+    position:relative;overflow:hidden;
+    border-radius:2px;
+  }
+  .vault-card::before{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(60% 80% at 90% 10%,rgba(95,163,201,.08),transparent 60%);
+  }
+  .vault-grid{display:grid;grid-template-columns:1fr;gap:clamp(30px,4vw,60px);position:relative;z-index:1}
+  @media(min-width:860px){.vault-grid{grid-template-columns:1.1fr .9fr;align-items:center}}
+  .vault h3{font-family:var(--serif);font-weight:300;font-size:clamp(34px,5vw,64px);line-height:1.02;color:var(--pure-white);margin-bottom:22px;letter-spacing:-.005em}
+  .vault p{color:var(--ink-mute);font-size:clamp(14px,1.4vw,17px);line-height:1.75;max-width:46ch;margin-bottom:18px}
+  .vault-list{list-style:none;border-top:1px solid var(--hairline-soft)}
+  .vault-list li{
+    display:flex;justify-content:space-between;align-items:center;gap:20px;
+    padding:18px 0;border-bottom:1px solid var(--hairline-soft);
+  }
+  .vault-list .route{font-family:var(--serif);font-size:clamp(18px,2.2vw,26px);color:var(--ink-soft);font-weight:300}
+  .vault-list .meta{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--ink-faint);text-align:right;white-space:nowrap}
+  .vault-list .meta .live{color:var(--plat-1)}
+  .vault-badge{font-family:var(--mono);font-size:9.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink-mute);display:inline-flex;align-items:center;gap:9px;margin-bottom:20px}
+  .vault-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--plat-1);box-shadow:0 0 10px rgba(95,163,201,.8);animation:pulse 2.4s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:.35}50%{opacity:1}}
+
+  /* =========== CREDENTIALS STRIP =========== */
+  .creds{border-block:1px solid var(--hairline)}
+  .creds-grid{display:grid;grid-template-columns:repeat(2,1fr)}
+  @media(min-width:760px){.creds-grid{grid-template-columns:repeat(4,1fr)}}
+  .cred{
+    padding:clamp(34px,5vh,64px) clamp(18px,2.4vw,40px);
+    border-right:1px solid var(--hairline-soft);
+    border-bottom:1px solid var(--hairline-soft);
+    text-align:center;
+  }
+  @media(min-width:760px){.cred:nth-child(4n){border-right:0}.cred:nth-child(n+5){border-bottom:0}}
+  @media(max-width:759px){.cred:nth-child(2n){border-right:0}.cred:nth-child(n+7){border-bottom:0}}
+  .cred .val{font-family:var(--serif);font-weight:300;font-size:clamp(30px,4.4vw,56px);line-height:1;color:var(--pure-white);letter-spacing:.005em}
+  .cred .lab{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-mute);margin-top:16px}
+
+  /* =========== FINAL CTA BAND =========== */
+  .final{position:relative;text-align:center;overflow:hidden}
+  .final__glow{
+    position:absolute;inset:0;z-index:0;
+    background:radial-gradient(70% 90% at 50% 120%,rgba(19,49,75,.9) 0%,transparent 60%);
+  }
+  .final .wrap{position:relative;z-index:1}
+  .final h2{
+    font-family:var(--serif);font-weight:300;
+    font-size:clamp(46px,10vw,150px);line-height:.94;color:var(--pure-white);letter-spacing:-.01em;
+  }
+  .final p{max-width:50ch;margin:clamp(22px,3vh,32px) auto clamp(34px,4.5vh,48px);color:var(--ink-mute);font-size:clamp(14px,1.5vw,18px);line-height:1.7}
+  .final .actions{display:flex;flex-wrap:wrap;gap:16px;justify-content:center}
+
+  /* =========== FOOTER =========== */
+  footer{border-top:1px solid var(--hairline);padding-block:clamp(56px,8vh,90px) 40px;position:relative;z-index:1}
+  .foot-top{display:grid;grid-template-columns:1fr;gap:clamp(36px,5vw,60px)}
+  @media(min-width:780px){.foot-top{grid-template-columns:1.4fr repeat(3,1fr)}}
+  .foot-brand img{height:26px;width:auto;margin-bottom:24px;opacity:.95}
+  .foot-brand p{color:var(--ink-mute);font-size:14px;line-height:1.7;max-width:34ch}
+  .foot-col h4{font-family:var(--mono);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:20px}
+  .foot-col a,.foot-col span{display:block;color:var(--ink-soft);font-size:14px;padding:6px 0;opacity:.8;transition:opacity .3s ease}
+  .foot-col a:hover{opacity:1;color:var(--pure-white)}
+  .foot-bottom{
+    margin-top:clamp(46px,6vh,70px);padding-top:30px;border-top:1px solid var(--hairline-soft);
+    display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-items:center;
+  }
+  .foot-bottom .fine,.foot-bottom .legal{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--ink-faint)}
+  .foot-bottom .legal a{margin-left:18px;color:var(--ink-mute)}
+  .foot-bottom .legal a:hover{color:var(--ink-soft)}
+
+  /* =========== SCROLL REVEAL =========== */
+  .reveal{opacity:0;transform:translateY(34px);transition:opacity 1.1s cubic-bezier(.16,1,.3,1),transform 1.1s cubic-bezier(.16,1,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+  .reveal.d1{transition-delay:.08s}
+  .reveal.d2{transition-delay:.16s}
+  .reveal.d3{transition-delay:.24s}
+
+  @media(max-width:880px){
+    nav.primary{display:none}
+    .nav-cta .portal{display:none}
+    .burger{display:block}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto}
+    *{animation:none !important;transition-duration:.001ms !important}
+    .reveal{opacity:1;transform:none}
+    .scroll-cue .line{animation:none}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===================== HEADER ===================== -->
+<header id="hdr">
+  <div class="bar">
+    <a href="#top" class="brand" aria-label="V2 Jets — home">
+      <img src="../assets/logo.png" alt="V2 Jets">
+    </a>
+    <nav class="primary" aria-label="Primary">
+      <a href="#fleet">The Aircraft</a>
+      <a href="#vault">V2 Vault</a>
+      <a href="#world">Charter</a>
+      <a href="#about">About Us</a>
+      <a href="#brief">The V2 Brief</a>
+      <a href="#safety">Safety</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="#portal" class="portal">Client Portal</a>
+      <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- mobile drawer -->
+<div class="mobile-nav" id="mobileNav" aria-hidden="true">
+  <a href="#fleet">The Aircraft</a>
+  <a href="#vault">V2 Vault</a>
+  <a href="#world">Charter</a>
+  <a href="#about">About Us</a>
+  <a href="#brief">The V2 Brief</a>
+  <a href="#safety">Safety</a>
+  <a href="#contact">Contact</a>
+  <a href="#portal" class="portal">Client Portal</a>
+</div>
+
+<a id="top"></a>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero" id="hero">
+  <div class="hero__img" role="img" aria-label="A private jet on the tarmac under a vast night sky"></div>
+  <video class="hero-bgvid" autoplay muted playsinline preload="auto" poster="../assets/plane-exterior.jpg" aria-hidden="true">
+    <source src="../assets/clips/01-departure-dusk.mp4" type="video/mp4">
+  </video>
+  <div class="hero__scrim"></div>
+  <div class="hero__stars"></div>
+
+  <div class="hero__inner">
+    <div class="hero__eyebrow">
+      <span class="tick"></span>
+      <span class="eyebrow">V2 Jets · Private Aviation</span>
+    </div>
+    <h1>Flying Is <em class="platinum">Transcending</em></h1>
+    <p class="hero__sub">With V2 Jets, flying isn't simply flying. Tap into a world where luxury is a lifestyle — and the skies are the limit.</p>
+    <div class="hero__actions">
+      <a href="#contact" class="btn btn--solid">Request a Charter <span class="arr">→</span></a>
+      <a href="#fleet" class="btn">Explore the Fleet <span class="arr">→</span></a>
+    </div>
+  </div>
+
+  <div class="hero__coords" aria-hidden="true">
+    40.7128° N · 74.0060° W<br>
+    Wheels-up · Anywhere
+  </div>
+
+  <div class="scroll-cue" aria-hidden="true">
+    <span>Scroll</span>
+    <span class="line"></span>
+  </div>
+</section>
+
+<!-- ===================== MANIFESTO ===================== -->
+<section class="sec manifesto" id="about">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="num">01</span><span class="lbl">The Philosophy</span>
+    </div>
+    <div class="manifesto-grid">
+      <p class="quote serif reveal">
+        Flying isn't simply flying. <span class="hi">Flying is transcending.</span> Tap into a world where luxury is a lifestyle.
+      </p>
+      <div class="tail reveal d1">
+        <p>V2 Jets was built for those who measure travel not in miles, but in moments. Every charter is composed to a single standard — yours — and delivered with the quiet precision of an aviation team that never sleeps.</p>
+        <p>This is the threshold between getting there and arriving. The world awaits, and the skies are the limit.</p>
+      </div>
+    </div>
+  </div>
+  <div class="wrap" style="margin-top:clamp(70px,10vh,120px)"><hr class="rule reveal"></div>
+</section>
+
+<!-- ===================== THE FLEET ===================== -->
+<section class="sec" id="fleet">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="num">02</span><span class="lbl">The Aircraft — Seven Tiers</span>
+    </div>
+
+    <div class="ledger" role="list">
+
+      <div class="fleet-row reveal" role="listitem">
+        <span class="tier-no">/ 01</span>
+        <div>
+          <span class="tier-name serif">Turbo Prop</span>
+          <span class="tier-desc">Short-hop efficiency into the airfields jets cannot reach.</span>
+        </div>
+        <div class="specs">1,300 nm range<span class="pax">Up to 8 guests</span></div>
+      </div>
+
+      <div class="fleet-row reveal" role="listitem">
+        <span class="tier-no">/ 02</span>
+        <div>
+          <span class="tier-name serif">Light Jet</span>
+          <span class="tier-desc">The agile workhorse for regional escapes and day trips.</span>
+        </div>
+        <div class="specs">1,900 nm range<span class="pax">Up to 7 guests</span></div>
+      </div>
+
+      <div class="fleet-row reveal" role="listitem">
+        <span class="tier-no">/ 03</span>
+        <div>
+          <span class="tier-name serif">Mid Size</span>
+          <span class="tier-desc">Stand-up cabins and coast-to-coast composure.</span>
+        </div>
+        <div class="specs">2,800 nm range<span class="pax">Up to 9 guests</span></div>
+      </div>
+
+      <div class="fleet-row reveal" role="listitem">
+        <span class="tier-no">/ 04</span>
+        <div>
+          <span class="tier-name serif">Super Mid</span>
+          <span class="tier-desc">More range, more cabin, transcontinental in a single leg.</span>
+        </div>
+        <div class="specs">3,600 nm range<span class="pax">Up to 10 guests</span></div>
+      </div>
+
+      <div class="fleet-row reveal" role="listitem">
+        <span class="tier-no">/ 05</span>
+        <div>
+          <span class="tier-name serif">Heavy Jet</span>
+          <span class="tier-desc">Full-service cabins, crew, and intercontinental reach.</span>
+        </div>
+        <div class="specs">4,800 nm range<span class="pax">Up to 14 guests</span></div>
+      </div>
+
+      <div class="fleet-row reveal" role="listitem">
+        <span class="tier-no">/ 06</span>
+        <div>
+          <span class="tier-name serif">Ultra Long Range</span>
+          <span class="tier-desc">Nonstop between continents — sleep in one time zone, wake in another.</span>
+        </div>
+        <div class="specs">7,500 nm range<span class="pax">Up to 16 guests</span></div>
+      </div>
+
+      <!-- FLAGSHIP -->
+      <div class="fleet-row fleet-row--flagship reveal" role="listitem">
+        <span class="tier-no">/ 07</span>
+        <div>
+          <span class="flagship-tag">Signature Tier — Obsidian</span>
+          <span class="tier-name serif">Obsidian</span>
+          <span class="tier-desc">The crown of the V2 fleet. A private flagship with bedroom suite, dedicated cabin crew, and a concierge that anticipates rather than responds. By invitation.</span>
+        </div>
+        <div class="specs">8,000 nm range<span class="pax">Bespoke configuration</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================== THE EXPERIENCE / CABIN ===================== -->
+<section class="sec" id="experience">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="num">03</span><span class="lbl">The Experience — On Board</span>
+    </div>
+
+    <div class="exp-grid">
+      <div class="plate plate--wide reveal">
+        <img src="../assets/interior-main.jpg" alt="V2 Jets cabin with cream leather club seating and wood veneer">
+      </div>
+      <div class="exp-copy reveal d1">
+        <h3>The cabin, composed for you.</h3>
+        <p>Step aboard and the world recedes. Hand-stitched leather, warm veneer, and light that softens at altitude — a private room in the sky, arranged before you arrive and reset between every flight.</p>
+        <p>Fly in absolute luxury. Nothing is standard, because you are not.</p>
+        <div class="exp-feats">
+          <div class="exp-feat"><span class="k">Cabin</span><span class="v"><strong>Curated to the guest</strong>Seating, lighting, sound, and provisioning set to your preference profile.</span></div>
+          <div class="exp-feat"><span class="k">Galley</span><span class="v"><strong>Dining without compromise</strong>Private-chef catering and a cellar sourced to your taste.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-second">
+      <div class="exp-grid">
+        <div class="exp-copy reveal">
+          <h3>A private suite at altitude.</h3>
+          <p>On Obsidian and select heavy aircraft, a true bedroom suite waits behind the cabin door — a full bed dressed in fine linen, ambient light, and the silence to actually rest. Land arrived, not exhausted.</p>
+          <p>Beyond the aircraft, a bespoke concierge handles the rest: ground transport, accommodation, and dining, arranged end to end.</p>
+          <div class="exp-feats">
+            <div class="exp-feat"><span class="k">Suite</span><span class="v"><strong>Sleep across the ocean</strong>Private bedroom, dressed and turned down before departure.</span></div>
+            <div class="exp-feat"><span class="k">Concierge</span><span class="v"><strong>The ground, handled</strong>Cars, residences, reservations — anticipated, not requested.</span></div>
+          </div>
+        </div>
+        <div class="plate plate--tall reveal d1">
+          <img src="../assets/interior-bedroom.jpg" alt="Private bedroom suite aboard a V2 Jets aircraft">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== THE WORLD AWAITS ===================== -->
+<section class="world sec" id="world">
+  <div class="world__bg" aria-hidden="true"></div>
+  <div class="world__scrim" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="sec-head reveal" style="justify-content:center;margin-bottom:clamp(28px,4vh,48px)">
+      <span class="lbl">Charter · Global</span>
+    </div>
+    <h2 class="reveal">The World Awaits</h2>
+    <p class="lead reveal d1">From a Tuesday board meeting to a coastline you've never seen — wheels-up in hours, anywhere a runway will take us. Take to the skies in style.</p>
+
+    <div class="dest-grid reveal d1">
+      <div class="dest"><span class="code">NYC → LHR</span><span class="city serif">London</span><span class="note">Nonstop · Heavy &amp; Ultra</span></div>
+      <div class="dest"><span class="code">LAX → HND</span><span class="city serif">Tokyo</span><span class="note">Obsidian · Suite</span></div>
+      <div class="dest"><span class="code">MIA → CDG</span><span class="city serif">Paris</span><span class="note">Overnight · Suite</span></div>
+      <div class="dest"><span class="code">JFK → DXB</span><span class="city serif">Dubai</span><span class="note">Ultra Long Range</span></div>
+      <div class="dest"><span class="code">SFO → SXM</span><span class="city serif">St. Maarten</span><span class="note">Super Mid</span></div>
+      <div class="dest"><span class="code">LON → MYK</span><span class="city serif">Mykonos</span><span class="note">Seasonal</span></div>
+      <div class="dest"><span class="code">TEB → ASE</span><span class="city serif">Aspen</span><span class="note">Light &amp; Mid</span></div>
+      <div class="dest"><span class="code">MIA → MLE</span><span class="city serif">Maldives</span><span class="note">Obsidian · Suite</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CINEMATIC INTERLUDE (scroll-scrubbed) ===================== -->
+<section class="scrub film-sec" id="ascent" aria-label="Ascent">
+  <div class="scrub__stage">
+    <video class="film" muted playsinline preload="auto" poster="../assets/hero-xl.jpg" aria-hidden="true">
+      <source src="../assets/clips/ascent.mp4" type="video/mp4">
+    </video>
+    <div class="film-sec__scrim" aria-hidden="true"></div>
+    <div class="scrub__cap film-sec__inner">
+      <div class="film-sec__eyebrow reveal">
+        <span class="tick"></span>
+        <span class="eyebrow">Wheels-Up · Ascent</span>
+      </div>
+      <h2 class="reveal d1">The Skies Are The Limit</h2>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== V2 VAULT ===================== -->
+<section class="sec vault" id="vault">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="num">04</span><span class="lbl">V2 Vault — Members Only</span>
+    </div>
+
+    <div class="vault-card reveal">
+      <div class="vault-grid">
+        <div>
+          <span class="vault-badge"><span class="dot"></span>Live Availability · Members Only</span>
+          <h3>The V2 Vault.</h3>
+          <p>A members' channel of curated availability and empty legs — premium aircraft positioning between charters, released to the few at a fraction of the spoken price.</p>
+          <p>When the right aircraft is in the right place at the right moment, the Vault tells you first. Members-only, and quietly the best value in private aviation.</p>
+          <a href="#portal" class="btn btn--ghost-fine" style="margin-top:14px">Enter the Vault <span class="arr">→</span></a>
+        </div>
+        <div>
+          <ul class="vault-list">
+            <li><span class="route serif">NYC → Palm Beach</span><span class="meta"><span class="live">Super Mid · Today</span><br>Empty leg</span></li>
+            <li><span class="route serif">Geneva → London</span><span class="meta"><span class="live">Heavy · 48h</span><br>Empty leg</span></li>
+            <li><span class="route serif">LA → Cabo</span><span class="meta"><span class="live">Mid · This wk</span><br>Curated</span></li>
+            <li><span class="route serif">Miami → Nassau</span><span class="meta"><span class="live">Light · Today</span><br>Empty leg</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="wrap" style="margin-top:clamp(70px,10vh,120px)"><hr class="rule reveal"></div>
+</section>
+
+<!-- ===================== CREDENTIALS ===================== -->
+<section class="creds" id="safety">
+  <div class="wrap" style="padding:0">
+    <div class="creds-grid">
+      <div class="cred reveal"><div class="val serif">24/7</div><div class="lab">Concierge</div></div>
+      <div class="cred reveal d1"><div class="val serif">Vetted</div><div class="lab">ARGUS / Wyvern Operators</div></div>
+      <div class="cred reveal d2"><div class="val serif">Global</div><div class="lab">Coverage</div></div>
+      <div class="cred reveal d3"><div class="val serif">Members</div><div class="lab">Only Availability</div></div>
+      <div class="cred reveal"><div class="val serif">5,000+</div><div class="lab">Aircraft Network</div></div>
+      <div class="cred reveal d1"><div class="val serif">Hours</div><div class="lab">Wheels-Up Notice</div></div>
+      <div class="cred reveal d2"><div class="val serif">Bespoke</div><div class="lab">Every Itinerary</div></div>
+      <div class="cred reveal d3"><div class="val serif">Absolute</div><div class="lab">Discretion</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FINAL CTA ===================== -->
+<section class="sec final" id="contact">
+  <div class="final__glow" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="sec-head reveal" style="justify-content:center;margin-bottom:clamp(24px,3.5vh,40px)">
+      <span class="lbl">The V2 Brief · Contact</span>
+    </div>
+    <h2 class="reveal">The World <em class="platinum serif" style="font-style:normal">Awaits</em></h2>
+    <p class="reveal d1">Tell us where, and when. The skies are the limit — and your charter is already being composed.</p>
+    <div class="actions reveal d1">
+      <a href="mailto:charter@v2jets.com" class="btn btn--solid">Request a Charter <span class="arr">→</span></a>
+      <a href="#portal" class="btn">Client Portal <span class="arr">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer id="brief">
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <img src="../assets/logo.png" alt="V2 Jets">
+        <p>Flying is transcending. Ultra-luxury private charter, aircraft management, and bespoke concierge — a world where luxury is a lifestyle.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Fleet</h4>
+        <a href="#fleet">Turbo Prop</a>
+        <a href="#fleet">Light · Mid · Super Mid</a>
+        <a href="#fleet">Heavy &amp; Ultra Long Range</a>
+        <a href="#fleet">Obsidian — Signature</a>
+      </div>
+      <div class="foot-col">
+        <h4>Services</h4>
+        <a href="#world">Private Charter</a>
+        <a href="#about">Aircraft Management</a>
+        <a href="#vault">V2 Vault</a>
+        <a href="#experience">Bespoke Concierge</a>
+      </div>
+      <div class="foot-col">
+        <h4>Company</h4>
+        <a href="#about">About Us</a>
+        <a href="#safety">Safety</a>
+        <a href="#brief">The V2 Brief</a>
+        <a href="mailto:charter@v2jets.com">Contact</a>
+        <a href="#portal">Client Portal</a>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <span class="fine">© 2026 V2 Jets. All rights reserved.</span>
+      <span class="legal">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#safety">Safety &amp; Compliance</a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* sticky header state */
+  var hdr = document.getElementById('hdr');
+  function onScroll(){
+    if(window.scrollY > 40){ hdr.classList.add('scrolled'); }
+    else{ hdr.classList.remove('scrolled'); }
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  /* mobile nav toggle */
+  var burger = document.getElementById('burger');
+  var mobileNav = document.getElementById('mobileNav');
+  function closeMenu(){
+    document.body.classList.remove('menu-open');
+    burger.setAttribute('aria-expanded','false');
+    mobileNav.setAttribute('aria-hidden','true');
+  }
+  burger.addEventListener('click', function(){
+    var open = document.body.classList.toggle('menu-open');
+    burger.setAttribute('aria-expanded', open ? 'true':'false');
+    mobileNav.setAttribute('aria-hidden', open ? 'false':'true');
+  });
+  mobileNav.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', closeMenu); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeMenu(); });
+
+  /* scroll reveal */
+  var revealEls = document.querySelectorAll('.reveal');
+  if(reduce || !('IntersectionObserver' in window)){
+    revealEls.forEach(function(el){ el.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, {threshold:0.12, rootMargin:'0px 0px -8% 0px'});
+    revealEls.forEach(function(el){ io.observe(el); });
+  }
+
+  /* ---- HERO video: play ONCE, then hold on the last frame (no loop, no restart) ---- */
+  var heroVid = document.querySelector('.hero-bgvid');
+  if(reduce){
+    /* reduced motion: never play — poster remains */
+    if(heroVid){ try{ heroVid.removeAttribute('autoplay'); heroVid.pause(); }catch(e){} }
+  } else if(heroVid){
+    heroVid.muted = true;
+    var hp = heroVid.play();
+    if(hp && hp.catch){ hp.catch(function(){}); }
+  }
+})();
+
+/* ---- INTERLUDE video: scroll-scrubbed (currentTime follows scroll) ---- */
+(function(){
+  const s=document.querySelector('.scrub'),v=s&&s.querySelector('video');
+  if(!s||!v)return;
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let target=0;
+  v.addEventListener('loadedmetadata',()=>v.pause());
+  function compute(){const r=s.getBoundingClientRect();const total=r.height-innerHeight;const p=Math.min(1,Math.max(0,-r.top/Math.max(1,total)));target=p*(v.duration||0);}
+  function tick(){if(v.duration){const cur=v.currentTime,next=cur+(target-cur)*0.2;if(Math.abs(target-cur)>0.01){if(v.fastSeek)v.fastSeek(Math.max(0,next));else v.currentTime=next;}}requestAnimationFrame(tick);}
+  if(!reduce){addEventListener('scroll',compute,{passive:true});addEventListener('resize',compute);compute();tick();}
+})();
+</script>
+
+<script>
+/* scrub hardening: back the sticky stage with the poster so it never flashes blank, and paint the first frame */
+(function(){
+  document.querySelectorAll('.scrub').forEach(function(s){
+    var v=s.querySelector('video'); if(!v) return;
+    var stage=s.querySelector('.scrub__stage')||v.parentElement;
+    var poster=v.getAttribute('poster');
+    if(poster && !stage.querySelector('.scrub__poster')){
+      var pd=document.createElement('div'); pd.className='scrub__poster';
+      var f=getComputedStyle(v).filter;
+      pd.style.cssText='position:absolute;inset:0;background:#0c0f13 url("'+poster+'") center/cover;'+(f&&f!=='none'?'filter:'+f+';':'');
+      stage.insertBefore(pd, stage.firstChild);
+    }
+    function paint(){ try{ v.fastSeek?v.fastSeek(0.05):(v.currentTime=0.05); }catch(e){} }
+    if(v.readyState>=2) paint(); else v.addEventListener('loadeddata',paint,{once:true});
+  });
+})();
+</script>
+</body>
+</html>

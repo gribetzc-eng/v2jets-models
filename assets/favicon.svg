@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="V2 Jets">
+  <rect width="48" height="48" rx="7" fill="#0A0A0C"/>
+  <path d="M10 13 L19 35 L28 13" fill="none" stroke="#F2F1EC" stroke-width="2.4" stroke-linecap="butt" stroke-linejoin="miter"/>
+  <text x="28" y="35" font-family="'Helvetica Neue',Arial,sans-serif" font-size="25" font-weight="300" letter-spacing="-1" fill="#F2F1EC">2</text>
+</svg>

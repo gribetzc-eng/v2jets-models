@@ -1,0 +1,1510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>V2 Jets — The Atelier Issue · Private Aviation</title>
+<meta name="description" content="V2 Jets — ultra-luxury private jet charter. With V2 Jets, flying isn't simply flying. Flying is transcending. Tap into a world where luxury is a lifestyle." />
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    /* ===== V2 STRICT BRAND KIT ===== */
+    --paper:#F2F0E9;
+    --paper-2:#E8E5DB;
+    --ink:#12161B;
+    --ink-soft:#5A6066;
+    --hair-tok:rgba(18,22,27,.14);
+    --noir:#0C0F13;
+    --noir-2:#14181D;
+    --on-noir:#F2F0E9;
+    --on-noir-soft:#9AA0A6;
+    --hair-d:rgba(242,240,233,.16);
+    --blue:#2E6E96;
+    --blue-2:#5FA3C9;
+    --navy:#13314B;
+    --font-display:'Jost',system-ui,sans-serif;
+    --font-body:'Inter',system-ui,sans-serif;
+    --font-mono:'JetBrains Mono',ui-monospace,monospace;
+
+    /* ===== legacy aliases mapped to kit (layout/feel unchanged) ===== */
+    --hair:var(--ink);
+    --paper-deep:var(--paper-2);
+    --muted:var(--ink-soft);
+    --serif:var(--font-display);   /* display: Jost (was Playfair) */
+    --grotesk:var(--font-body);    /* labels: Inter (was Archivo) */
+    --gutter:clamp(20px, 5vw, 88px);
+    --rule:1px solid var(--ink);
+    --hairthin:var(--hair-tok);
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--grotesk);
+    font-size:16px;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+  }
+  img{display:block;max-width:100%;}
+  a{color:inherit;text-decoration:none;}
+
+  ::selection{background:var(--blue);color:var(--paper);}
+
+  /* ---------- Typographic primitives ---------- */
+  .eyebrow{
+    font-family:var(--grotesk);
+    font-weight:600;
+    font-size:clamp(10px,1vw,11.5px);
+    letter-spacing:.34em;
+    text-transform:uppercase;
+    line-height:1.4;
+  }
+  .label{
+    font-family:var(--grotesk);
+    font-weight:600;
+    font-size:clamp(10px,.9vw,11px);
+    letter-spacing:.28em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+  .accent{color:var(--blue);}
+  .serif{font-family:var(--serif);}
+  .caption{
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:clamp(12px,1.15vw,14px);
+    color:var(--muted);
+    letter-spacing:.01em;
+  }
+  .numeral{
+    font-family:var(--serif);
+    font-weight:500;
+    font-variant-numeric:lining-nums;
+    color:var(--blue);
+    line-height:.9;
+  }
+
+  /* ---------- Layout shell ---------- */
+  .wrap{
+    max-width:1440px;
+    margin:0 auto;
+    padding:0 var(--gutter);
+  }
+  .section{position:relative;}
+  .section-rule{border-top:var(--rule);}
+
+  .section-marker{
+    display:flex;
+    align-items:baseline;
+    gap:clamp(14px,2vw,26px);
+    padding:clamp(28px,4vw,52px) 0 clamp(20px,3vw,34px);
+    flex-wrap:wrap;
+  }
+  .section-marker .sig{
+    font-family:var(--serif);
+    font-size:clamp(13px,1.3vw,15px);
+    letter-spacing:.06em;
+    color:var(--ink);
+    font-weight:600;
+  }
+  .section-marker .sig em{font-style:italic;color:var(--blue);font-weight:600;}
+  .section-marker .lead{
+    margin-left:auto;
+    max-width:34ch;
+    font-size:clamp(12.5px,1.05vw,14px);
+    color:var(--muted);
+    line-height:1.55;
+  }
+
+  /* =========================================================
+     HEADER
+  ========================================================= */
+  header.site{
+    position:fixed;
+    top:0;left:0;right:0;
+    z-index:120;
+    transition:background .4s ease, box-shadow .4s ease, border-color .4s ease;
+    border-bottom:1px solid transparent;
+  }
+  header.site .bar{
+    max-width:1440px;
+    margin:0 auto;
+    padding:clamp(14px,1.6vw,20px) var(--gutter);
+    display:flex;
+    align-items:center;
+    gap:24px;
+  }
+  header.site .brand img{
+    height:clamp(20px,2vw,26px);
+    width:auto;
+    transition:opacity .3s ease;
+  }
+  header.site nav.primary{
+    margin-left:auto;
+    display:flex;
+    align-items:center;
+    gap:clamp(16px,1.7vw,30px);
+  }
+  header.site nav.primary a{
+    font-family:var(--grotesk);
+    font-weight:500;
+    font-size:11px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--ink);
+    position:relative;
+    padding:4px 0;
+    white-space:nowrap;
+  }
+  header.site nav.primary a::after{
+    content:"";
+    position:absolute;left:0;bottom:-1px;
+    width:0;height:1px;background:var(--blue);
+    transition:width .3s ease;
+  }
+  header.site nav.primary a:hover::after{width:100%;}
+  .portal-btn{
+    font-family:var(--grotesk);
+    font-weight:600;
+    font-size:11px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    border:1px solid var(--ink);
+    padding:9px 16px;
+    color:var(--ink);
+    transition:background .3s ease,color .3s ease;
+    white-space:nowrap;
+  }
+  .portal-btn:hover{background:var(--ink);color:var(--paper);}
+
+  /* scrolled state */
+  header.site.scrolled{
+    background:var(--paper);
+    border-bottom-color:var(--ink);
+  }
+  /* over-hero (transparent) state still uses ink because hero bg is paper */
+
+  .nav-toggle{
+    display:none;
+    margin-left:auto;
+    width:42px;height:34px;
+    background:none;border:1px solid var(--ink);
+    cursor:pointer;position:relative;
+    padding:0;
+  }
+  .nav-toggle span{
+    position:absolute;left:9px;right:9px;height:1.5px;background:var(--ink);
+    transition:transform .3s ease,opacity .3s ease;
+  }
+  .nav-toggle span:nth-child(1){top:12px;}
+  .nav-toggle span:nth-child(2){top:16.5px;}
+  .nav-toggle span:nth-child(3){top:21px;}
+  body.menu-open .nav-toggle span:nth-child(1){transform:translateY(4.5px) rotate(45deg);}
+  body.menu-open .nav-toggle span:nth-child(2){opacity:0;}
+  body.menu-open .nav-toggle span:nth-child(3){transform:translateY(-4.5px) rotate(-45deg);}
+
+  /* =========================================================
+     HERO
+  ========================================================= */
+  .hero{
+    padding-top:clamp(96px,11vw,150px);
+    padding-bottom:0;
+  }
+  .hero-top{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:18px;
+    padding-bottom:clamp(18px,2.4vw,30px);
+    border-bottom:var(--rule);
+    flex-wrap:wrap;
+  }
+  .hero-issue{
+    font-family:var(--grotesk);
+    font-weight:600;
+    font-size:clamp(10px,1vw,12px);
+    letter-spacing:.3em;
+    text-transform:uppercase;
+  }
+  .hero-issue .accent{font-style:normal;}
+  .hero-date{
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:clamp(12px,1.1vw,14px);
+    color:var(--muted);
+  }
+
+  .hero-split{
+    display:grid;
+    grid-template-columns:1.05fr 0.95fr;
+    gap:0;
+    align-items:stretch;
+  }
+  .hero-words{
+    padding:clamp(26px,4vw,60px) clamp(20px,3vw,52px) clamp(26px,4vw,54px) 0;
+    border-right:var(--rule);
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+  }
+  .hero-headline{
+    font-family:var(--serif);
+    font-weight:500;
+    line-height:.92;
+    letter-spacing:-.015em;
+    font-size:clamp(52px,9.2vw,150px);
+    margin:0;
+  }
+  .hero-headline .it{font-style:italic;font-weight:500;}
+  .hero-headline .line{display:block;}
+  .hero-sub{
+    margin-top:clamp(24px,3vw,40px);
+    max-width:46ch;
+    font-size:clamp(14px,1.15vw,16.5px);
+    line-height:1.65;
+    color:var(--ink);
+  }
+  .hero-sub .lede{color:var(--muted);}
+  .hero-cta{
+    margin-top:clamp(26px,3vw,40px);
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+  .btn{
+    font-family:var(--grotesk);
+    font-weight:600;
+    font-size:12px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    padding:15px 26px;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    cursor:pointer;
+    transition:background .3s ease,color .3s ease,border-color .3s ease;
+  }
+  .btn-primary{background:var(--ink);color:var(--paper);border:1px solid var(--ink);}
+  .btn-primary:hover{background:var(--blue);border-color:var(--blue);}
+  .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--ink);}
+  .btn-ghost:hover{background:var(--ink);color:var(--paper);}
+  .btn .arrow{transition:transform .3s ease;}
+  .btn:hover .arrow{transform:translateX(4px);}
+
+  .hero-plate{
+    position:relative;
+    overflow:hidden;
+    min-height:clamp(420px,62vh,720px);
+  }
+  .hero-plate img{
+    width:100%;height:100%;
+    object-fit:cover;
+    object-position:center 30%;
+    filter:grayscale(8%) contrast(1.03);
+  }
+  .hero-plate .hero-plate-vid{
+    position:absolute;inset:0;
+    width:100%;height:100%;
+    object-fit:cover;
+    object-position:center 30%;
+    filter:grayscale(100%) contrast(1.05);
+  }
+  .hero-plate .plate-cap{
+    position:absolute;
+    left:clamp(14px,1.6vw,22px);
+    bottom:clamp(14px,1.6vw,22px);
+    background:var(--paper);
+    padding:8px 14px;
+    border:1px solid var(--ink);
+  }
+  .hero-plate .plate-cap .caption{display:block;}
+  .hero-plate .plate-index{
+    position:absolute;
+    top:clamp(14px,1.6vw,22px);
+    right:clamp(14px,1.6vw,22px);
+    font-family:var(--serif);
+    font-weight:500;
+    font-size:clamp(30px,4vw,58px);
+    color:var(--paper);
+    mix-blend-mode:difference;
+    line-height:.8;
+  }
+
+  .hero-foot{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:18px;
+    padding:clamp(16px,1.8vw,22px) 0;
+    border-top:var(--rule);
+    border-bottom:var(--rule);
+    flex-wrap:wrap;
+  }
+  .hero-foot .ticker{
+    font-family:var(--grotesk);
+    font-weight:500;
+    font-size:11px;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+    color:var(--muted);
+    display:flex;
+    gap:clamp(14px,2vw,30px);
+    flex-wrap:wrap;
+  }
+  .hero-foot .ticker b{color:var(--ink);font-weight:600;}
+  .hero-foot .scroll-note{
+    font-family:var(--serif);font-style:italic;color:var(--blue);font-size:13px;
+  }
+
+  /* =========================================================
+     MANIFESTO
+  ========================================================= */
+  .manifesto{padding:clamp(64px,9vw,140px) 0 clamp(56px,8vw,120px);}
+  .manifesto .grid{
+    display:grid;
+    grid-template-columns:minmax(0,2.6fr) minmax(0,1fr);
+    gap:clamp(24px,4vw,64px);
+    align-items:start;
+  }
+  .manifesto-quote{
+    font-family:var(--serif);
+    font-weight:500;
+    line-height:1.04;
+    letter-spacing:-.012em;
+    font-size:clamp(34px,5.8vw,92px);
+    margin:0;
+  }
+  .manifesto-quote .it{font-style:italic;}
+  .manifesto-quote .q{color:var(--blue);font-weight:600;}
+  .manifesto-aside{
+    padding-top:clamp(8px,1vw,16px);
+    border-top:2px solid var(--navy);
+  }
+  .manifesto-aside p{
+    font-size:clamp(13.5px,1.1vw,15.5px);
+    line-height:1.7;
+    color:var(--ink);
+    margin:0 0 16px;
+  }
+  .manifesto-aside p.muted{color:var(--muted);}
+  .manifesto-aside .sigline{
+    margin-top:22px;
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:15px;
+    color:var(--muted);
+  }
+
+  /* =========================================================
+     THE FLEET (indexed table)
+  ========================================================= */
+  .fleet{padding-bottom:clamp(40px,5vw,72px);}
+  .fleet-table{border-top:var(--rule);}
+  .fleet-row{
+    display:grid;
+    grid-template-columns:clamp(70px,9vw,140px) minmax(0,1fr) minmax(0,1.4fr) clamp(90px,11vw,170px);
+    align-items:center;
+    gap:clamp(12px,2vw,32px);
+    padding:clamp(20px,2.8vw,38px) 0;
+    border-bottom:var(--rule);
+    position:relative;
+    transition:background .35s ease, padding-left .35s ease, padding-right .35s ease;
+  }
+  .fleet-row:hover{background:var(--paper-deep);}
+  .fleet-row .f-num{
+    font-family:var(--serif);
+    font-weight:500;
+    font-size:clamp(26px,3.4vw,50px);
+    color:var(--blue);
+    line-height:.85;
+  }
+  .fleet-row .f-name{
+    font-family:var(--serif);
+    font-weight:600;
+    font-size:clamp(24px,3.5vw,52px);
+    line-height:.98;
+    letter-spacing:-.01em;
+  }
+  .fleet-row .f-desc{
+    font-size:clamp(12.5px,1.05vw,14.5px);
+    line-height:1.55;
+    color:var(--muted);
+    max-width:46ch;
+  }
+  .fleet-row .f-spec{
+    font-family:var(--grotesk);
+    font-weight:600;
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--ink);
+    text-align:right;
+  }
+  .fleet-row .f-spec span{display:block;color:var(--muted);font-weight:500;font-size:10.5px;margin-top:3px;letter-spacing:.1em;}
+
+  /* Obsidian featured spread */
+  .obsidian{
+    position:relative;
+    background:var(--ink);
+    color:var(--paper);
+    margin-top:clamp(40px,5vw,72px);
+    border-top:2px solid var(--navy);
+    overflow:hidden;
+  }
+  .obsidian .ob-grid{
+    display:grid;
+    grid-template-columns:1.1fr 1fr;
+    min-height:clamp(440px,58vh,680px);
+  }
+  .obsidian .ob-words{
+    padding:clamp(34px,5vw,72px) clamp(24px,4vw,64px);
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    gap:24px;
+  }
+  .obsidian .ob-tag{
+    font-family:var(--grotesk);
+    font-weight:600;
+    font-size:11px;
+    letter-spacing:.3em;
+    text-transform:uppercase;
+    color:rgba(250,250,248,.6);
+  }
+  .obsidian .ob-tag .star{color:var(--paper);}
+  .obsidian .ob-num{
+    font-family:var(--serif);
+    font-weight:500;
+    font-size:clamp(48px,7vw,120px);
+    line-height:.8;
+    color:var(--paper);
+  }
+  .obsidian .ob-num small{
+    display:block;
+    font-family:var(--grotesk);
+    font-weight:600;
+    font-size:11px;
+    letter-spacing:.3em;
+    color:rgba(250,250,248,.5);
+    margin-top:12px;
+  }
+  .obsidian h3{
+    font-family:var(--serif);
+    font-weight:500;
+    font-size:clamp(40px,5.6vw,86px);
+    line-height:.94;
+    letter-spacing:-.015em;
+    margin:0;
+  }
+  .obsidian h3 .it{font-style:italic;font-weight:500;}
+  .obsidian .ob-pull{
+    font-family:var(--serif);
+    font-style:italic;
+    font-weight:400;
+    font-size:clamp(17px,1.7vw,24px);
+    line-height:1.4;
+    max-width:34ch;
+    color:rgba(250,250,248,.92);
+  }
+  .obsidian .ob-pull .q{color:var(--blue);font-style:normal;font-weight:600;}
+  .obsidian .ob-meta{
+    display:flex;
+    gap:clamp(20px,3vw,44px);
+    flex-wrap:wrap;
+    border-top:1px solid rgba(250,250,248,.2);
+    padding-top:22px;
+  }
+  .obsidian .ob-meta div{min-width:90px;}
+  .obsidian .ob-meta .k{
+    font-family:var(--grotesk);font-weight:600;font-size:10px;letter-spacing:.2em;
+    text-transform:uppercase;color:rgba(250,250,248,.5);
+  }
+  .obsidian .ob-meta .v{font-family:var(--serif);font-size:clamp(18px,1.6vw,24px);margin-top:6px;}
+  .obsidian .ob-img{
+    position:relative;overflow:hidden;
+  }
+  .obsidian .ob-img img{
+    width:100%;height:100%;object-fit:cover;
+    filter:grayscale(100%) contrast(1.08) brightness(.78);
+  }
+  .obsidian .ob-img::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(110deg, rgba(10,10,10,.55), rgba(10,10,10,0) 45%);
+  }
+  .obsidian .ob-img .ob-cap{
+    position:absolute;bottom:clamp(14px,1.6vw,22px);right:clamp(14px,1.6vw,22px);
+    font-family:var(--serif);font-style:italic;font-size:13px;color:var(--paper);
+    z-index:2;
+  }
+
+  /* =========================================================
+     THE CABIN / EXPERIENCE
+  ========================================================= */
+  .cabin{padding-bottom:clamp(40px,5vw,72px);}
+  .cabin-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0;
+    border-top:var(--rule);
+  }
+  .plate{
+    position:relative;
+    overflow:hidden;
+  }
+  .plate.tall{grid-row:span 2;}
+  .plate img{
+    width:100%;height:100%;object-fit:cover;
+    filter:grayscale(4%) contrast(1.02);
+    transition:transform 1.1s cubic-bezier(.2,.7,.2,1);
+  }
+  .plate:hover img{transform:scale(1.04);}
+  .plate .plate-tag{
+    position:absolute;left:0;bottom:0;
+    background:var(--paper);
+    border-top:1px solid var(--ink);
+    border-right:1px solid var(--ink);
+    padding:9px 16px;
+  }
+  .plate .plate-tag .caption{display:block;}
+  .cabin-text{
+    padding:clamp(28px,3.5vw,52px);
+    background:var(--paper);
+    border-right:var(--rule);
+    border-bottom:var(--rule);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:18px;
+  }
+  .cabin-text .knum{
+    font-family:var(--serif);font-weight:500;font-size:clamp(30px,4vw,60px);color:var(--blue);line-height:.8;
+  }
+  .cabin-text h3{
+    font-family:var(--serif);font-weight:500;
+    font-size:clamp(26px,3.4vw,46px);line-height:1;letter-spacing:-.01em;margin:0;
+  }
+  .cabin-text h3 .it{font-style:italic;font-weight:500;}
+  .cabin-text p{font-size:clamp(13px,1.05vw,15px);line-height:1.7;color:var(--muted);margin:0;max-width:42ch;}
+  .cabin-feats{
+    list-style:none;padding:0;margin:6px 0 0;
+    display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;
+  }
+  .cabin-feats li{
+    font-family:var(--grotesk);font-weight:500;font-size:11.5px;letter-spacing:.06em;
+    text-transform:uppercase;color:var(--ink);
+    padding-left:16px;position:relative;
+  }
+  .cabin-feats li::before{
+    content:"";position:absolute;left:0;top:6px;width:7px;height:7px;
+    border:1px solid var(--blue);
+  }
+
+  /* =========================================================
+     THE WORLD AWAITS — destinations
+  ========================================================= */
+  .world{padding-bottom:clamp(48px,6vw,90px);}
+  .world-head{
+    display:grid;
+    grid-template-columns:1.4fr 1fr;
+    gap:clamp(24px,4vw,60px);
+    align-items:end;
+    padding-bottom:clamp(28px,4vw,52px);
+    border-bottom:var(--rule);
+  }
+  .world-head h2{
+    font-family:var(--serif);font-weight:500;
+    font-size:clamp(44px,8vw,128px);line-height:.9;letter-spacing:-.02em;margin:0;
+  }
+  .world-head h2 .it{font-style:italic;font-weight:500;}
+  .world-head p{
+    font-size:clamp(13px,1.1vw,15.5px);line-height:1.7;color:var(--muted);margin:0 0 6px;max-width:38ch;
+  }
+  .dest-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+  }
+  .dest{
+    padding:clamp(22px,2.6vw,34px) clamp(14px,1.5vw,22px) clamp(22px,2.6vw,34px) 0;
+    border-bottom:var(--rule);
+    border-right:1px solid var(--hairthin);
+  }
+  .dest:nth-child(4n){border-right:none;}
+  .dest .d-num{
+    font-family:var(--serif);font-size:13px;color:var(--blue);font-weight:600;letter-spacing:.04em;
+  }
+  .dest .d-city{
+    font-family:var(--serif);font-weight:600;font-size:clamp(20px,2.2vw,30px);line-height:1.02;margin:10px 0 4px;
+  }
+  .dest .d-route{
+    font-family:var(--grotesk);font-weight:500;font-size:10.5px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--muted);
+  }
+  .dest .d-time{
+    margin-top:14px;font-family:var(--serif);font-style:italic;font-size:13px;color:var(--ink);
+  }
+
+  /* =========================================================
+     CINEMATIC INTERLUDE — scroll-scrubbed plate
+  ========================================================= */
+  .scrub{position:relative;height:220vh;}
+  .scrub__stage{
+    position:sticky;top:0;height:100vh;
+    overflow:hidden;
+    background:var(--noir);
+    color:var(--on-noir);
+    display:flex;
+    align-items:flex-end;
+    border-top:2px solid var(--navy);
+    border-bottom:2px solid var(--navy);
+  }
+  .film{
+    position:absolute;inset:0;
+    width:100%;height:100%;
+    object-fit:cover;
+    filter:grayscale(100%) contrast(1.05);
+    z-index:0;
+  }
+  .scrub__stage::after{
+    content:"";position:absolute;inset:0;z-index:1;
+    background:linear-gradient(to top, rgba(10,10,10,.78), rgba(10,10,10,.18) 52%, rgba(10,10,10,.40));
+  }
+  .scrub__cap{
+    position:relative;z-index:2;
+    width:100%;
+    max-width:1440px;
+    margin:0 auto;
+    padding:clamp(34px,6vw,90px) var(--gutter) clamp(34px,5vw,72px);
+  }
+  .interlude .il-cap{
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:clamp(12px,1.15vw,14px);
+    letter-spacing:.02em;
+    color:rgba(250,250,248,.72);
+    border-top:1px solid rgba(250,250,248,.28);
+    padding-top:14px;
+    margin:0 0 clamp(18px,2.4vw,30px);
+    max-width:34ch;
+  }
+  .interlude .il-quote{
+    font-family:var(--serif);
+    font-weight:500;
+    line-height:1.02;
+    letter-spacing:-.014em;
+    font-size:clamp(40px,7.4vw,120px);
+    margin:0;
+    max-width:14ch;
+    color:var(--paper);
+  }
+  .interlude .il-quote .it{font-style:italic;font-weight:500;}
+  .interlude .il-quote .q{color:var(--blue);font-weight:600;}
+
+  /* =========================================================
+     V2 VAULT teaser
+  ========================================================= */
+  .vault{
+    background:var(--ink);color:var(--paper);
+    border-top:2px solid var(--navy);
+  }
+  .vault .wrap{padding-top:clamp(56px,7vw,110px);padding-bottom:clamp(56px,7vw,110px);}
+  .vault-grid{
+    display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(28px,5vw,80px);align-items:center;
+  }
+  .vault-left .label{color:rgba(250,250,248,.55);}
+  .vault-left .vnum{
+    font-family:var(--serif);font-weight:500;font-size:clamp(60px,9vw,150px);
+    color:var(--blue);line-height:.8;margin:14px 0 0;
+  }
+  .vault-left .vnum small{
+    display:block;font-family:var(--grotesk);font-weight:600;font-size:11px;
+    letter-spacing:.3em;text-transform:uppercase;color:rgba(250,250,248,.5);margin-top:18px;
+  }
+  .vault-right h2{
+    font-family:var(--serif);font-weight:500;font-size:clamp(34px,4.6vw,72px);
+    line-height:.98;letter-spacing:-.01em;margin:0;
+  }
+  .vault-right h2 .it{font-style:italic;font-weight:500;}
+  .vault-right h2 .q{color:var(--blue);}
+  .vault-right p{
+    font-size:clamp(13.5px,1.1vw,16px);line-height:1.7;color:rgba(250,250,248,.78);
+    margin:22px 0 0;max-width:50ch;
+  }
+  .vault-list{
+    margin:30px 0 0;border-top:1px solid rgba(250,250,248,.2);
+  }
+  .vault-list .vl-row{
+    display:flex;align-items:baseline;justify-content:space-between;gap:18px;
+    padding:16px 0;border-bottom:1px solid rgba(250,250,248,.16);
+  }
+  .vault-list .vl-route{font-family:var(--serif);font-size:clamp(16px,1.5vw,21px);}
+  .vault-list .vl-route em{font-style:italic;color:rgba(250,250,248,.7);font-size:.78em;margin-left:8px;}
+  .vault-list .vl-tag{
+    font-family:var(--grotesk);font-weight:600;font-size:10px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--blue);white-space:nowrap;
+  }
+  .vault-cta{margin-top:34px;}
+  .btn-vault{
+    background:var(--paper);color:var(--ink);border:1px solid var(--paper);
+  }
+  .btn-vault:hover{background:transparent;color:var(--paper);}
+
+  /* =========================================================
+     CREDENTIALS / TRUST
+  ========================================================= */
+  .trust{padding:clamp(56px,7vw,110px) 0 clamp(40px,5vw,72px);}
+  .trust-head{
+    display:flex;align-items:baseline;justify-content:space-between;gap:18px;flex-wrap:wrap;
+    border-bottom:var(--rule);padding-bottom:clamp(20px,2.6vw,34px);
+  }
+  .trust-head h2{
+    font-family:var(--serif);font-weight:600;font-size:clamp(26px,3.4vw,48px);
+    line-height:1;letter-spacing:-.01em;margin:0;
+  }
+  .trust-head h2 .it{font-style:italic;}
+  .trust-head .label{max-width:30ch;text-align:right;}
+  .trust-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);
+  }
+  .stat{
+    padding:clamp(28px,3.4vw,48px) clamp(14px,1.6vw,24px) clamp(24px,3vw,38px) 0;
+    border-bottom:var(--rule);border-right:1px solid var(--hairthin);
+  }
+  .stat:nth-child(4n){border-right:none;}
+  .stat .s-fig{
+    font-family:var(--serif);font-weight:600;font-size:clamp(40px,5.4vw,82px);
+    line-height:.86;letter-spacing:-.02em;
+  }
+  .stat .s-fig sup{font-size:.42em;color:var(--blue);font-weight:600;top:-1.1em;}
+  .stat .s-fig .small{font-size:.4em;}
+  .stat .s-lab{
+    margin-top:14px;font-family:var(--grotesk);font-weight:600;font-size:11px;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--ink);
+  }
+  .stat .s-sub{margin-top:6px;font-size:12px;line-height:1.5;color:var(--muted);max-width:24ch;}
+
+  .cert-strip{
+    display:flex;flex-wrap:wrap;gap:clamp(14px,2vw,34px);align-items:center;
+    padding:clamp(26px,3vw,40px) 0;border-bottom:var(--rule);
+  }
+  .cert-strip .cert{
+    font-family:var(--grotesk);font-weight:600;font-size:11px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--muted);
+    display:flex;align-items:center;gap:10px;
+  }
+  .cert-strip .cert::before{content:"§";font-family:var(--serif);color:var(--blue);font-style:italic;}
+
+  /* =========================================================
+     FINAL CTA
+  ========================================================= */
+  .finale{padding:clamp(72px,10vw,150px) 0;text-align:center;}
+  .finale .eyebrow{color:var(--muted);}
+  .finale h2{
+    font-family:var(--serif);font-weight:500;
+    font-size:clamp(46px,10vw,168px);line-height:.86;letter-spacing:-.02em;
+    margin:clamp(18px,2.4vw,30px) 0 0;
+  }
+  .finale h2 .it{font-style:italic;font-weight:500;}
+  .finale .sub{
+    margin:clamp(24px,3vw,40px) auto 0;max-width:46ch;
+    font-size:clamp(14px,1.1vw,16px);line-height:1.7;color:var(--muted);
+  }
+  .finale .finale-cta{
+    margin-top:clamp(28px,3.4vw,44px);display:flex;gap:14px;justify-content:center;flex-wrap:wrap;
+  }
+
+  /* =========================================================
+     FOOTER
+  ========================================================= */
+  footer.site{
+    background:var(--ink);color:var(--paper);
+  }
+  footer.site .wrap{padding-top:clamp(56px,6vw,90px);padding-bottom:clamp(34px,4vw,52px);}
+  .foot-top{
+    display:grid;
+    grid-template-columns:1.6fr 1fr 1fr 1fr;
+    gap:clamp(24px,3vw,48px);
+    padding-bottom:clamp(40px,5vw,64px);
+    border-bottom:1px solid rgba(250,250,248,.2);
+  }
+  .foot-brand img{height:26px;width:auto;margin-bottom:22px;filter:brightness(0) invert(1);}
+  .foot-brand p{
+    font-size:clamp(13px,1.05vw,15px);line-height:1.7;color:rgba(250,250,248,.7);max-width:34ch;margin:0;
+  }
+  .foot-brand .fb-tag{
+    font-family:var(--serif);font-style:italic;font-size:clamp(16px,1.5vw,20px);
+    color:var(--paper);margin-top:20px;
+  }
+  .foot-brand .fb-tag .q{color:var(--blue);font-style:normal;}
+  .foot-col h4{
+    font-family:var(--grotesk);font-weight:600;font-size:11px;letter-spacing:.2em;
+    text-transform:uppercase;color:rgba(250,250,248,.5);margin:0 0 18px;
+  }
+  .foot-col ul{list-style:none;margin:0;padding:0;}
+  .foot-col li{margin-bottom:11px;}
+  .foot-col a{
+    font-size:13.5px;color:rgba(250,250,248,.85);letter-spacing:.01em;
+    transition:color .25s ease;
+  }
+  .foot-col a:hover{color:var(--blue);}
+  .foot-col .contact-line{font-size:13.5px;color:rgba(250,250,248,.85);margin-bottom:9px;}
+  .foot-col .contact-line b{color:var(--paper);font-weight:600;}
+  .foot-bottom{
+    display:flex;align-items:center;justify-content:space-between;gap:18px;
+    padding-top:clamp(22px,2.6vw,30px);flex-wrap:wrap;
+  }
+  .foot-bottom .copy{
+    font-family:var(--grotesk);font-size:11px;letter-spacing:.1em;
+    text-transform:uppercase;color:rgba(250,250,248,.55);
+  }
+  .foot-bottom .colophon{
+    font-family:var(--serif);font-style:italic;font-size:13px;color:rgba(250,250,248,.6);
+  }
+  .foot-bottom .colophon .accent{color:var(--blue);font-style:normal;}
+
+  /* =========================================================
+     SCROLL REVEAL
+  ========================================================= */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1);}
+  .reveal.in{opacity:1;transform:none;}
+  .reveal.d1{transition-delay:.08s;}
+  .reveal.d2{transition-delay:.16s;}
+  .reveal.d3{transition-delay:.24s;}
+
+  /* =========================================================
+     RESPONSIVE
+  ========================================================= */
+  @media (max-width:1080px){
+    .foot-top{grid-template-columns:1.4fr 1fr 1fr;}
+    .foot-brand{grid-column:1 / -1;}
+  }
+  @media (max-width:900px){
+    header.site nav.primary{
+      position:fixed;
+      top:0;right:0;
+      height:100vh;width:min(82vw,380px);
+      background:var(--paper);
+      border-left:1px solid var(--ink);
+      flex-direction:column;
+      align-items:flex-start;
+      justify-content:center;
+      gap:24px;
+      padding:0 36px;
+      transform:translateX(100%);
+      transition:transform .45s cubic-bezier(.2,.7,.2,1);
+      margin-left:0;
+    }
+    body.menu-open header.site nav.primary{transform:translateX(0);}
+    header.site nav.primary a{font-size:16px;letter-spacing:.1em;}
+    .portal-btn{font-size:13px;padding:13px 22px;}
+    header.site.scrolled, header.site{background:var(--paper);}
+    header.site{border-bottom-color:var(--hairthin);}
+    .nav-toggle{display:block;z-index:130;}
+
+    .hero-split{grid-template-columns:1fr;}
+    .hero-words{border-right:none;border-bottom:var(--rule);padding-right:0;}
+    .hero-plate{min-height:clamp(360px,52vh,520px);}
+
+    .manifesto .grid{grid-template-columns:1fr;}
+    .obsidian .ob-grid{grid-template-columns:1fr;}
+    .obsidian .ob-img{min-height:340px;order:-1;}
+
+    .cabin-grid{grid-template-columns:1fr;}
+    .plate.tall{grid-row:auto;}
+    .cabin-text{border-right:none;}
+
+    .world-head{grid-template-columns:1fr;align-items:start;gap:16px;}
+    .dest-grid{grid-template-columns:1fr 1fr;}
+    .dest:nth-child(4n){border-right:1px solid var(--hairthin);}
+    .dest:nth-child(2n){border-right:none;}
+
+    .vault-grid{grid-template-columns:1fr;gap:28px;}
+    .trust-grid{grid-template-columns:1fr 1fr;}
+    .stat:nth-child(4n){border-right:1px solid var(--hairthin);}
+    .stat:nth-child(2n){border-right:none;}
+    .foot-top{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:560px){
+    :root{--gutter:18px;}
+    .fleet-row{
+      grid-template-columns:48px 1fr;
+      grid-template-areas:"num name" ". desc" ". spec";
+      gap:8px 14px;
+      row-gap:10px;
+    }
+    .fleet-row .f-num{grid-area:num;align-self:start;}
+    .fleet-row .f-name{grid-area:name;}
+    .fleet-row .f-desc{grid-area:desc;}
+    .fleet-row .f-spec{grid-area:spec;text-align:left;}
+    .dest-grid{grid-template-columns:1fr;}
+    .dest{border-right:none !important;}
+    .trust-grid{grid-template-columns:1fr;}
+    .stat{border-right:none !important;}
+    .foot-top{grid-template-columns:1fr;}
+    .hero-cta .btn,.finale-cta .btn{flex:1 1 auto;justify-content:center;}
+    .section-marker .lead{margin-left:0;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *,*::before,*::after{
+      animation-duration:.001ms !important;
+      transition-duration:.001ms !important;
+      scroll-behavior:auto !important;
+    }
+    .reveal{opacity:1;transform:none;}
+    .plate:hover img{transform:none;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================== HEADER ============================== -->
+<header class="site" id="siteHeader">
+  <div class="bar">
+    <a class="brand" href="#top" aria-label="V2 Jets — home">
+      <img src="../assets/logo-ink.png" alt="V2 Jets" />
+    </a>
+    <nav class="primary" id="primaryNav" aria-label="Primary">
+      <a href="#fleet">The Aircraft</a>
+      <a href="#vault">V2 Vault</a>
+      <a href="#world">Charter</a>
+      <a href="#manifesto">About Us</a>
+      <a href="#trust">The V2 Brief</a>
+      <a href="#trust">Safety</a>
+      <a href="#contact">Contact</a>
+      <a class="portal-btn" href="#contact">Client Portal</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="primaryNav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ============================== HERO ============================== -->
+  <section class="hero">
+    <div class="wrap">
+
+      <div class="hero-top reveal">
+        <div class="hero-issue">Issue Nº 01 · <span class="accent">Private Aviation</span></div>
+        <div class="hero-date">The Atelier Edition — MMXXVI</div>
+      </div>
+
+      <div class="hero-split">
+        <div class="hero-words reveal">
+          <div>
+            <p class="eyebrow accent" style="margin:0 0 clamp(20px,3vw,40px);">§ Cover — The World Awaits</p>
+            <h1 class="hero-headline">
+              <span class="line">Flying Is</span>
+              <span class="line"><span class="it">Transcending</span></span>
+            </h1>
+          </div>
+          <div>
+            <p class="hero-sub">
+              With V2 Jets, flying isn't simply flying. <span class="lede">Tap into a world where luxury is a lifestyle — a private fleet, a single standard, and the skies arranged entirely around you.</span>
+            </p>
+            <div class="hero-cta">
+              <a class="btn btn-primary" href="#contact">Request a Charter <span class="arrow">→</span></a>
+              <a class="btn btn-ghost" href="#fleet">Explore the Fleet</a>
+            </div>
+          </div>
+        </div>
+
+        <figure class="hero-plate reveal d1" style="margin:0;">
+          <video class="hero-plate-vid" autoplay muted playsinline preload="auto" poster="../assets/plane-exterior.jpg">
+            <source src="../assets/clips/07-vector-out.mp4" type="video/mp4" />
+          </video>
+          <span class="plate-index">01</span>
+          <figcaption class="plate-cap">
+            <span class="caption">Pl. 01 — Ultra Long Range</span>
+          </figcaption>
+        </figure>
+      </div>
+
+      <div class="hero-foot reveal">
+        <div class="ticker">
+          <span><b>07</b> Categories</span>
+          <span><b>Obsidian</b> Flagship</span>
+          <span><b>24/7</b> Concierge</span>
+          <span><b>Global</b> Reach</span>
+        </div>
+        <div class="scroll-note">Turn the page ↓</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================== MANIFESTO ============================== -->
+  <section class="manifesto section" id="manifesto">
+    <div class="wrap">
+      <div class="section-marker reveal">
+        <span class="sig">§ I — <em>The Manifesto</em></span>
+        <span class="lead">A standard set not by the aircraft, but by the world it opens. The V2 position, stated plainly.</span>
+      </div>
+      <div class="grid">
+        <blockquote class="manifesto-quote reveal">
+          <span class="q">“</span>Flying isn't simply flying. Flying is <span class="it accent">transcending</span> — a world where luxury is a <span class="it">lifestyle</span>, not an amenity.<span class="q">”</span>
+        </blockquote>
+        <div class="manifesto-aside reveal d1">
+          <p>
+            V2 Jets exists for the traveler who measures a journey not in miles but in moments. Every detail — the curve of the cabin, the cadence of service, the discretion of the crew — is composed to a single editorial standard.
+          </p>
+          <p class="muted">
+            We do not sell seats. We arrange the sky: bespoke routing, members-only availability, and a fleet curated across seven distinct categories — culminating in Obsidian, our flagship.
+          </p>
+          <div class="sigline">— V2 Jets, House Position</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== THE FLEET ============================== -->
+  <section class="fleet section section-rule" id="fleet">
+    <div class="wrap">
+      <div class="section-marker reveal">
+        <span class="sig">§ II — <em>The Fleet</em></span>
+        <span class="lead">Seven categories, indexed. The aircraft is the instrument; the experience is the composition. Obsidian leads the collection.</span>
+      </div>
+
+      <div class="fleet-table">
+        <div class="fleet-row reveal">
+          <div class="f-num">01</div>
+          <div class="f-name">Turbo Prop</div>
+          <div class="f-desc">The agile short-hauler. Direct access to regional runways the jets can't reach, with the same uncompromising V2 cabin standard.</div>
+          <div class="f-spec">2–8 Guests<span>≈ 600 nm range</span></div>
+        </div>
+        <div class="fleet-row reveal">
+          <div class="f-num">02</div>
+          <div class="f-name">Light Jet</div>
+          <div class="f-desc">Effortless city-to-city velocity. The everyday workhorse of private travel, refined for the V2 traveler who values time above all.</div>
+          <div class="f-spec">5–7 Guests<span>≈ 1,500 nm range</span></div>
+        </div>
+        <div class="fleet-row reveal">
+          <div class="f-num">03</div>
+          <div class="f-name">Mid Size</div>
+          <div class="f-desc">More cabin, more reach. Stand-up comfort and coast-to-coast capability for the productive, unhurried flight.</div>
+          <div class="f-spec">7–9 Guests<span>≈ 2,800 nm range</span></div>
+        </div>
+        <div class="fleet-row reveal">
+          <div class="f-num">04</div>
+          <div class="f-name">Super Mid</div>
+          <div class="f-desc">The transcontinental sweet spot. Generous cabins, intercontinental legs, and a galley appointed for genuine dining at altitude.</div>
+          <div class="f-spec">8–10 Guests<span>≈ 3,500 nm range</span></div>
+        </div>
+        <div class="fleet-row reveal">
+          <div class="f-num">05</div>
+          <div class="f-name">Heavy Jet</div>
+          <div class="f-desc">Statement and substance. Dedicated zones for work, rest, and dining — the airborne residence for the larger party.</div>
+          <div class="f-spec">10–16 Guests<span>≈ 4,500 nm range</span></div>
+        </div>
+        <div class="fleet-row reveal">
+          <div class="f-num">06</div>
+          <div class="f-name">Ultra Long Range</div>
+          <div class="f-desc">Continents, nonstop. New York to Tokyo without a tankstop — a true private suite carrying you across the world while you sleep.</div>
+          <div class="f-spec">12–19 Guests<span>≈ 7,500 nm range</span></div>
+        </div>
+      </div>
+
+      <!-- OBSIDIAN — featured spread -->
+      <article class="obsidian reveal" aria-label="Obsidian — the flagship">
+        <div class="ob-grid">
+          <div class="ob-words">
+            <div>
+              <div class="ob-tag"><span class="star">★</span> Cover Story · The Flagship</div>
+              <div class="ob-num">07<small>Obsidian</small></div>
+            </div>
+            <h3>Obsidian.<br /><span class="it">The crown jewel.</span></h3>
+            <p class="ob-pull">
+              <span class="q">“</span>The skies are the limit — and Obsidian is how you reach them. The fullest expression of the V2 standard.<span class="q">”</span>
+            </p>
+            <div class="ob-meta">
+              <div><div class="k">Category</div><div class="v">Flagship</div></div>
+              <div><div class="k">Cabin</div><div class="v">Three Suites</div></div>
+              <div><div class="k">Service</div><div class="v">By Invitation</div></div>
+            </div>
+          </div>
+          <div class="ob-img">
+            <img src="../assets/plane-exterior.jpg" alt="The Obsidian flagship aircraft, rendered in dramatic high-contrast monochrome against the sky." />
+            <span class="ob-cap">Pl. 07 — Obsidian, in profile</span>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============================== THE CABIN ============================== -->
+  <section class="cabin section section-rule" id="cabin">
+    <div class="wrap">
+      <div class="section-marker reveal">
+        <span class="sig">§ III — <em>The Cabin</em></span>
+        <span class="lead">Treated as plates in a lookbook — the interior, the suite, and the quiet hours between cities.</span>
+      </div>
+
+      <div class="cabin-grid">
+        <figure class="plate tall reveal" style="margin:0;">
+          <img src="../assets/interior-main.jpg" alt="The main cabin of a V2 Jets aircraft: cream leather club seats, polished wood veneer, and abundant natural light." />
+          <figcaption class="plate-tag"><span class="caption">Pl. 02 — The Cabin</span></figcaption>
+        </figure>
+
+        <div class="cabin-text reveal d1">
+          <div class="knum">02</div>
+          <h3>An interior <span class="it">composed,</span><br />never decorated.</h3>
+          <p>Cream leather, hand-finished veneer, and light that follows you across time zones. The cabin is arranged for the way you actually travel — to work, to host, to rest.</p>
+          <ul class="cabin-feats">
+            <li>Hand-stitched seating</li>
+            <li>Wood veneer detailing</li>
+            <li>Cabin-wide connectivity</li>
+            <li>Curated in-flight dining</li>
+          </ul>
+        </div>
+
+        <figure class="plate reveal d1" style="margin:0;border-right:var(--rule);border-bottom:var(--rule);">
+          <img src="../assets/interior-bedroom.jpg" alt="A private bedroom suite aboard a V2 Jets aircraft, with a full bed dressed in cream linens and dark wood accents." />
+          <figcaption class="plate-tag"><span class="caption">Pl. 03 — The Suite</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== THE WORLD AWAITS ============================== -->
+  <section class="world section section-rule" id="world">
+    <div class="wrap">
+      <div class="section-marker reveal">
+        <span class="sig">§ IV — <em>The Itinerary</em></span>
+        <span class="lead">The world, on your schedule. A selection from where V2 members are flying now.</span>
+      </div>
+
+      <div class="world-head reveal">
+        <h2>The World <span class="it">Awaits.</span></h2>
+        <p>Tell us where, and when. Bespoke routing, seamless ground transfers, and a concierge who knows the city before you land.</p>
+      </div>
+
+      <div class="dest-grid">
+        <div class="dest reveal">
+          <div class="d-num">№ 01</div>
+          <div class="d-city">New York</div>
+          <div class="d-route">London Heathrow</div>
+          <div class="d-time">~ 7h 10m · Ultra Long Range</div>
+        </div>
+        <div class="dest reveal d1">
+          <div class="d-num">№ 02</div>
+          <div class="d-city">Los Angeles</div>
+          <div class="d-route">Aspen / Pitkin Co.</div>
+          <div class="d-time">~ 2h 25m · Super Mid</div>
+        </div>
+        <div class="dest reveal d2">
+          <div class="d-num">№ 03</div>
+          <div class="d-city">Dubai</div>
+          <div class="d-route">Maldives, Malé</div>
+          <div class="d-time">~ 4h 20m · Heavy Jet</div>
+        </div>
+        <div class="dest reveal d3">
+          <div class="d-num">№ 04</div>
+          <div class="d-city">Paris</div>
+          <div class="d-route">St. Moritz / Engadin</div>
+          <div class="d-time">~ 1h 35m · Light Jet</div>
+        </div>
+        <div class="dest reveal">
+          <div class="d-num">№ 05</div>
+          <div class="d-city">Miami</div>
+          <div class="d-route">St. Barthélemy</div>
+          <div class="d-time">~ 2h 50m · Mid Size</div>
+        </div>
+        <div class="dest reveal d1">
+          <div class="d-num">№ 06</div>
+          <div class="d-city">Geneva</div>
+          <div class="d-route">Monaco / Côte d'Azur</div>
+          <div class="d-time">~ 1h 05m · Light Jet</div>
+        </div>
+        <div class="dest reveal d2">
+          <div class="d-num">№ 07</div>
+          <div class="d-city">Singapore</div>
+          <div class="d-route">Tokyo Haneda</div>
+          <div class="d-time">~ 6h 45m · Ultra Long Range</div>
+        </div>
+        <div class="dest reveal d3">
+          <div class="d-num">№ 08</div>
+          <div class="d-city">Anywhere</div>
+          <div class="d-route">On Request</div>
+          <div class="d-time">~ The skies are the limit</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== CINEMATIC INTERLUDE (scroll-scrubbed) ============================== -->
+  <section class="scrub interlude" aria-label="Interlude — Departure">
+    <div class="scrub__stage">
+      <video class="film" muted playsinline preload="auto" poster="../assets/plane-exterior.jpg">
+        <source src="../assets/clips/01-departure-dusk.mp4" type="video/mp4" />
+      </video>
+      <div class="scrub__cap il-inner">
+        <p class="il-cap">Pl. — Departure</p>
+        <blockquote class="il-quote">
+          <span class="q">“</span>The world <span class="it">awaits.</span><span class="q">”</span>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== V2 VAULT ============================== -->
+  <section class="vault section" id="vault">
+    <div class="wrap">
+      <div class="vault-grid">
+        <div class="vault-left reveal">
+          <div class="label">§ V — V2 Vault</div>
+          <div class="vnum">05<small>Members Only</small></div>
+        </div>
+        <div class="vault-right reveal d1">
+          <h2>The <span class="q">Vault.</span><br /><span class="it">Curated availability.</span></h2>
+          <p>
+            Members gain entry to the V2 Vault — a private register of empty legs, repositioning flights, and last-minute openings across the fleet. Exceptional aircraft, exceptional value, released only to those inside.
+          </p>
+          <div class="vault-list">
+            <div class="vl-row">
+              <div class="vl-route">New York <em>→ West Palm Beach</em></div>
+              <div class="vl-tag">Empty Leg · Heavy</div>
+            </div>
+            <div class="vl-row">
+              <div class="vl-route">London <em>→ Nice</em></div>
+              <div class="vl-tag">Repositioning · Super Mid</div>
+            </div>
+            <div class="vl-row">
+              <div class="vl-route">Geneva <em>→ Dubai</em></div>
+              <div class="vl-tag">Open Seat · Ultra Long</div>
+            </div>
+          </div>
+          <div class="vault-cta">
+            <a class="btn btn-vault" href="#contact">Request Vault Access <span class="arrow">→</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== TRUST / CREDENTIALS ============================== -->
+  <section class="trust section" id="trust">
+    <div class="wrap">
+      <div class="section-marker reveal" style="padding-bottom:0;">
+        <span class="sig">§ VI — <em>The V2 Brief</em></span>
+        <span class="lead">Safety is the unglamorous foundation beneath everything glamorous. The numbers we hold ourselves to.</span>
+      </div>
+
+      <div class="trust-head reveal">
+        <h2>Held to a <span class="it">single</span> standard.</h2>
+        <span class="label">Vetted operators · audited safety · discreet service</span>
+      </div>
+
+      <div class="trust-grid">
+        <div class="stat reveal">
+          <div class="s-fig">100<span class="small">%</span></div>
+          <div class="s-lab">Vetted Operators</div>
+          <div class="s-sub">Every aircraft flown under audited, certified operators — no exceptions.</div>
+        </div>
+        <div class="stat reveal d1">
+          <div class="s-fig">24<span style="font-size:.5em;">/7</span></div>
+          <div class="s-lab">Concierge Desk</div>
+          <div class="s-sub">A dedicated team, awake whenever and wherever you are.</div>
+        </div>
+        <div class="stat reveal d2">
+          <div class="s-fig">07</div>
+          <div class="s-lab">Fleet Categories</div>
+          <div class="s-sub">From Turbo Prop to the Obsidian flagship, matched to every mission.</div>
+        </div>
+        <div class="stat reveal d3">
+          <div class="s-fig">∞</div>
+          <div class="s-lab">Destinations</div>
+          <div class="s-sub">The skies are the limit — global reach, on your timetable.</div>
+        </div>
+      </div>
+
+      <div class="cert-strip reveal">
+        <span class="cert">ARGUS Vetted Standards</span>
+        <span class="cert">Wyvern Aligned Safety</span>
+        <span class="cert">IS-BAO Operating Principles</span>
+        <span class="cert">Independent Third-Party Audit</span>
+        <span class="cert">Full Discretion · NDA on Request</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== FINALE ============================== -->
+  <section class="finale section" id="contact">
+    <div class="wrap">
+      <p class="eyebrow reveal">Issue Nº 01 · The Last Word</p>
+      <h2 class="reveal">Fly In <span class="it">Absolute</span><br />Luxury.</h2>
+      <p class="sub reveal d1">
+        Take to the skies in style. Tell us where the world is taking you next, and we will arrange the rest — quietly, completely, beautifully.
+      </p>
+      <div class="finale-cta reveal d2">
+        <a class="btn btn-primary" href="#contact">Request a Charter <span class="arrow">→</span></a>
+        <a class="btn btn-ghost" href="#vault">Enter the Client Portal</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============================== FOOTER ============================== -->
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <img src="../assets/logo.png" alt="V2 Jets" />
+        <p>Ultra-luxury private jet charter. A private fleet, a single standard, and the skies arranged entirely around you.</p>
+        <div class="fb-tag"><span class="q">“</span>The Skies Are The Limit.<span class="q">”</span></div>
+      </div>
+
+      <div class="foot-col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="#fleet">The Aircraft</a></li>
+          <li><a href="#vault">V2 Vault</a></li>
+          <li><a href="#world">Charter</a></li>
+          <li><a href="#manifesto">About Us</a></li>
+        </ul>
+      </div>
+
+      <div class="foot-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="#trust">The V2 Brief</a></li>
+          <li><a href="#trust">Safety</a></li>
+          <li><a href="#fleet">Aircraft Management</a></li>
+          <li><a href="#contact">Bespoke Concierge</a></li>
+        </ul>
+      </div>
+
+      <div class="foot-col">
+        <h4>Contact</h4>
+        <div class="contact-line"><b>Charter Desk</b><br />charter@v2jets.com</div>
+        <div class="contact-line"><b>Concierge</b><br />+1 (800) V2-FLYNOW</div>
+        <div class="contact-line"><b>Hours</b><br />24 / 7 · 365</div>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <div class="copy">© 2026 V2 Jets. All rights reserved.</div>
+      <div class="colophon">The Atelier Edition — set in Jost &amp; Inter · <span class="accent">Nº 01</span></div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================== SCRIPT ============================== -->
+<script>
+(function(){
+  "use strict";
+  var prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---- Sticky header scrolled state ---- */
+  var header = document.getElementById("siteHeader");
+  var lastKnown = false;
+  function onScroll(){
+    var scrolled = window.scrollY > 40;
+    if(scrolled !== lastKnown){
+      header.classList.toggle("scrolled", scrolled);
+      lastKnown = scrolled;
+    }
+  }
+  window.addEventListener("scroll", onScroll, {passive:true});
+  onScroll();
+
+  /* ---- Mobile nav toggle ---- */
+  var toggle = document.getElementById("navToggle");
+  var nav = document.getElementById("primaryNav");
+  function closeMenu(){
+    document.body.classList.remove("menu-open");
+    toggle.setAttribute("aria-expanded","false");
+    toggle.setAttribute("aria-label","Open menu");
+  }
+  if(toggle){
+    toggle.addEventListener("click", function(){
+      var open = document.body.classList.toggle("menu-open");
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    });
+    nav.addEventListener("click", function(e){
+      if(e.target.tagName === "A") closeMenu();
+    });
+    document.addEventListener("keydown", function(e){
+      if(e.key === "Escape") closeMenu();
+    });
+  }
+
+  /* ---- Scroll reveal ---- */
+  var revealEls = Array.prototype.slice.call(document.querySelectorAll(".reveal"));
+  if(prefersReduced || !("IntersectionObserver" in window)){
+    revealEls.forEach(function(el){ el.classList.add("in"); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add("in");
+          io.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.14, rootMargin:"0px 0px -8% 0px"});
+    revealEls.forEach(function(el){ io.observe(el); });
+  }
+
+  /* ---- Interlude film: scroll-scrubbed ---- */
+  (function(){
+    const s=document.querySelector('.scrub'),v=s&&s.querySelector('video');
+    if(!s||!v)return;
+    const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let target=0;
+    v.addEventListener('loadedmetadata',()=>v.pause());
+    function compute(){
+      const r=s.getBoundingClientRect();
+      const total=r.height-innerHeight;
+      const p=Math.min(1,Math.max(0,-r.top/Math.max(1,total)));
+      target=p*(v.duration||0);
+    }
+    function tick(){
+      if(v.duration){
+        const cur=v.currentTime,next=cur+(target-cur)*0.2;
+        if(Math.abs(target-cur)>0.01){
+          if(v.fastSeek)v.fastSeek(Math.max(0,next));else v.currentTime=next;
+        }
+      }
+      requestAnimationFrame(tick);
+    }
+    if(!reduce){
+      addEventListener('scroll',compute,{passive:true});
+      addEventListener('resize',compute);
+      compute();tick();
+    }
+  })();
+})();
+</script>
+
+<script>
+/* scrub hardening: back the sticky stage with the poster so it never flashes blank, and paint the first frame */
+(function(){
+  document.querySelectorAll('.scrub').forEach(function(s){
+    var v=s.querySelector('video'); if(!v) return;
+    var stage=s.querySelector('.scrub__stage')||v.parentElement;
+    var poster=v.getAttribute('poster');
+    if(poster && !stage.querySelector('.scrub__poster')){
+      var pd=document.createElement('div'); pd.className='scrub__poster';
+      var f=getComputedStyle(v).filter;
+      pd.style.cssText='position:absolute;inset:0;background:#0c0f13 url("'+poster+'") center/cover;'+(f&&f!=='none'?'filter:'+f+';':'');
+      stage.insertBefore(pd, stage.firstChild);
+    }
+    function paint(){ try{ v.fastSeek?v.fastSeek(0.05):(v.currentTime=0.05); }catch(e){} }
+    if(v.readyState>=2) paint(); else v.addEventListener('loadeddata',paint,{once:true});
+  });
+})();
+</script>
+</body>
+</html>

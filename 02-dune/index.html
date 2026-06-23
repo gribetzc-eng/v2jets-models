@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>V2 Jets — The World Awaits</title>
+<meta name="description" content="V2 Jets — ultra-luxury private jet charter. Flying isn't simply flying. Flying is transcending. Tap into a world where luxury is a lifestyle." />
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    /* ---- V2 strict brand kit ---- */
+    --paper:#F2F0E9;
+    --paper-2:#E8E5DB;
+    --ink:#12161B;
+    --ink-soft:#5A6066;
+    --hair:rgba(18,22,27,.14);
+    --noir:#0C0F13;
+    --noir-2:#14181D;
+    --on-noir:#F2F0E9;
+    --on-noir-soft:#9AA0A6;
+    --hair-d:rgba(242,240,233,.16);
+    --blue:#2E6E96;
+    --blue-2:#5FA3C9;
+    --navy:#13314B;
+    /* ---- local aliases mapped onto the kit ---- */
+    --sand:var(--paper-2);
+    --stone:var(--ink-soft);
+    --clay:var(--blue);
+    --hair-strong:rgba(18,22,27,.22);
+    --font-display:'Jost',system-ui,sans-serif;
+    --font-body:'Inter',system-ui,sans-serif;
+    --font-mono:'JetBrains Mono',ui-monospace,monospace;
+    --serif:var(--font-display);
+    --sans:var(--font-body);
+    --ease:cubic-bezier(.22,.61,.36,1);
+    --maxw:1180px;
+  }
+
+  *,*::before,*::after{box-sizing:border-box;}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-weight:300;
+    line-height:1.85;
+    letter-spacing:.01em;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+
+  /* ---------- shared type ---------- */
+  .eyebrow{
+    font-family:var(--sans);
+    font-weight:400;
+    font-size:clamp(.62rem,.55rem + .25vw,.72rem);
+    letter-spacing:.42em;
+    text-transform:lowercase;
+    color:var(--clay);
+    margin:0 0 1.6rem;
+  }
+  .display{
+    font-family:var(--serif);
+    font-weight:300;
+    line-height:1.08;
+    letter-spacing:.005em;
+    color:var(--ink);
+    margin:0;
+  }
+  .lede{
+    font-family:var(--sans);
+    font-weight:300;
+    color:var(--ink-soft);
+    font-size:clamp(1rem,.95rem + .35vw,1.18rem);
+    line-height:1.95;
+    max-width:42ch;
+  }
+
+  /* ---------- understated link / CTA ---------- */
+  .ulink{
+    position:relative;
+    display:inline-block;
+    font-family:var(--sans);
+    font-weight:400;
+    font-size:.78rem;
+    letter-spacing:.26em;
+    text-transform:lowercase;
+    color:var(--ink);
+    padding-bottom:.5rem;
+    line-height:1.4;
+  }
+  .ulink::after{
+    content:"";
+    position:absolute;
+    left:0;bottom:0;
+    width:100%;height:1px;
+    background:var(--ink);
+    transform:scaleX(1);
+    transform-origin:left;
+    transition:transform .6s var(--ease);
+  }
+  .ulink:hover::after{transform:scaleX(0);transform-origin:right;}
+  .ulink.clay{color:var(--clay);}
+  .ulink.clay::after{background:var(--clay);}
+
+  .obtn{
+    display:inline-block;
+    font-family:var(--sans);
+    font-weight:400;
+    font-size:.74rem;
+    letter-spacing:.26em;
+    text-transform:lowercase;
+    color:var(--ink);
+    padding:1.05rem 2.5rem;
+    border:1px solid var(--hair-strong);
+    border-radius:2px;
+    background:transparent;
+    transition:background .6s var(--ease),color .6s var(--ease),border-color .6s var(--ease);
+    cursor:pointer;
+  }
+  .obtn:hover{background:var(--ink);color:var(--paper);border-color:var(--ink);}
+
+  /* ---------- header ---------- */
+  header{
+    position:fixed;
+    top:0;left:0;right:0;
+    z-index:100;
+    padding:1.9rem clamp(1.4rem,4vw,3.4rem);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:2rem;
+    transition:background .55s var(--ease),padding .55s var(--ease),box-shadow .55s var(--ease),border-color .55s var(--ease);
+    border-bottom:1px solid transparent;
+  }
+  header.scrolled{
+    background:rgba(242,240,233,.86);
+    -webkit-backdrop-filter:saturate(120%) blur(14px);
+    backdrop-filter:saturate(120%) blur(14px);
+    padding-top:1.15rem;
+    padding-bottom:1.15rem;
+    border-bottom:1px solid var(--hair);
+  }
+  .brand img{height:clamp(20px,1.4vw + 14px,26px);width:auto;opacity:.92;}
+  nav.primary{
+    display:flex;
+    align-items:center;
+    gap:clamp(1rem,1.8vw,2.1rem);
+  }
+  nav.primary a:not(.portal){
+    font-family:var(--sans);
+    font-weight:300;
+    font-size:.74rem;
+    letter-spacing:.16em;
+    text-transform:lowercase;
+    color:var(--ink);
+    opacity:.82;
+    position:relative;
+    padding-bottom:3px;
+    transition:opacity .4s var(--ease);
+  }
+  nav.primary a:not(.portal)::after{
+    content:"";position:absolute;left:0;bottom:0;height:1px;width:0;
+    background:var(--clay);transition:width .45s var(--ease);
+  }
+  nav.primary a:not(.portal):hover{opacity:1;}
+  nav.primary a:not(.portal):hover::after{width:100%;}
+  .portal{
+    font-family:var(--sans);
+    font-weight:400;
+    font-size:.7rem;
+    letter-spacing:.2em;
+    text-transform:lowercase;
+    color:var(--paper);
+    background:var(--ink);
+    padding:.72rem 1.35rem;
+    border-radius:2px;
+    transition:background .5s var(--ease);
+    white-space:nowrap;
+  }
+  .portal:hover{background:var(--clay);}
+
+  .nav-links{display:flex;align-items:center;gap:clamp(1rem,1.8vw,2.1rem);}
+
+  .menu-toggle{
+    display:none;
+    background:none;border:none;cursor:pointer;
+    width:34px;height:24px;padding:0;position:relative;
+  }
+  .menu-toggle span{
+    position:absolute;left:0;height:1px;width:100%;background:var(--ink);
+    transition:transform .45s var(--ease),opacity .3s var(--ease);
+  }
+  .menu-toggle span:nth-child(1){top:5px;}
+  .menu-toggle span:nth-child(2){top:12px;}
+  .menu-toggle span:nth-child(3){top:19px;}
+  body.nav-open .menu-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  body.nav-open .menu-toggle span:nth-child(2){opacity:0;}
+  body.nav-open .menu-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+  /* ---------- layout ---------- */
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 clamp(1.5rem,5vw,3.4rem);}
+  section{position:relative;}
+  .pad{padding-block:clamp(6rem,13vw,12rem);}
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    min-height:100svh;
+    display:flex;
+    align-items:flex-end;
+    overflow:hidden;
+  }
+  .hero__img{
+    position:absolute;inset:0;
+    background:url("../assets/hero-xl.jpg") center 38%/cover no-repeat;
+    transform:scale(1.04);
+  }
+  /* hero motion — muted looping clip above the photo fallback, below the wash */
+  .hero-bgvid{
+    position:absolute;inset:0;
+    width:100%;height:100%;
+    object-fit:cover;
+    object-position:center 38%;
+    z-index:1;
+  }
+  /* sun-faded ivory wash — soft, never punchy */
+  .hero__wash{
+    position:absolute;inset:0;z-index:2;
+    background:
+      linear-gradient(180deg,rgba(242,240,233,.34) 0%,rgba(242,240,233,.06) 26%,rgba(242,240,233,.10) 62%,rgba(242,240,233,.78) 100%),
+      radial-gradient(120% 90% at 50% 30%,rgba(242,240,233,0) 40%,rgba(232,229,219,.40) 100%);
+  }
+  .hero__inner{
+    position:relative;z-index:3;
+    width:100%;
+    max-width:var(--maxw);
+    margin:0 auto;
+    padding:0 clamp(1.5rem,5vw,3.4rem) clamp(3.4rem,8vh,6rem);
+  }
+  .hero__line{
+    width:46px;height:1px;background:var(--ink);
+    margin-bottom:1.5rem;opacity:.55;
+  }
+  .hero__kicker{
+    font-family:var(--sans);font-weight:400;
+    font-size:clamp(.64rem,.58rem + .22vw,.74rem);
+    letter-spacing:.42em;text-transform:lowercase;
+    color:var(--ink);opacity:.78;margin:0 0 1.1rem;
+  }
+  .hero__title{
+    font-family:var(--serif);font-weight:300;
+    font-size:clamp(2.6rem,2rem + 5.4vw,5.2rem);
+    line-height:1.04;letter-spacing:.01em;
+    color:var(--ink);margin:0 0 1.8rem;
+    max-width:16ch;
+  }
+  .hero__title em{font-style:italic;color:var(--clay);}
+  .hero__ctas{display:flex;flex-wrap:wrap;align-items:center;gap:clamp(1.4rem,3vw,2.6rem);}
+  .scrollcue{
+    position:absolute;z-index:3;
+    right:clamp(1.5rem,5vw,3.4rem);
+    bottom:clamp(3.4rem,8vh,6rem);
+    display:flex;flex-direction:column;align-items:center;gap:.8rem;
+    font-family:var(--sans);font-size:.6rem;letter-spacing:.3em;
+    text-transform:lowercase;color:var(--ink);opacity:.6;
+    writing-mode:vertical-rl;
+  }
+  .scrollcue .bar{
+    width:1px;height:54px;background:var(--ink);opacity:.4;
+    animation:cue 2.6s var(--ease) infinite;
+    transform-origin:top;
+  }
+  @keyframes cue{
+    0%{transform:scaleY(0);opacity:0;}
+    35%{opacity:.5;}
+    100%{transform:scaleY(1);opacity:0;}
+  }
+
+  /* ---------- manifesto ---------- */
+  .manifesto{text-align:left;}
+  .manifesto .wrap{max-width:980px;}
+  .manifesto p.statement{
+    font-family:var(--serif);font-weight:300;
+    font-size:clamp(1.7rem,1.1rem + 3vw,3rem);
+    line-height:1.32;letter-spacing:.005em;
+    color:var(--ink);margin:0;max-width:20ch;
+  }
+  .manifesto p.statement .soft{color:var(--stone);}
+  .manifesto p.statement em{font-style:italic;color:var(--clay);}
+  .manifesto .sub{
+    margin-top:clamp(2.4rem,5vw,3.6rem);
+    display:grid;grid-template-columns:1fr;gap:1.6rem;max-width:46ch;
+  }
+
+  /* ---------- fleet ---------- */
+  .fleet .head{max-width:54ch;margin-bottom:clamp(3rem,7vw,5.5rem);}
+  .fleet .head h2{
+    font-family:var(--serif);font-weight:300;
+    font-size:clamp(2rem,1.4rem + 3vw,3.2rem);
+    line-height:1.1;margin:0 0 1.4rem;
+  }
+  .fleet-list{border-top:1px solid var(--hair);}
+  .fleet-row{
+    display:grid;
+    grid-template-columns:minmax(0,1.1fr) minmax(0,1.5fr) auto;
+    align-items:baseline;
+    gap:clamp(1rem,4vw,3rem);
+    padding:clamp(1.7rem,3vw,2.5rem) 0;
+    border-bottom:1px solid var(--hair);
+    transition:padding-left .6s var(--ease);
+  }
+  .fleet-row:hover{padding-left:clamp(.4rem,1.2vw,1rem);}
+  .fleet-row .idx{
+    font-family:var(--sans);font-weight:300;font-size:.72rem;
+    letter-spacing:.2em;color:var(--stone);
+  }
+  .fleet-row .name{
+    font-family:var(--serif);font-weight:400;
+    font-size:clamp(1.5rem,1.1rem + 1.6vw,2.3rem);
+    line-height:1.1;color:var(--ink);text-transform:lowercase;
+    letter-spacing:.01em;
+    display:flex;align-items:baseline;gap:.7rem;flex-wrap:wrap;
+  }
+  .fleet-row .desc{
+    font-family:var(--sans);font-weight:300;
+    font-size:clamp(.84rem,.8rem + .2vw,.95rem);
+    color:var(--ink-soft);line-height:1.7;max-width:40ch;
+  }
+  .fleet-row .seats{
+    font-family:var(--sans);font-weight:300;font-size:.72rem;
+    letter-spacing:.2em;text-transform:lowercase;color:var(--stone);
+    white-space:nowrap;text-align:right;
+  }
+  /* obsidian — distinguished gently */
+  .fleet-row.flagship{background:linear-gradient(90deg,rgba(46,110,150,.05),transparent 70%);}
+  .fleet-row.flagship .name{font-weight:500;color:var(--ink);}
+  .fleet-row.flagship .name .dot{
+    width:7px;height:7px;border-radius:50%;background:var(--clay);
+    display:inline-block;transform:translateY(-.35em);
+  }
+  .fleet-row.flagship .tier{
+    font-family:var(--sans);font-weight:400;font-size:.58rem;
+    letter-spacing:.3em;text-transform:lowercase;color:var(--clay);
+    border:1px solid rgba(46,110,150,.4);border-radius:2px;
+    padding:.18rem .55rem;transform:translateY(-.35em);
+  }
+
+  /* ---------- experience ---------- */
+  .exp .wrap{max-width:var(--maxw);}
+  .exp .head{max-width:50ch;margin-bottom:clamp(3rem,6vw,4.5rem);}
+  .exp .head h2{
+    font-family:var(--serif);font-weight:300;
+    font-size:clamp(2rem,1.4rem + 3vw,3.2rem);line-height:1.1;margin:0 0 1.3rem;
+  }
+  .exp-grid{
+    display:grid;grid-template-columns:1fr 1fr;
+    gap:clamp(2rem,6vw,5rem);align-items:center;
+  }
+  /* photos: wide passe-partout, plenty of ivory */
+  .frame{
+    background:var(--paper);
+    padding:clamp(.7rem,1.8vw,1.4rem);
+    border:1px solid var(--hair);
+  }
+  .frame img{width:100%;height:auto;display:block;filter:saturate(.92) brightness(1.02);}
+  .frame.tall img{aspect-ratio:4/5;object-fit:cover;}
+  .exp-copy h3{
+    font-family:var(--serif);font-weight:400;
+    font-size:clamp(1.4rem,1.1rem + 1.3vw,2rem);
+    line-height:1.18;margin:0 0 1.1rem;
+  }
+  .exp-copy p{margin:0 0 1.6rem;}
+  .exp-second{margin-top:clamp(3.5rem,8vw,7rem);}
+  .exp-second .exp-grid{direction:rtl;}
+  .exp-second .exp-grid > *{direction:ltr;}
+
+  /* ---------- cinematic interlude — scroll-scrubbed film ---------- */
+  .scrub{position:relative;height:220vh;background:var(--noir);}
+  .scrub__stage{position:sticky;top:0;height:100vh;overflow:hidden;}
+  .film{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+  /* slim cinematic letterbox — thin ink bars top/bottom */
+  .scrub__stage::before,
+  .scrub__stage::after{
+    content:"";position:absolute;left:0;right:0;height:clamp(34px,7vh,64px);
+    background:var(--noir);z-index:2;pointer-events:none;
+  }
+  .scrub__stage::before{top:0;}
+  .scrub__stage::after{bottom:0;}
+  /* refined caption that simply HOLDS (no fade-wash) */
+  .scrub__cap{
+    position:absolute;z-index:3;
+    left:clamp(1.5rem,5vw,3.4rem);
+    bottom:clamp(5rem,12vh,8rem);
+    max-width:34ch;
+    font-family:var(--font-display);font-weight:300;
+    font-size:clamp(1.3rem,1rem + 1.6vw,2.1rem);
+    line-height:1.28;letter-spacing:.02em;
+    text-transform:lowercase;color:var(--on-noir);
+    margin:0;text-shadow:0 1px 18px rgba(12,15,19,.45);
+  }
+  .scrub__cap em{font-style:normal;color:var(--blue-2);}
+  .scrub__cap::before{
+    content:"";display:block;
+    width:46px;height:1px;margin:0 0 1.2rem;
+    background:var(--blue);
+  }
+
+  /* ---------- world awaits ---------- */
+  .world{position:relative;overflow:hidden;background:var(--sand);}
+  .world__img{
+    position:absolute;inset:0;
+    background:url("../assets/plane-exterior.jpg") center 42%/cover no-repeat;
+    opacity:.5;
+  }
+  .world__wash{
+    position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(232,229,219,.82),rgba(242,240,233,.62) 55%,rgba(232,229,219,.86));
+  }
+  .world .wrap{position:relative;max-width:980px;text-align:center;}
+  .world h2{
+    font-family:var(--serif);font-weight:300;
+    font-size:clamp(2.4rem,1.6rem + 4.5vw,4.6rem);
+    line-height:1.06;margin:0 auto 1.6rem;letter-spacing:.01em;
+  }
+  .world h2 em{font-style:italic;color:var(--clay);}
+  .world p{margin:0 auto 2.6rem;text-align:center;}
+  .dest{
+    display:flex;flex-wrap:wrap;justify-content:center;
+    gap:.7rem 1.8rem;margin-bottom:2.8rem;
+    list-style:none;padding:0;
+  }
+  .dest li{
+    font-family:var(--sans);font-weight:300;font-size:.74rem;
+    letter-spacing:.22em;text-transform:lowercase;color:var(--ink);
+    opacity:.78;display:flex;align-items:center;gap:1.8rem;
+  }
+  .dest li::after{content:"";width:3px;height:3px;border-radius:50%;background:var(--clay);opacity:.6;}
+  .dest li:last-child::after{display:none;}
+
+  /* ---------- vault ---------- */
+  .vault .wrap{max-width:var(--maxw);}
+  .vault-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:clamp(2.4rem,6vw,5rem);align-items:center;}
+  .vault-copy h2{
+    font-family:var(--serif);font-weight:300;
+    font-size:clamp(2rem,1.4rem + 3vw,3.2rem);line-height:1.1;margin:0 0 1.4rem;
+  }
+  .vault-copy h2 em{font-style:italic;color:var(--clay);}
+  .vault-copy p{margin:0 0 1.6rem;}
+  .vault-card{
+    border:1px solid var(--hair);background:rgba(255,255,255,.32);
+    padding:clamp(1.8rem,3vw,2.6rem);
+  }
+  .vault-card .row{
+    display:flex;justify-content:space-between;align-items:baseline;gap:1rem;
+    padding:1.15rem 0;border-bottom:1px solid var(--hair);
+  }
+  .vault-card .row:last-child{border-bottom:none;}
+  .vault-card .leg{font-family:var(--serif);font-size:1.18rem;font-weight:400;color:var(--ink);}
+  .vault-card .meta{font-family:var(--sans);font-size:.68rem;letter-spacing:.18em;text-transform:lowercase;color:var(--stone);}
+  .vault-card .price{font-family:var(--sans);font-size:.74rem;letter-spacing:.12em;color:var(--clay);white-space:nowrap;}
+  .vault-card .cardhead{
+    font-family:var(--sans);font-size:.62rem;letter-spacing:.34em;text-transform:lowercase;
+    color:var(--clay);margin:0 0 1rem;
+  }
+
+  /* ---------- services ---------- */
+  .services .head{max-width:54ch;margin-bottom:clamp(2.6rem,5vw,4rem);}
+  .services .head h2{
+    font-family:var(--serif);font-weight:300;
+    font-size:clamp(1.9rem,1.4rem + 2.6vw,2.9rem);line-height:1.1;margin:0;
+  }
+  .svc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(1.6rem,3vw,2.6rem);}
+  .svc{border-top:1px solid var(--hair-strong);padding-top:1.6rem;}
+  .svc .no{font-family:var(--sans);font-size:.66rem;letter-spacing:.24em;color:var(--clay);margin:0 0 1.1rem;}
+  .svc h3{font-family:var(--serif);font-weight:400;font-size:clamp(1.2rem,1rem + .8vw,1.55rem);line-height:1.2;margin:0 0 .8rem;text-transform:lowercase;}
+  .svc p{font-family:var(--sans);font-weight:300;font-size:.85rem;color:var(--ink-soft);line-height:1.7;margin:0;}
+
+  /* ---------- credentials strip ---------- */
+  .creds{background:var(--ink);color:var(--paper);}
+  .creds .wrap{max-width:var(--maxw);}
+  .creds-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(242,240,233,.12);border:1px solid rgba(242,240,233,.12);}
+  .cred{background:var(--ink);padding:clamp(2rem,4vw,3.2rem) clamp(1.4rem,3vw,2.4rem);text-align:center;}
+  .cred .v{font-family:var(--serif);font-weight:300;font-size:clamp(2rem,1.4rem + 2.4vw,3.1rem);line-height:1;color:var(--paper);margin:0 0 .9rem;letter-spacing:.01em;}
+  .cred .v small{font-size:.45em;color:var(--stone);}
+  .cred .l{font-family:var(--sans);font-weight:300;font-size:.66rem;letter-spacing:.22em;text-transform:lowercase;color:var(--stone);margin:0;}
+
+  /* ---------- final CTA ---------- */
+  .final{text-align:center;}
+  .final .wrap{max-width:820px;}
+  .final .eyebrow{margin-left:auto;margin-right:auto;}
+  .final h2{
+    font-family:var(--serif);font-weight:300;
+    font-size:clamp(2.4rem,1.6rem + 4.5vw,4.4rem);line-height:1.08;margin:0 0 1.8rem;letter-spacing:.01em;
+  }
+  .final h2 em{font-style:italic;color:var(--clay);}
+  .final p{margin:0 auto 2.8rem;text-align:center;}
+  .final .actions{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:2.2rem;}
+
+  /* ---------- footer ---------- */
+  footer{background:var(--sand);border-top:1px solid var(--hair);}
+  footer .wrap{max-width:var(--maxw);padding-block:clamp(4rem,8vw,6rem);}
+  .foot-top{
+    display:grid;grid-template-columns:1.4fr repeat(3,1fr);
+    gap:clamp(2rem,5vw,4rem);margin-bottom:clamp(3rem,6vw,4.5rem);
+  }
+  .foot-brand img{height:24px;width:auto;margin-bottom:1.6rem;opacity:.9;}
+  .foot-brand p{font-family:var(--sans);font-weight:300;font-size:.86rem;color:var(--ink-soft);max-width:30ch;margin:0;line-height:1.8;}
+  .foot-col h4{font-family:var(--sans);font-weight:400;font-size:.64rem;letter-spacing:.26em;text-transform:lowercase;color:var(--clay);margin:0 0 1.3rem;}
+  .foot-col ul{list-style:none;padding:0;margin:0;display:grid;gap:.85rem;}
+  .foot-col a{font-family:var(--sans);font-weight:300;font-size:.85rem;color:var(--ink-soft);transition:color .4s var(--ease);}
+  .foot-col a:hover{color:var(--ink);}
+  .foot-bottom{
+    display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1.2rem;
+    padding-top:clamp(2rem,4vw,2.6rem);border-top:1px solid var(--hair);
+  }
+  .foot-bottom p{font-family:var(--sans);font-weight:300;font-size:.72rem;letter-spacing:.08em;color:var(--stone);margin:0;}
+  .foot-bottom .tag{font-family:var(--serif);font-style:italic;font-size:1rem;color:var(--ink-soft);}
+
+  /* ---------- reveal ---------- */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity 1.1s var(--ease),transform 1.1s var(--ease);}
+  .reveal.in{opacity:1;transform:none;}
+  .reveal.d1{transition-delay:.08s;}
+  .reveal.d2{transition-delay:.16s;}
+  .reveal.d3{transition-delay:.24s;}
+
+  /* ---------- responsive ---------- */
+  @media (max-width:980px){
+    .exp-grid,.vault-grid{grid-template-columns:1fr;}
+    .exp-second .exp-grid{direction:ltr;}
+    .svc-grid{grid-template-columns:1fr 1fr;}
+    .creds-grid{grid-template-columns:1fr 1fr;}
+    .foot-top{grid-template-columns:1fr 1fr;}
+    .fleet-row{grid-template-columns:auto 1fr;grid-template-areas:"idx name" "desc desc";row-gap:.9rem;}
+    .fleet-row .idx{grid-area:idx;}
+    .fleet-row .name{grid-area:name;}
+    .fleet-row .desc{grid-area:desc;}
+    .fleet-row .seats{display:none;}
+  }
+  @media (max-width:760px){
+    .nav-links{
+      position:fixed;inset:0;
+      background:var(--paper);
+      flex-direction:column;justify-content:center;align-items:center;
+      gap:1.9rem;
+      transform:translateY(-100%);
+      transition:transform .6s var(--ease);
+      pointer-events:none;
+    }
+    body.nav-open .nav-links{transform:translateY(0);pointer-events:auto;}
+    nav.primary{gap:0;}
+    nav.primary a:not(.portal){font-size:1.05rem;letter-spacing:.18em;opacity:.9;}
+    .portal{font-size:.9rem;padding:.9rem 1.8rem;}
+    .menu-toggle{display:block;z-index:101;}
+    .scrollcue{display:none;}
+    .svc-grid{grid-template-columns:1fr;}
+    .foot-top{grid-template-columns:1fr;gap:2.6rem;}
+    .creds-grid{grid-template-columns:1fr;}
+    .hero{align-items:flex-end;}
+  }
+  @media (max-width:430px){
+    .dest li{gap:1rem;}
+    .cred .v{font-size:2.1rem;}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto;}
+    *,*::before,*::after{animation:none !important;transition:none !important;}
+    .reveal{opacity:1 !important;transform:none !important;}
+    .hero__img{transform:none;}
+    .hero-bgvid,.scrub .film{display:none;}
+    .scrub{height:100vh;}
+    .scrub__stage{background:#0C0F13 url("../assets/interior-main.jpg") center/cover no-repeat;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===================== HEADER ===================== -->
+<header id="header">
+  <a class="brand" href="#top" aria-label="V2 Jets — home">
+    <img src="../assets/logo-ink.png" alt="V2 Jets" />
+  </a>
+  <nav class="primary" aria-label="Primary">
+    <div class="nav-links" id="navLinks">
+      <a href="#fleet">the aircraft</a>
+      <a href="#vault">v2 vault</a>
+      <a href="#world">charter</a>
+      <a href="#experience">about us</a>
+      <a href="#vault">the v2 brief</a>
+      <a href="#creds">safety</a>
+      <a href="#final">contact</a>
+      <a class="portal" href="#final">client portal</a>
+    </div>
+  </nav>
+  <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<a id="top"></a>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+  <div class="hero__img" id="heroImg"></div>
+  <video class="hero-bgvid" autoplay muted playsinline preload="auto" poster="../assets/hero-xl.jpg" aria-hidden="true">
+    <source src="../assets/clips/boarding.mp4" type="video/mp4">
+  </video>
+  <div class="hero__wash"></div>
+  <div class="hero__inner">
+    <div class="hero__line"></div>
+    <p class="hero__kicker">v2 jets · private jet charter</p>
+    <h1 class="hero__title">the world<br>awaits</h1>
+    <p class="hero__sub" style="font-family:var(--sans);max-width:42ch;margin:0 0 2rem;color:var(--ink);opacity:.74;font-weight:300;font-size:clamp(.96rem,.9rem + .5vw,1.12rem);line-height:1.56;">On-demand private jet charter — fly anywhere in the world, on your schedule, aboard an aircraft chosen for you alone.</p>
+    <div class="hero__ctas">
+      <a class="obtn" href="#final">request a charter</a>
+      <a class="ulink clay" href="#fleet">explore the fleet</a>
+    </div>
+  </div>
+  <div class="scrollcue" aria-hidden="true">
+    <span>scroll</span>
+    <span class="bar"></span>
+  </div>
+</section>
+
+<!-- ===================== MANIFESTO ===================== -->
+<section class="manifesto pad" id="manifesto">
+  <div class="wrap">
+    <p class="eyebrow reveal">flying is transcending</p>
+    <p class="statement reveal d1">
+      With V2 Jets, flying isn't simply flying.
+      <span class="soft">Flying is</span> <em>transcending</em>.
+    </p>
+    <div class="sub reveal d2">
+      <p class="lede">
+        Tap into a world where luxury is a lifestyle. Every detail considered,
+        nothing left to chance — only the quiet certainty of arriving as you intend to.
+      </p>
+      <a class="ulink" href="#manifesto">the v2 philosophy</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FLEET ===================== -->
+<section class="fleet pad" id="fleet">
+  <div class="wrap">
+    <div class="head reveal">
+      <p class="eyebrow">the aircraft</p>
+      <h2>A fleet for every horizon.</h2>
+      <p class="lede">From the shortest regional hop to the longest intercontinental
+        reach, seven tiers — each chosen for range, comfort, and quiet command of the sky.</p>
+    </div>
+
+    <div class="fleet-list">
+      <div class="fleet-row reveal">
+        <span class="idx">01</span>
+        <div>
+          <div class="name">turbo prop</div>
+          <p class="desc">Effortless on short runways and regional routes. Intimate, economical, and remarkably capable where jets cannot reach.</p>
+        </div>
+        <span class="seats">up to 8 · ~3 hrs</span>
+      </div>
+
+      <div class="fleet-row reveal">
+        <span class="idx">02</span>
+        <div>
+          <div class="name">light jet</div>
+          <p class="desc">The agile choice for swift point-to-point travel. Quick to the runway, easy on the schedule, generous in comfort.</p>
+        </div>
+        <span class="seats">up to 7 · ~4 hrs</span>
+      </div>
+
+      <div class="fleet-row reveal">
+        <span class="idx">03</span>
+        <div>
+          <div class="name">mid size</div>
+          <p class="desc">A standing cabin, fuller galley, and the range to cross the country without compromise. The everyday luxury standard.</p>
+        </div>
+        <span class="seats">up to 9 · ~5 hrs</span>
+      </div>
+
+      <div class="fleet-row reveal">
+        <span class="idx">04</span>
+        <div>
+          <div class="name">super mid</div>
+          <p class="desc">Transcontinental reach with the refinement of a heavy. Wide-body comfort, quieter cabins, coast-to-coast in a single leg.</p>
+        </div>
+        <span class="seats">up to 10 · ~6 hrs</span>
+      </div>
+
+      <div class="fleet-row reveal">
+        <span class="idx">05</span>
+        <div>
+          <div class="name">heavy jet</div>
+          <p class="desc">Spacious lounges, full service, and the presence to travel as a delegation. Where business and leisure share one cabin.</p>
+        </div>
+        <span class="seats">up to 16 · ~8 hrs</span>
+      </div>
+
+      <div class="fleet-row reveal">
+        <span class="idx">06</span>
+        <div>
+          <div class="name">ultra long range</div>
+          <p class="desc">Continents in a single flight. Private suites, restful sleep, and the quiet of arriving rested at the far side of the world.</p>
+        </div>
+        <span class="seats">up to 19 · ~14 hrs</span>
+      </div>
+
+      <div class="fleet-row flagship reveal">
+        <span class="idx">07</span>
+        <div>
+          <div class="name"><span class="dot"></span>obsidian <span class="tier">signature tier</span></div>
+          <p class="desc">The crown of the V2 fleet. A bespoke, invitation-only flagship — every surface, scent, and service composed for the few who travel without limit.</p>
+        </div>
+        <span class="seats">by invitation</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== EXPERIENCE ===================== -->
+<section class="exp pad" id="experience">
+  <div class="wrap">
+    <div class="head reveal">
+      <p class="eyebrow">the experience</p>
+      <h2>A cabin that quiets the world.</h2>
+      <p class="lede">Cream leather, warm veneer, and the unhurried calm of space made
+        entirely your own. Aboard V2, the journey is the destination's equal.</p>
+    </div>
+
+    <div class="exp-grid">
+      <div class="frame reveal">
+        <img src="../assets/interior-main.jpg" alt="V2 Jets cabin interior with cream leather club seats and wood veneer" loading="lazy" />
+      </div>
+      <div class="exp-copy reveal d1">
+        <h3>The main cabin</h3>
+        <p>Club seating in soft cream leather, framed by hand-finished veneer and
+          light that pools gently across the cabin. Room to work, to dine, to do
+          nothing at all — and to do it beautifully.</p>
+        <a class="ulink clay" href="#fleet">view cabin layouts</a>
+      </div>
+    </div>
+
+    <div class="exp-second">
+      <div class="exp-grid">
+        <div class="exp-copy reveal">
+          <h3>The private suite</h3>
+          <p>Behind a closing door, a true bedroom in the sky. Dressed in cream and
+            dark wood, it turns the longest crossings into a single restful night —
+            so you land ready, not recovering.</p>
+          <a class="ulink clay" href="#fleet">explore the suite</a>
+        </div>
+        <div class="frame reveal d1">
+          <img src="../assets/interior-bedroom.jpg" alt="V2 Jets private bedroom suite with bed in cream and dark wood" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CINEMATIC INTERLUDE — scroll-scrubbed ===================== -->
+<section class="scrub" id="interlude" aria-label="In-flight interlude">
+  <div class="scrub__stage">
+    <video class="film" muted playsinline preload="auto" poster="../assets/interior-main.jpg" aria-hidden="true">
+      <source src="../assets/clips/06-palm-coast-dawn.mp4" type="video/mp4">
+    </video>
+    <p class="scrub__cap">stillness at altitude — the long quiet between <em>here</em> and there.</p>
+  </div>
+</section>
+
+<!-- ===================== WORLD AWAITS ===================== -->
+<section class="world pad" id="world">
+  <div class="world__img" aria-hidden="true"></div>
+  <div class="world__wash" aria-hidden="true"></div>
+  <div class="wrap">
+    <p class="eyebrow reveal" style="color:var(--clay)">take to the skies in style</p>
+    <h2 class="reveal d1">The skies are<br>the <em>limit</em>.</h2>
+    <p class="lede reveal d2" style="margin-inline:auto;">Name the place. Within hours, a private aircraft is wheels-up and
+      bound for it — anywhere a runway will receive you, on a schedule that is only ever yours.</p>
+    <ul class="dest reveal d2">
+      <li>aspen</li><li>st barths</li><li>geneva</li><li>dubai</li>
+      <li>monaco</li><li>tokyo</li><li>mykonos</li><li>los angeles</li>
+    </ul>
+    <a class="obtn reveal d3" href="#final">plan a journey</a>
+  </div>
+</section>
+
+<!-- ===================== V2 VAULT ===================== -->
+<section class="vault pad" id="vault">
+  <div class="wrap">
+    <div class="vault-grid">
+      <div class="vault-copy reveal">
+        <p class="eyebrow">v2 vault</p>
+        <h2>The members' <em>vault</em>.</h2>
+        <p class="lede">A quietly curated channel of availability — empty legs, repositioning
+          flights, and last-minute openings released to V2 members first. The same
+          aircraft, the same standard, on extraordinary terms.</p>
+        <a class="ulink clay" href="#final">request vault access</a>
+      </div>
+      <div class="vault-card reveal d1" aria-label="Sample vault availability">
+        <p class="cardhead">live availability · members only</p>
+        <div class="row">
+          <div>
+            <div class="leg">New York — Aspen</div>
+            <div class="meta">super mid · seats 8</div>
+          </div>
+          <div class="price">on request</div>
+        </div>
+        <div class="row">
+          <div>
+            <div class="leg">London — Geneva</div>
+            <div class="meta">light jet · seats 6</div>
+          </div>
+          <div class="price">on request</div>
+        </div>
+        <div class="row">
+          <div>
+            <div class="leg">Dubai — Maldives</div>
+            <div class="meta">heavy jet · seats 12</div>
+          </div>
+          <div class="price">on request</div>
+        </div>
+        <div class="row">
+          <div>
+            <div class="leg">Los Angeles — Tokyo</div>
+            <div class="meta">obsidian · by invitation</div>
+          </div>
+          <div class="price">enquire</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SERVICES ===================== -->
+<section class="services pad" id="services">
+  <div class="wrap">
+    <div class="head reveal">
+      <p class="eyebrow">how we serve</p>
+      <h2>Beyond the flight.</h2>
+    </div>
+    <div class="svc-grid">
+      <div class="svc reveal">
+        <p class="no">01</p>
+        <h3>private charter</h3>
+        <p>On-demand access to the full V2 fleet — one call, one standard, anywhere in the world.</p>
+      </div>
+      <div class="svc reveal d1">
+        <p class="no">02</p>
+        <h3>aircraft management</h3>
+        <p>Owner-grade stewardship of your aircraft — operations, crew, and care, handled entirely.</p>
+      </div>
+      <div class="svc reveal d2">
+        <p class="no">03</p>
+        <h3>v2 vault</h3>
+        <p>A members' channel of curated availability and empty legs, released to V2 clients first.</p>
+      </div>
+      <div class="svc reveal d3">
+        <p class="no">04</p>
+        <h3>bespoke concierge</h3>
+        <p>Ground transport, accommodation, and dining — the journey arranged door to door.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CREDENTIALS ===================== -->
+<section class="creds pad" id="creds">
+  <div class="wrap">
+    <div class="creds-grid reveal">
+      <div class="cred">
+        <p class="v">7</p>
+        <p class="l">aircraft tiers</p>
+      </div>
+      <div class="cred">
+        <p class="v">3,000<small>+</small></p>
+        <p class="l">aircraft on request</p>
+      </div>
+      <div class="cred">
+        <p class="v">24<small>/7</small></p>
+        <p class="l">global flight desk</p>
+      </div>
+      <div class="cred">
+        <p class="v">A<small>+</small></p>
+        <p class="l">argus &amp; wyvern safety</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FINAL CTA ===================== -->
+<section class="final pad" id="final">
+  <div class="wrap">
+    <p class="eyebrow reveal">fly in absolute luxury</p>
+    <h2 class="reveal d1">The world <em>awaits</em>.</h2>
+    <p class="lede reveal d2" style="margin-inline:auto;">Speak with a V2 flight advisor and let us compose your next journey —
+      discreetly, precisely, and entirely on your terms.</p>
+    <div class="actions reveal d2">
+      <a class="obtn" href="mailto:fly@v2jets.com">request a charter</a>
+      <a class="ulink clay" href="tel:+18885552587">+1 888 555 2587</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <img src="../assets/logo-ink.png" alt="V2 Jets" />
+        <p>Private aviation, without compromise. Flying is transcending — tap into a world where luxury is a lifestyle.</p>
+      </div>
+      <div class="foot-col">
+        <h4>fly</h4>
+        <ul>
+          <li><a href="#fleet">the aircraft</a></li>
+          <li><a href="#world">charter</a></li>
+          <li><a href="#vault">v2 vault</a></li>
+          <li><a href="#services">concierge</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>company</h4>
+        <ul>
+          <li><a href="#experience">about us</a></li>
+          <li><a href="#vault">the v2 brief</a></li>
+          <li><a href="#creds">safety</a></li>
+          <li><a href="#final">contact</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>connect</h4>
+        <ul>
+          <li><a href="mailto:fly@v2jets.com">fly@v2jets.com</a></li>
+          <li><a href="tel:+18885552587">+1 888 555 2587</a></li>
+          <li><a href="#final">client portal</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <p>© 2026 V2 Jets. All rights reserved.</p>
+      <span class="tag">the world awaits</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var header = document.getElementById('header');
+    var menuToggle = document.getElementById('menuToggle');
+    var navLinks = document.getElementById('navLinks');
+    var heroImg = document.getElementById('heroImg');
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* sticky header state */
+    function onScroll(){
+      if(window.scrollY > 40){ header.classList.add('scrolled'); }
+      else{ header.classList.remove('scrolled'); }
+
+      /* very subtle hero parallax, motion-safe */
+      if(!reduceMotion && heroImg && window.scrollY < window.innerHeight){
+        heroImg.style.transform = 'scale(1.04) translateY(' + (window.scrollY * 0.06) + 'px)';
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive:true });
+    onScroll();
+
+    /* mobile nav toggle */
+    function closeNav(){
+      document.body.classList.remove('nav-open');
+      menuToggle.setAttribute('aria-expanded','false');
+    }
+    menuToggle.addEventListener('click', function(){
+      var open = document.body.classList.toggle('nav-open');
+      menuToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    navLinks.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', closeNav);
+    });
+
+    /* scroll reveal */
+    var reveals = document.querySelectorAll('.reveal');
+    if(reduceMotion || !('IntersectionObserver' in window)){
+      reveals.forEach(function(el){ el.classList.add('in'); });
+    } else {
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if(e.isIntersecting){
+            e.target.classList.add('in');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold:0.12, rootMargin:'0px 0px -8% 0px' });
+      reveals.forEach(function(el){ io.observe(el); });
+    }
+
+    /* ---------- hero motion — play ONCE then hold (no loop, no restart) ---------- */
+    var heroVid = document.querySelector('.hero-bgvid');
+
+    if(reduceMotion){
+      /* never play — poster remains */
+      if(heroVid){ heroVid.removeAttribute('autoplay'); try{ heroVid.pause(); }catch(e){} }
+    } else if(heroVid){
+      /* nudge play in case autoplay is deferred; it will stop on its own at the end */
+      var p = heroVid.play();
+      if(p && typeof p.catch === 'function'){ p.catch(function(){}); }
+    }
+  })();
+
+  /* ---------- interlude — scroll-scrubbed film ---------- */
+  (function(){
+    const s=document.querySelector('.scrub'),v=s&&s.querySelector('video');
+    if(!s||!v)return;
+    const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let target=0;
+    v.addEventListener('loadedmetadata',()=>v.pause());
+    function compute(){
+      const r=s.getBoundingClientRect();
+      const total=r.height-innerHeight;
+      const p=Math.min(1,Math.max(0,-r.top/Math.max(1,total)));
+      target=p*(v.duration||0);
+    }
+    function tick(){
+      if(v.duration){
+        const cur=v.currentTime,next=cur+(target-cur)*0.2;
+        if(Math.abs(target-cur)>0.01){
+          if(v.fastSeek)v.fastSeek(Math.max(0,next));else v.currentTime=next;
+        }
+      }
+      requestAnimationFrame(tick);
+    }
+    if(!reduce){
+      addEventListener('scroll',compute,{passive:true});
+      addEventListener('resize',compute);
+      compute();tick();
+    }
+  })();
+</script>
+<script>
+/* scrub hardening: back the sticky stage with the poster so it never flashes blank, and paint the first frame */
+(function(){
+  document.querySelectorAll('.scrub').forEach(function(s){
+    var v=s.querySelector('video'); if(!v) return;
+    var stage=s.querySelector('.scrub__stage')||v.parentElement;
+    var poster=v.getAttribute('poster');
+    if(poster && !stage.querySelector('.scrub__poster')){
+      var pd=document.createElement('div'); pd.className='scrub__poster';
+      var f=getComputedStyle(v).filter;
+      pd.style.cssText='position:absolute;inset:0;background:#0c0f13 url("'+poster+'") center/cover;'+(f&&f!=='none'?'filter:'+f+';':'');
+      stage.insertBefore(pd, stage.firstChild);
+    }
+    function paint(){ try{ v.fastSeek?v.fastSeek(0.05):(v.currentTime=0.05); }catch(e){} }
+    if(v.readyState>=2) paint(); else v.addEventListener('loadeddata',paint,{once:true});
+  });
+})();
+</script>
+</body>
+</html>

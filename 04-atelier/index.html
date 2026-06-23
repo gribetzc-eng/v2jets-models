@@ -8,33 +8,38 @@
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
 <style>
   :root{
-    /* ===== V2 STRICT BRAND KIT ===== */
-    --paper:#F2F0E9;
-    --paper-2:#E8E5DB;
-    --ink:#12161B;
-    --ink-soft:#5A6066;
-    --hair-tok:rgba(18,22,27,.14);
-    --noir:#0C0F13;
-    --noir-2:#14181D;
-    --on-noir:#F2F0E9;
-    --on-noir-soft:#9AA0A6;
-    --hair-d:rgba(242,240,233,.16);
-    --blue:#2E6E96;
-    --blue-2:#5FA3C9;
-    --navy:#13314B;
-    --font-display:'Jost',system-ui,sans-serif;
-    --font-body:'Inter',system-ui,sans-serif;
-    --font-mono:'JetBrains Mono',ui-monospace,monospace;
+    /* ===== REAL V2 JETS BRAND KIT ===== */
+    --white:#FFFFFF;
+    --paper:#FAFAFA;
+    --paper-2:#F1F1F1;
+    --ink:#0E0E0E;
+    --ink-2:#272727;
+    --gray:#6B6B6B;
+    --gray-2:#959595;
+    --hair-tok:rgba(14,14,14,.12);
+    --red:#BB0000;
+    --red-dark:#A20000;
 
-    /* ===== legacy aliases mapped to kit (layout/feel unchanged) ===== */
+    /* dark-surface tokens (grayscale plates / noir spreads) */
+    --noir:#0E0E0E;
+    --noir-2:#141414;
+    --on-noir:#FAFAFA;
+    --on-noir-soft:#959595;
+    --hair-d:rgba(250,250,250,.16);
+
+    --font-display:'Libre Franklin','Helvetica Neue',Arial,sans-serif;
+    --font-body:'Roboto','Helvetica Neue',Arial,sans-serif;
+
+    /* ===== legacy aliases mapped to V2 kit (layout/feel unchanged) ===== */
+    --accent:var(--red);
     --hair:var(--ink);
     --paper-deep:var(--paper-2);
-    --muted:var(--ink-soft);
-    --serif:var(--font-display);   /* display: Jost (was Playfair) */
-    --grotesk:var(--font-body);    /* labels: Inter (was Archivo) */
+    --muted:var(--gray);
+    --serif:var(--font-display);   /* editorial display: Libre Franklin */
+    --grotesk:var(--font-body);    /* labels/body: Roboto */
     --gutter:clamp(20px, 5vw, 88px);
     --rule:1px solid var(--ink);
     --hairthin:var(--hair-tok);
@@ -56,7 +61,7 @@
   img{display:block;max-width:100%;}
   a{color:inherit;text-decoration:none;}
 
-  ::selection{background:var(--blue);color:var(--paper);}
+  ::selection{background:var(--red);color:var(--paper);}
 
   /* ---------- Typographic primitives ---------- */
   .eyebrow{
@@ -75,7 +80,7 @@
     text-transform:uppercase;
     color:var(--muted);
   }
-  .accent{color:var(--blue);}
+  .accent{color:var(--red);}
   .serif{font-family:var(--serif);}
   .caption{
     font-family:var(--serif);
@@ -88,7 +93,7 @@
     font-family:var(--serif);
     font-weight:500;
     font-variant-numeric:lining-nums;
-    color:var(--blue);
+    color:var(--red);
     line-height:.9;
   }
 
@@ -115,7 +120,7 @@
     color:var(--ink);
     font-weight:600;
   }
-  .section-marker .sig em{font-style:italic;color:var(--blue);font-weight:600;}
+  .section-marker .sig em{font-style:italic;color:var(--red);font-weight:600;}
   .section-marker .lead{
     margin-left:auto;
     max-width:34ch;
@@ -167,7 +172,7 @@
   header.site nav.primary a::after{
     content:"";
     position:absolute;left:0;bottom:-1px;
-    width:0;height:1px;background:var(--blue);
+    width:0;height:1px;background:var(--red);
     transition:width .3s ease;
   }
   header.site nav.primary a:hover::after{width:100%;}
@@ -293,7 +298,7 @@
     transition:background .3s ease,color .3s ease,border-color .3s ease;
   }
   .btn-primary{background:var(--ink);color:var(--paper);border:1px solid var(--ink);}
-  .btn-primary:hover{background:var(--blue);border-color:var(--blue);}
+  .btn-primary:hover{background:var(--red);border-color:var(--red);}
   .btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--ink);}
   .btn-ghost:hover{background:var(--ink);color:var(--paper);}
   .btn .arrow{transition:transform .3s ease;}
@@ -361,7 +366,7 @@
   }
   .hero-foot .ticker b{color:var(--ink);font-weight:600;}
   .hero-foot .scroll-note{
-    font-family:var(--serif);font-style:italic;color:var(--blue);font-size:13px;
+    font-family:var(--serif);font-style:italic;color:var(--red);font-size:13px;
   }
 
   /* =========================================================
@@ -383,10 +388,10 @@
     margin:0;
   }
   .manifesto-quote .it{font-style:italic;}
-  .manifesto-quote .q{color:var(--blue);font-weight:600;}
+  .manifesto-quote .q{color:var(--red);font-weight:600;}
   .manifesto-aside{
     padding-top:clamp(8px,1vw,16px);
-    border-top:2px solid var(--navy);
+    border-top:2px solid var(--red);
   }
   .manifesto-aside p{
     font-size:clamp(13.5px,1.1vw,15.5px);
@@ -423,7 +428,7 @@
     font-family:var(--serif);
     font-weight:500;
     font-size:clamp(26px,3.4vw,50px);
-    color:var(--blue);
+    color:var(--red);
     line-height:.85;
   }
   .fleet-row .f-name{
@@ -456,7 +461,7 @@
     background:var(--ink);
     color:var(--paper);
     margin-top:clamp(40px,5vw,72px);
-    border-top:2px solid var(--navy);
+    border-top:2px solid var(--red);
     overflow:hidden;
   }
   .obsidian .ob-grid{
@@ -514,7 +519,7 @@
     max-width:34ch;
     color:rgba(250,250,248,.92);
   }
-  .obsidian .ob-pull .q{color:var(--blue);font-style:normal;font-weight:600;}
+  .obsidian .ob-pull .q{color:var(--red);font-style:normal;font-weight:600;}
   .obsidian .ob-meta{
     display:flex;
     gap:clamp(20px,3vw,44px);
@@ -585,7 +590,7 @@
     gap:18px;
   }
   .cabin-text .knum{
-    font-family:var(--serif);font-weight:500;font-size:clamp(30px,4vw,60px);color:var(--blue);line-height:.8;
+    font-family:var(--serif);font-weight:500;font-size:clamp(30px,4vw,60px);color:var(--red);line-height:.8;
   }
   .cabin-text h3{
     font-family:var(--serif);font-weight:500;
@@ -604,7 +609,7 @@
   }
   .cabin-feats li::before{
     content:"";position:absolute;left:0;top:6px;width:7px;height:7px;
-    border:1px solid var(--blue);
+    border:1px solid var(--red);
   }
 
   /* =========================================================
@@ -638,7 +643,7 @@
   }
   .dest:nth-child(4n){border-right:none;}
   .dest .d-num{
-    font-family:var(--serif);font-size:13px;color:var(--blue);font-weight:600;letter-spacing:.04em;
+    font-family:var(--serif);font-size:13px;color:var(--red);font-weight:600;letter-spacing:.04em;
   }
   .dest .d-city{
     font-family:var(--serif);font-weight:600;font-size:clamp(20px,2.2vw,30px);line-height:1.02;margin:10px 0 4px;
@@ -662,8 +667,8 @@
     color:var(--on-noir);
     display:flex;
     align-items:flex-end;
-    border-top:2px solid var(--navy);
-    border-bottom:2px solid var(--navy);
+    border-top:2px solid var(--red);
+    border-bottom:2px solid var(--red);
   }
   .film{
     position:absolute;inset:0;
@@ -671,6 +676,8 @@
     object-fit:cover;
     filter:grayscale(100%) contrast(1.05);
     z-index:0;
+    will-change:transform,opacity;
+    backface-visibility:hidden;
   }
   .scrub__stage::after{
     content:"";position:absolute;inset:0;z-index:1;
@@ -705,14 +712,14 @@
     color:var(--paper);
   }
   .interlude .il-quote .it{font-style:italic;font-weight:500;}
-  .interlude .il-quote .q{color:var(--blue);font-weight:600;}
+  .interlude .il-quote .q{color:var(--red);font-weight:600;}
 
   /* =========================================================
      V2 VAULT teaser
   ========================================================= */
   .vault{
     background:var(--ink);color:var(--paper);
-    border-top:2px solid var(--navy);
+    border-top:2px solid var(--red);
   }
   .vault .wrap{padding-top:clamp(56px,7vw,110px);padding-bottom:clamp(56px,7vw,110px);}
   .vault-grid{
@@ -721,7 +728,7 @@
   .vault-left .label{color:rgba(250,250,248,.55);}
   .vault-left .vnum{
     font-family:var(--serif);font-weight:500;font-size:clamp(60px,9vw,150px);
-    color:var(--blue);line-height:.8;margin:14px 0 0;
+    color:var(--red);line-height:.8;margin:14px 0 0;
   }
   .vault-left .vnum small{
     display:block;font-family:var(--grotesk);font-weight:600;font-size:11px;
@@ -732,7 +739,7 @@
     line-height:.98;letter-spacing:-.01em;margin:0;
   }
   .vault-right h2 .it{font-style:italic;font-weight:500;}
-  .vault-right h2 .q{color:var(--blue);}
+  .vault-right h2 .q{color:var(--red);}
   .vault-right p{
     font-size:clamp(13.5px,1.1vw,16px);line-height:1.7;color:rgba(250,250,248,.78);
     margin:22px 0 0;max-width:50ch;
@@ -748,7 +755,7 @@
   .vault-list .vl-route em{font-style:italic;color:rgba(250,250,248,.7);font-size:.78em;margin-left:8px;}
   .vault-list .vl-tag{
     font-family:var(--grotesk);font-weight:600;font-size:10px;letter-spacing:.18em;
-    text-transform:uppercase;color:var(--blue);white-space:nowrap;
+    text-transform:uppercase;color:var(--red);white-space:nowrap;
   }
   .vault-cta{margin-top:34px;}
   .btn-vault{
@@ -782,7 +789,7 @@
     font-family:var(--serif);font-weight:600;font-size:clamp(40px,5.4vw,82px);
     line-height:.86;letter-spacing:-.02em;
   }
-  .stat .s-fig sup{font-size:.42em;color:var(--blue);font-weight:600;top:-1.1em;}
+  .stat .s-fig sup{font-size:.42em;color:var(--red);font-weight:600;top:-1.1em;}
   .stat .s-fig .small{font-size:.4em;}
   .stat .s-lab{
     margin-top:14px;font-family:var(--grotesk);font-weight:600;font-size:11px;
@@ -799,7 +806,7 @@
     text-transform:uppercase;color:var(--muted);
     display:flex;align-items:center;gap:10px;
   }
-  .cert-strip .cert::before{content:"§";font-family:var(--serif);color:var(--blue);font-style:italic;}
+  .cert-strip .cert::before{content:"§";font-family:var(--serif);color:var(--red);font-style:italic;}
 
   /* =========================================================
      FINAL CTA
@@ -842,7 +849,7 @@
     font-family:var(--serif);font-style:italic;font-size:clamp(16px,1.5vw,20px);
     color:var(--paper);margin-top:20px;
   }
-  .foot-brand .fb-tag .q{color:var(--blue);font-style:normal;}
+  .foot-brand .fb-tag .q{color:var(--red);font-style:normal;}
   .foot-col h4{
     font-family:var(--grotesk);font-weight:600;font-size:11px;letter-spacing:.2em;
     text-transform:uppercase;color:rgba(250,250,248,.5);margin:0 0 18px;
@@ -853,7 +860,7 @@
     font-size:13.5px;color:rgba(250,250,248,.85);letter-spacing:.01em;
     transition:color .25s ease;
   }
-  .foot-col a:hover{color:var(--blue);}
+  .foot-col a:hover{color:var(--red);}
   .foot-col .contact-line{font-size:13.5px;color:rgba(250,250,248,.85);margin-bottom:9px;}
   .foot-col .contact-line b{color:var(--paper);font-weight:600;}
   .foot-bottom{
@@ -867,13 +874,13 @@
   .foot-bottom .colophon{
     font-family:var(--serif);font-style:italic;font-size:13px;color:rgba(250,250,248,.6);
   }
-  .foot-bottom .colophon .accent{color:var(--blue);font-style:normal;}
+  .foot-bottom .colophon .accent{color:var(--red);font-style:normal;}
 
   /* =========================================================
      SCROLL REVEAL
   ========================================================= */
-  .reveal{opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1);}
-  .reveal.in{opacity:1;transform:none;}
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1);will-change:opacity,transform;}
+  .reveal.in{opacity:1;transform:none;will-change:auto;}
   .reveal.d1{transition-delay:.08s;}
   .reveal.d2{transition-delay:.16s;}
   .reveal.d3{transition-delay:.24s;}
@@ -1024,9 +1031,6 @@
             <source src="../assets/clips/07-vector-out.mp4" type="video/mp4" />
           </video>
           <span class="plate-index">01</span>
-          <figcaption class="plate-cap">
-            <span class="caption">Pl. 01 — Ultra Long Range</span>
-          </figcaption>
         </figure>
       </div>
 
@@ -1395,7 +1399,7 @@
 
     <div class="foot-bottom">
       <div class="copy">© 2026 V2 Jets. All rights reserved.</div>
-      <div class="colophon">The Atelier Edition — set in Jost &amp; Inter · <span class="accent">Nº 01</span></div>
+      <div class="colophon">The Atelier Edition — set in Libre Franklin &amp; Roboto · <span class="accent">Nº 01</span></div>
     </div>
   </div>
 </footer>
@@ -1472,7 +1476,7 @@
     }
     function tick(){
       if(v.duration){
-        const cur=v.currentTime,next=cur+(target-cur)*0.2;
+        const cur=v.currentTime,next=cur+(target-cur)*0.12;
         if(Math.abs(target-cur)>0.01){
           if(v.fastSeek)v.fastSeek(Math.max(0,next));else v.currentTime=next;
         }
@@ -1498,7 +1502,7 @@
     if(poster && !stage.querySelector('.scrub__poster')){
       var pd=document.createElement('div'); pd.className='scrub__poster';
       var f=getComputedStyle(v).filter;
-      pd.style.cssText='position:absolute;inset:0;background:#0c0f13 url("'+poster+'") center/cover;'+(f&&f!=='none'?'filter:'+f+';':'');
+      pd.style.cssText='position:absolute;inset:0;background:#0E0E0E url("'+poster+'") center/cover;'+(f&&f!=='none'?'filter:'+f+';':'');
       stage.insertBefore(pd, stage.firstChild);
     }
     function paint(){ try{ v.fastSeek?v.fastSeek(0.05):(v.currentTime=0.05); }catch(e){} }

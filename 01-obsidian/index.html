@@ -8,35 +8,38 @@
 <link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    /* ===== V2 STRICT BRAND KIT ===== */
-    --paper:#F2F0E9; --paper-2:#E8E5DB;
-    --ink:#12161B; --ink-soft:#5A6066; --hair:rgba(18,22,27,.14);
-    --noir:#0C0F13; --noir-2:#14181D; --on-noir:#F2F0E9; --on-noir-soft:#9AA0A6; --hair-d:rgba(242,240,233,.16);
-    --on-noir-2:#CDD0D4;
-    --blue:#2E6E96; --blue-2:#5FA3C9; --navy:#13314B;
+    /* ===== REAL V2 JETS BRAND KIT (white / near-black, photography-forward, ONE accent = RED) ===== */
+    --white:#FFFFFF; --paper:#FAFAFA; --paper-2:#F1F1F1;
+    --ink:#0E0E0E; --ink-2:#272727; --gray:#6B6B6B; --gray-2:#959595; --hair:rgba(14,14,14,.12);
+    --red:#BB0000; --red-dark:#A20000;
+    /* dark surfaces */
+    --noir:#0E0E0E; --noir-2:#161616; --on-noir:#FFFFFF; --hair-d:rgba(255,255,255,.16);
 
-    --font-display:'Jost',system-ui,sans-serif;
-    --font-body:'Inter',system-ui,sans-serif;
-    --font-mono:'JetBrains Mono',ui-monospace,monospace;
+    --font-display:'Libre Franklin','Helvetica Neue',Arial,sans-serif;
+    --font-body:'Roboto','Helvetica Neue',Arial,sans-serif;
+    --font-mono:'Libre Franklin','Helvetica Neue',Arial,sans-serif;
 
-    /* ----- legacy token names remapped onto the kit (Obsidian = dark surface) ----- */
+    /* ----- legacy token names remapped onto the V2 kit (Obsidian = dark surface) ----- */
     --obsidian:var(--noir);
     --graphite:var(--noir-2);
     --graphite-2:var(--noir-2);
     --aubergine:var(--noir);
     --pure-white:var(--on-noir);
-    --ink-soft:var(--on-noir-2);
-    --ink-mute:var(--on-noir-soft);
-    --ink-faint:#6B7177;
+    --on-noir-soft:rgba(255,255,255,.62);
+    --on-noir-2:rgba(255,255,255,.82);
+    --ink-soft:rgba(255,255,255,.82);
+    --ink-mute:rgba(255,255,255,.62);
+    --ink-faint:rgba(255,255,255,.42);
     --hairline:var(--hair-d);
-    --hairline-soft:rgba(242,240,233,.07);
-    --plat-1:var(--blue);
-    --plat-2:var(--blue-2);
-    --plat-3:var(--blue);
-    --plat-grad:linear-gradient(105deg,var(--blue-2) 0%,var(--blue) 60%,var(--navy) 100%);
+    --hairline-soft:rgba(255,255,255,.08);
+    /* the ONLY chromatic color is V2 red — all former platinum/blue accents map to red */
+    --plat-1:var(--red);
+    --plat-2:var(--red);
+    --plat-3:var(--red);
+    --plat-grad:var(--red);
     --serif:var(--font-display);
     --sans:var(--font-body);
     --mono:var(--font-mono);
@@ -89,7 +92,7 @@
     font-weight:400;
   }
   .platinum{
-    color:var(--blue-2);
+    color:var(--red);
   }
   .rule{
     height:1px;width:100%;
@@ -218,17 +221,15 @@
     display:flex;align-items:flex-end;
     overflow:hidden;
   }
+  /* scroll-reactive parallax hero image (transform-only, LERP-eased in JS) */
   .hero__img{
-    position:absolute;inset:0;
-    background:#070A0D url("../assets/plane-exterior.jpg") center 38%/cover no-repeat;
+    position:absolute;
+    top:-6%;left:-6%;right:-6%;bottom:-6%;
+    background:#0A0A0A url("../assets/plane-exterior.jpg") center 38%/cover no-repeat;
     z-index:0;
-  }
-  /* cinematic hero background video — sits above the photo fallback, below every scrim */
-  .hero-bgvid{
-    position:absolute;inset:0;z-index:0;
-    width:100%;height:100%;
-    object-fit:cover;object-position:center 38%;
-    pointer-events:none;
+    will-change:transform;
+    transform:translate3d(0,0,0) scale(1);
+    backface-visibility:hidden;
   }
   .hero__scrim{
     position:absolute;inset:0;z-index:1;
@@ -258,15 +259,16 @@
   .hero__eyebrow .tick{width:42px;height:1px;background:var(--plat-3);opacity:.7}
   .hero h1{
     font-family:var(--serif);
-    font-weight:300;
-    font-size:clamp(50px,11.5vw,170px);
-    line-height:.94;
-    letter-spacing:-.01em;
+    font-weight:400;
+    font-size:clamp(46px,10.5vw,150px);
+    line-height:.98;
+    letter-spacing:.04em;
+    text-transform:uppercase;
     color:var(--pure-white);
     text-shadow:0 2px 60px rgba(0,0,0,.55);
     max-width:14ch;
   }
-  .hero h1 em{font-style:italic;font-weight:300}
+  .hero h1 em{font-style:normal;font-weight:400}
   .hero__sub{
     margin-top:clamp(22px,3vh,38px);
     max-width:46ch;
@@ -373,17 +375,17 @@
   /* Obsidian flagship row — inverted / illuminated */
   .fleet-row--flagship{
     background:
-      linear-gradient(100deg,rgba(95,163,201,.10) 0%,rgba(46,110,150,.05) 50%,rgba(12,15,19,.2) 100%),
+      linear-gradient(100deg,rgba(187,0,0,.12) 0%,rgba(187,0,0,.05) 50%,rgba(14,14,14,.2) 100%),
       var(--graphite);
     border:1px solid var(--hairline);
     border-radius:2px;
     margin-block:6px;
-    box-shadow:0 0 0 1px rgba(95,163,201,.05),0 30px 80px -40px rgba(95,163,201,.18);
+    box-shadow:0 0 0 1px rgba(187,0,0,.06),0 30px 80px -40px rgba(187,0,0,.22);
     padding-inline:clamp(14px,2.4vw,34px);
   }
   .fleet-row--flagship .tier-name{color:var(--pure-white)}
   .fleet-row--flagship:hover{background:
-      linear-gradient(100deg,rgba(95,163,201,.16) 0%,rgba(46,110,150,.07) 50%,rgba(12,15,19,.2) 100%),
+      linear-gradient(100deg,rgba(187,0,0,.18) 0%,rgba(187,0,0,.07) 50%,rgba(14,14,14,.2) 100%),
       var(--graphite)}
   .fleet-row--flagship .tier-no{color:var(--plat-2)}
   .fleet-row--flagship .specs{color:var(--plat-2)}
@@ -440,9 +442,9 @@
   }
   .world .wrap{position:relative;z-index:2}
   .world h2{
-    font-family:var(--serif);font-weight:300;
-    font-size:clamp(42px,9vw,128px);line-height:.95;color:var(--pure-white);
-    letter-spacing:-.01em;text-align:center;
+    font-family:var(--serif);font-weight:400;
+    font-size:clamp(40px,8.5vw,120px);line-height:1;color:var(--pure-white);
+    letter-spacing:.04em;text-transform:uppercase;text-align:center;
   }
   .world .lead{
     text-align:center;max-width:54ch;margin:clamp(24px,3vh,36px) auto 0;
@@ -465,24 +467,24 @@
   .dest .city{font-family:var(--serif);font-size:clamp(22px,2.6vw,30px);color:var(--ink-soft);font-weight:300;margin-top:14px;line-height:1.1}
   .dest .note{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;color:var(--ink-faint);text-transform:uppercase;margin-top:12px}
 
-  /* =========== CINEMATIC INTERLUDE (scroll-scrubbed) =========== */
-  .scrub{position:relative;height:220vh}
+  /* =========== CINEMATIC MOMENT (play-once full-bleed video) =========== */
   .film-sec{
     border-block:1px solid var(--hairline);
     background:var(--obsidian);
   }
-  .scrub__stage{
-    position:sticky;top:0;height:100vh;overflow:hidden;
+  .filmplay{position:relative}
+  .filmplay__stage{
+    position:relative;height:90vh;min-height:560px;overflow:hidden;
     display:flex;align-items:flex-end;
   }
-  .film{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none}
+  .film{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;will-change:transform}
   .film-sec__scrim{
     position:absolute;inset:0;z-index:1;pointer-events:none;
     background:
       linear-gradient(180deg,rgba(12,15,19,.78) 0%,rgba(12,15,19,.18) 30%,rgba(12,15,19,.18) 58%,rgba(12,15,19,.88) 100%),
       linear-gradient(90deg,rgba(12,15,19,.46) 0%,transparent 32%,transparent 68%,rgba(12,15,19,.46) 100%);
   }
-  .scrub__cap,.film-sec__inner{
+  .film-sec__inner{
     position:relative;z-index:2;
     width:100%;
     max-width:var(--maxw);margin-inline:auto;
@@ -491,9 +493,9 @@
   .film-sec__eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:clamp(16px,2.4vh,26px)}
   .film-sec__eyebrow .tick{width:42px;height:1px;background:var(--plat-3);opacity:.7}
   .film-sec h2{
-    font-family:var(--serif);font-weight:300;
-    font-size:clamp(38px,8vw,108px);line-height:.96;
-    letter-spacing:-.01em;color:var(--pure-white);
+    font-family:var(--serif);font-weight:400;
+    font-size:clamp(36px,7.5vw,100px);line-height:1;
+    letter-spacing:.04em;text-transform:uppercase;color:var(--pure-white);
     text-shadow:0 2px 60px rgba(0,0,0,.55);
     max-width:16ch;
   }
@@ -503,7 +505,7 @@
   .vault-card{
     border:1px solid var(--hairline);
     background:
-      radial-gradient(120% 140% at 100% 0%,rgba(19,49,75,.9) 0%,transparent 55%),
+      radial-gradient(120% 140% at 100% 0%,rgba(187,0,0,.22) 0%,transparent 55%),
       linear-gradient(160deg,var(--graphite) 0%,var(--aubergine) 100%);
     padding:clamp(34px,5vw,72px);
     position:relative;overflow:hidden;
@@ -511,7 +513,7 @@
   }
   .vault-card::before{
     content:"";position:absolute;inset:0;pointer-events:none;
-    background:radial-gradient(60% 80% at 90% 10%,rgba(95,163,201,.08),transparent 60%);
+    background:radial-gradient(60% 80% at 90% 10%,rgba(187,0,0,.10),transparent 60%);
   }
   .vault-grid{display:grid;grid-template-columns:1fr;gap:clamp(30px,4vw,60px);position:relative;z-index:1}
   @media(min-width:860px){.vault-grid{grid-template-columns:1.1fr .9fr;align-items:center}}
@@ -526,7 +528,7 @@
   .vault-list .meta{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--ink-faint);text-align:right;white-space:nowrap}
   .vault-list .meta .live{color:var(--plat-1)}
   .vault-badge{font-family:var(--mono);font-size:9.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink-mute);display:inline-flex;align-items:center;gap:9px;margin-bottom:20px}
-  .vault-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--plat-1);box-shadow:0 0 10px rgba(95,163,201,.8);animation:pulse 2.4s ease-in-out infinite}
+  .vault-badge .dot{width:6px;height:6px;border-radius:50%;background:var(--plat-1);box-shadow:0 0 10px rgba(187,0,0,.85);animation:pulse 2.4s ease-in-out infinite}
   @keyframes pulse{0%,100%{opacity:.35}50%{opacity:1}}
 
   /* =========== CREDENTIALS STRIP =========== */
@@ -548,12 +550,12 @@
   .final{position:relative;text-align:center;overflow:hidden}
   .final__glow{
     position:absolute;inset:0;z-index:0;
-    background:radial-gradient(70% 90% at 50% 120%,rgba(19,49,75,.9) 0%,transparent 60%);
+    background:radial-gradient(70% 90% at 50% 120%,rgba(187,0,0,.16) 0%,transparent 60%);
   }
   .final .wrap{position:relative;z-index:1}
   .final h2{
-    font-family:var(--serif);font-weight:300;
-    font-size:clamp(46px,10vw,150px);line-height:.94;color:var(--pure-white);letter-spacing:-.01em;
+    font-family:var(--serif);font-weight:400;
+    font-size:clamp(42px,9vw,134px);line-height:.98;color:var(--pure-white);letter-spacing:.04em;text-transform:uppercase;
   }
   .final p{max-width:50ch;margin:clamp(22px,3vh,32px) auto clamp(34px,4.5vh,48px);color:var(--ink-mute);font-size:clamp(14px,1.5vw,18px);line-height:1.7}
   .final .actions{display:flex;flex-wrap:wrap;gap:16px;justify-content:center}
@@ -638,10 +640,7 @@
 
 <!-- ===================== HERO ===================== -->
 <section class="hero" id="hero">
-  <div class="hero__img" role="img" aria-label="A private jet on the tarmac under a vast night sky"></div>
-  <video class="hero-bgvid" autoplay muted playsinline preload="auto" poster="../assets/plane-exterior.jpg" aria-hidden="true">
-    <source src="../assets/clips/01-departure-dusk.mp4" type="video/mp4">
-  </video>
+  <div class="hero__img" id="heroImg" role="img" aria-label="A private jet on the tarmac under a vast night sky"></div>
   <div class="hero__scrim"></div>
   <div class="hero__stars"></div>
 
@@ -831,14 +830,14 @@
   </div>
 </section>
 
-<!-- ===================== CINEMATIC INTERLUDE (scroll-scrubbed) ===================== -->
-<section class="scrub film-sec" id="ascent" aria-label="Ascent">
-  <div class="scrub__stage">
+<!-- ===================== CINEMATIC MOMENT (play-once video) ===================== -->
+<section class="film-sec filmplay" id="ascent" aria-label="Ascent">
+  <div class="filmplay__stage">
     <video class="film" muted playsinline preload="auto" poster="../assets/hero-xl.jpg" aria-hidden="true">
       <source src="../assets/clips/ascent.mp4" type="video/mp4">
     </video>
     <div class="film-sec__scrim" aria-hidden="true"></div>
-    <div class="scrub__cap film-sec__inner">
+    <div class="film-sec__inner">
       <div class="film-sec__eyebrow reveal">
         <span class="tick"></span>
         <span class="eyebrow">Wheels-Up · Ascent</span>
@@ -996,48 +995,59 @@
     revealEls.forEach(function(el){ io.observe(el); });
   }
 
-  /* ---- HERO video: play ONCE, then hold on the last frame (no loop, no restart) ---- */
-  var heroVid = document.querySelector('.hero-bgvid');
-  if(reduce){
-    /* reduced motion: never play — poster remains */
-    if(heroVid){ try{ heroVid.removeAttribute('autoplay'); heroVid.pause(); }catch(e){} }
-  } else if(heroVid){
-    heroVid.muted = true;
-    var hp = heroVid.play();
-    if(hp && hp.catch){ hp.catch(function(){}); }
+  /* ---- HERO parallax: scroll-reactive still IMAGE, LERP-eased (transform only) ---- */
+  var heroImg = document.getElementById('heroImg');
+  var heroSec = document.getElementById('hero');
+  if(heroImg && heroSec && !reduce){
+    var hCur = 0, hTarget = 0, hRaf = null;
+    function heroMeasure(){
+      var r = heroSec.getBoundingClientRect();
+      var vh = window.innerHeight || 1;
+      /* progress 0 (hero top at viewport top) -> 1 (hero scrolled fully past) */
+      var p = (-r.top) / Math.max(1, (r.height + vh));
+      hTarget = Math.min(1, Math.max(0, p));
+    }
+    function heroTick(){
+      hCur += (hTarget - hCur) * 0.12;            /* buttery LERP */
+      var scale = 1 + hCur * 0.08;                 /* 1.0 -> ~1.08 */
+      var drift = hCur * 40;                        /* gentle downward drift, px */
+      heroImg.style.transform = 'translate3d(0,' + drift.toFixed(2) + 'px,0) scale(' + scale.toFixed(4) + ')';
+      if(Math.abs(hTarget - hCur) > 0.0005){ hRaf = requestAnimationFrame(heroTick); }
+      else { hRaf = null; }
+    }
+    function heroKick(){ if(hRaf === null){ hRaf = requestAnimationFrame(heroTick); } }
+    window.addEventListener('scroll', function(){ heroMeasure(); heroKick(); }, {passive:true});
+    window.addEventListener('resize', function(){ heroMeasure(); heroKick(); });
+    heroMeasure(); heroKick();
   }
 })();
 
-/* ---- INTERLUDE video: scroll-scrubbed (currentTime follows scroll) ---- */
+/* ---- CINEMATIC MOMENT: play ONCE on scroll-into-view, hold last frame (no loop, no scrub) ---- */
 (function(){
-  const s=document.querySelector('.scrub'),v=s&&s.querySelector('video');
-  if(!s||!v)return;
+  const sec=document.getElementById('ascent');
+  const v=sec&&sec.querySelector('video');
+  if(!sec||!v)return;
+  v.muted=true; v.setAttribute('playsinline',''); v.loop=false;
+  let played=false;
+  function playOnce(){
+    if(played)return; played=true;
+    const p=v.play();
+    if(p&&p.catch){ p.catch(function(){ played=false; }); }
+  }
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let target=0;
-  v.addEventListener('loadedmetadata',()=>v.pause());
-  function compute(){const r=s.getBoundingClientRect();const total=r.height-innerHeight;const p=Math.min(1,Math.max(0,-r.top/Math.max(1,total)));target=p*(v.duration||0);}
-  function tick(){if(v.duration){const cur=v.currentTime,next=cur+(target-cur)*0.2;if(Math.abs(target-cur)>0.01){if(v.fastSeek)v.fastSeek(Math.max(0,next));else v.currentTime=next;}}requestAnimationFrame(tick);}
-  if(!reduce){addEventListener('scroll',compute,{passive:true});addEventListener('resize',compute);compute();tick();}
+  if(reduce){ return; } /* poster holds */
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting){ playOnce(); io.unobserve(en.target); }
+      });
+    },{threshold:0.4});
+    io.observe(sec);
+  } else {
+    playOnce();
+  }
 })();
 </script>
 
-<script>
-/* scrub hardening: back the sticky stage with the poster so it never flashes blank, and paint the first frame */
-(function(){
-  document.querySelectorAll('.scrub').forEach(function(s){
-    var v=s.querySelector('video'); if(!v) return;
-    var stage=s.querySelector('.scrub__stage')||v.parentElement;
-    var poster=v.getAttribute('poster');
-    if(poster && !stage.querySelector('.scrub__poster')){
-      var pd=document.createElement('div'); pd.className='scrub__poster';
-      var f=getComputedStyle(v).filter;
-      pd.style.cssText='position:absolute;inset:0;background:#0c0f13 url("'+poster+'") center/cover;'+(f&&f!=='none'?'filter:'+f+';':'');
-      stage.insertBefore(pd, stage.firstChild);
-    }
-    function paint(){ try{ v.fastSeek?v.fastSeek(0.05):(v.currentTime=0.05); }catch(e){} }
-    if(v.readyState>=2) paint(); else v.addEventListener('loadeddata',paint,{once:true});
-  });
-})();
-</script>
 </body>
 </html>

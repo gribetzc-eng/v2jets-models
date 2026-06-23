@@ -7,84 +7,82 @@
 <link rel="icon" href="assets/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --paper:#F2F0E9; --paper-2:#E8E5DB; --card:#FFFFFF;
-    --ink:#12161B; --muted:#5A6066; --hair:rgba(18,22,27,.14);
-    --blue:#2E6E96; --blue-2:#5FA3C9; --navy:#13314B;
-    --display:'Jost',system-ui,sans-serif;
-    --sans:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
-    --mono:'JetBrains Mono',ui-monospace,monospace;
+    --white:#FFFFFF; --paper:#FAFAFA; --paper-2:#F1F1F1; --card:#FFFFFF;
+    --ink:#0E0E0E; --ink-2:#272727; --muted:#6B6B6B; --hair:rgba(14,14,14,.12);
+    --red:#BB0000; --red-dark:#A20000;
+    --display:'Libre Franklin','Helvetica Neue',Arial,sans-serif;
+    --body:'Roboto','Helvetica Neue',Arial,sans-serif;
     --ease:cubic-bezier(.16,1,.3,1);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  body{background:var(--paper);color:var(--ink);font-family:var(--sans);
-    font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  body{background:var(--paper);color:var(--ink);font-family:var(--body);
+    font-size:16px;line-height:1.6;font-weight:400;-webkit-font-smoothing:antialiased}
   a{color:inherit;text-decoration:none}
   .wrap{max-width:1280px;margin:0 auto;padding:0 clamp(1.2rem,4vw,3rem)}
-  .mono{font-family:var(--mono);text-transform:uppercase;letter-spacing:.28em;font-size:.62rem;color:var(--muted)}
+  .label{font-family:var(--display);text-transform:uppercase;letter-spacing:.24em;font-size:.62rem;font-weight:600;color:var(--muted)}
 
   /* ---------- masthead ---------- */
   header{padding:clamp(2.6rem,7vh,5rem) 0 2.2rem;border-bottom:1px solid var(--hair)}
   .brandrow{display:flex;align-items:center;gap:.9rem;margin-bottom:1.4rem}
   .brandrow img{height:30px;width:auto;display:block}
-  .brandrow span{font-family:var(--mono);font-size:.6rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);
+  .brandrow span{font-family:var(--display);font-size:.6rem;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);
     padding-left:.9rem;border-left:1px solid var(--hair)}
-  .kicker{color:var(--blue)}
-  h1{font-family:var(--display);font-weight:300;letter-spacing:.005em;
-    font-size:clamp(2.4rem,5.6vw,4.4rem);line-height:1.02;margin:.7rem 0 .9rem}
-  h1 b{font-weight:500;color:var(--blue)}
-  .lede{max-width:64ch;color:var(--muted);font-size:clamp(.95rem,1.4vw,1.06rem)}
+  .kicker{color:var(--red)}
+  h1{font-family:var(--display);font-weight:700;letter-spacing:.005em;text-transform:uppercase;
+    font-size:clamp(2.2rem,5.2vw,4.1rem);line-height:1.0;margin:.7rem 0 .9rem}
+  h1 b{font-weight:700;color:var(--red)}
+  .lede{max-width:64ch;color:var(--muted);font-size:clamp(.95rem,1.4vw,1.06rem);font-weight:300}
   .lede b{color:var(--ink);font-weight:500}
   .meta{display:flex;flex-wrap:wrap;gap:1.6rem;margin-top:1.8rem}
-  .meta div{border-left:1px solid var(--hair);padding-left:.9rem}
-  .meta .k{font-family:var(--mono);font-size:.58rem;letter-spacing:.26em;text-transform:uppercase;color:var(--muted)}
-  .meta .v{font-family:var(--display);font-weight:400;font-size:1.18rem;display:block;margin-top:.2rem}
+  .meta div{border-left:2px solid var(--red);padding-left:.9rem}
+  .meta .k{font-family:var(--display);font-size:.58rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+  .meta .v{font-family:var(--display);font-weight:500;font-size:1.05rem;display:block;margin-top:.2rem}
 
   /* ---------- grid ---------- */
   .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(1.2rem,2.4vw,2rem);
     padding:clamp(2.4rem,6vh,4rem) 0 5rem}
   @media(max-width:840px){.grid{grid-template-columns:1fr}}
 
-  .card{background:var(--card);border:1px solid var(--hair);border-radius:14px;overflow:hidden;
+  .card{background:var(--card);border:1px solid var(--hair);overflow:hidden;
     display:flex;flex-direction:column;transition:transform .5s var(--ease),border-color .5s var(--ease),box-shadow .5s var(--ease)}
-  .card:hover{transform:translateY(-4px);border-color:rgba(46,110,150,.5);
-    box-shadow:0 26px 60px -30px rgba(19,49,75,.4)}
+  .card:hover{transform:translateY(-4px);border-color:var(--red);
+    box-shadow:0 26px 60px -30px rgba(14,14,14,.4)}
 
   .frame{position:relative;aspect-ratio:16/10;overflow:hidden;background:#0c0f13;border-bottom:1px solid var(--hair)}
-  /* scaled live preview of the real page */
   .frame iframe{position:absolute;top:0;left:0;width:1440px;height:900px;border:0;
     transform:scale(.31);transform-origin:top left;pointer-events:none}
   @media(max-width:1180px){.frame iframe{transform:scale(.42)}}
   @media(max-width:840px){.frame iframe{transform:scale(.52)}}
   @media(max-width:600px){.frame iframe{transform:scale(.34)}}
   .frame .num{position:absolute;top:14px;left:16px;z-index:3;
-    font-family:var(--display);font-weight:500;font-size:1.4rem;color:#fff;mix-blend-mode:difference}
+    font-family:var(--display);font-weight:700;font-size:1.3rem;color:#fff;mix-blend-mode:difference}
   .frame .ref{position:absolute;top:16px;right:16px;z-index:3;color:#fff;
-    background:rgba(12,15,19,.5);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.2);
-    padding:.32rem .7rem;border-radius:100px}
-  .frame a.open{position:absolute;inset:0;z-index:4} /* click-through overlay */
+    background:rgba(12,15,19,.55);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.2);
+    padding:.32rem .7rem}
+  .frame a.open{position:absolute;inset:0;z-index:4}
   .frame::after{content:"";position:absolute;inset:0;z-index:2;
     background:linear-gradient(180deg,rgba(0,0,0,.16),transparent 28%,transparent 76%,rgba(0,0,0,.22));pointer-events:none}
 
   .body{padding:1.3rem 1.4rem 1.5rem}
-  .name{font-family:var(--display);font-size:1.55rem;font-weight:500;letter-spacing:.01em;display:flex;align-items:baseline;gap:.6rem}
+  .name{font-family:var(--display);font-size:1.4rem;font-weight:700;letter-spacing:.02em;text-transform:uppercase;display:flex;align-items:baseline;gap:.6rem}
   .swatches{display:flex;gap:5px;margin:.8rem 0 .9rem}
-  .swatches i{width:17px;height:17px;border-radius:50%;border:1px solid rgba(18,22,27,.16);display:block}
-  .desc{color:var(--muted);font-size:.92rem;line-height:1.58;max-width:48ch}
+  .swatches i{width:17px;height:17px;border-radius:50%;border:1px solid rgba(14,14,14,.16);display:block}
+  .desc{color:var(--muted);font-size:.92rem;line-height:1.58;max-width:48ch;font-weight:300}
   .desc b{color:var(--ink);font-weight:500}
   .tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
-  .tags span{font-family:var(--mono);font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;
-    color:var(--navy);border:1px solid var(--hair);padding:.28rem .55rem;border-radius:100px}
+  .tags span{font-family:var(--display);font-size:.56rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--ink-2);border:1px solid var(--hair);padding:.28rem .55rem}
   .open-btn{margin-top:1.3rem;display:inline-flex;align-items:center;gap:.5rem;
-    font-family:var(--mono);font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:#fff;
-    background:var(--blue);border:1px solid var(--blue);padding:.7rem 1.1rem;border-radius:100px;
-    transition:background .4s var(--ease),box-shadow .4s var(--ease)}
-  .card:hover .open-btn{background:var(--navy);box-shadow:0 10px 24px -10px rgba(19,49,75,.6)}
+    font-family:var(--display);font-size:.66rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#fff;
+    background:var(--red);border:1px solid var(--red);padding:.75rem 1.2rem;
+    transition:background .4s var(--ease)}
+  .card:hover .open-btn{background:var(--red-dark)}
 
-  footer{border-top:1px solid var(--hair);padding:2.4rem 0 4rem;color:var(--muted);font-size:.82rem}
+  footer{border-top:1px solid var(--hair);padding:2.4rem 0 4rem;color:var(--muted);font-size:.82rem;font-weight:300}
   footer b{color:var(--ink);font-weight:500}
 </style>
 </head>
@@ -96,11 +94,11 @@
       <img src="assets/logo-ink.png" alt="V2 Jets">
       <span>Brand &amp; Web Concepts · June 2026</span>
     </div>
-    <p class="mono kicker">One identity · five feels</p>
+    <p class="label kicker">One identity · five architectures</p>
     <h1>Five <b>directions</b>, one V2.</h1>
-    <p class="lede">Every model below now wears the <b>same V2 identity</b> — the V2 wordmark, one geometric typeface (Jost) with Inter, and a single ivory / near-black / sky-blue palette. What changes between them is the <b>architecture</b>: density, scale, motion, and how the photography is framed. Each card is a <b>live, scrollable homepage</b> — the hero film plays once, and the interlude scrubs as you scroll. Click any one to open it full-screen.</p>
+    <p class="lede">All five now wear the <b>real V2 Jets identity</b> — the V2 wordmark, Franklin Gothic (Libre Franklin) with Roboto, and a white / near-black palette with the signature <b>V2 red</b>. What changes between them is the <b>architecture</b>: density, scale, motion, and how the photography is framed. Each card is a <b>live, scrollable homepage</b> with smoother scrolling and your cinematic clips. Click any one to open it full-screen.</p>
     <div class="meta">
-      <div><span class="k">Identity</span><span class="v">V2 wordmark · Jost + Inter · ivory / ink / blue</span></div>
+      <div><span class="k">Identity</span><span class="v">V2 wordmark · Libre Franklin + Roboto · white / black / red</span></div>
       <div><span class="k">Differs by</span><span class="v">Layout · density · motion · imagery</span></div>
     </div>
   </div>
@@ -112,14 +110,14 @@
     <!-- 01 OBSIDIAN -->
     <article class="card">
       <div class="frame">
-        <span class="num">01</span><span class="mono ref">Dark · monumental</span>
-        <iframe src="01-obsidian/index.html?v=2" loading="lazy" title="Obsidian preview" scrolling="no"></iframe>
+        <span class="num">01</span><span class="label ref">Dark · monumental</span>
+        <iframe src="01-obsidian/index.html?v=3" loading="lazy" title="Obsidian preview" scrolling="no"></iframe>
         <a class="open" href="01-obsidian/index.html" aria-label="Open Obsidian"></a>
       </div>
       <div class="body">
         <div class="name">Obsidian</div>
-        <div class="swatches"><i style="background:#0C0F13"></i><i style="background:#14181D"></i><i style="background:#2E6E96"></i><i style="background:#F2F0E9"></i></div>
-        <p class="desc">The dark-dominant cut. Near-black canvas, monumental Jost headlines, vast negative space, the fleet as an illuminated ledger. Feel comes from <b>scale and stillness</b>.</p>
+        <div class="swatches"><i style="background:#0E0E0E"></i><i style="background:#161616"></i><i style="background:#BB0000"></i><i style="background:#FFFFFF"></i></div>
+        <p class="desc">The dark-dominant cut. Near-black canvas, monumental uppercase Franklin headlines, the fleet as an illuminated ledger. Hero is a <b>scroll-reactive image</b>; the film plays at the finish.</p>
         <div class="tags"><span>Near-black</span><span>Monumental</span><span>Cinematic</span></div>
         <a class="open-btn" href="01-obsidian/index.html">Open full page →</a>
       </div>
@@ -128,15 +126,15 @@
     <!-- 02 DUNE -->
     <article class="card">
       <div class="frame">
-        <span class="num" style="color:#12161B">02</span><span class="mono ref">Airy · quiet</span>
-        <iframe src="02-dune/index.html?v=2" loading="lazy" title="Dune preview" scrolling="no"></iframe>
+        <span class="num" style="color:#0E0E0E">02</span><span class="label ref">Airy · spacious</span>
+        <iframe src="02-dune/index.html?v=3" loading="lazy" title="Dune preview" scrolling="no"></iframe>
         <a class="open" href="02-dune/index.html" aria-label="Open Dune"></a>
       </div>
       <div class="body">
         <div class="name">Dune</div>
-        <div class="swatches"><i style="background:#F2F0E9"></i><i style="background:#E8E5DB"></i><i style="background:#2E6E96"></i><i style="background:#12161B"></i></div>
-        <p class="desc">The quiet cut. Ivory space, immense margins, small calm type, text-underline CTAs. Luxury through <b>restraint and emptiness</b>; the interlude now scrubs inside a slim letterbox.</p>
-        <div class="tags"><span>Ivory</span><span>Whitespace</span><span>Restrained</span></div>
+        <div class="swatches"><i style="background:#FAFAFA"></i><i style="background:#F1F1F1"></i><i style="background:#BB0000"></i><i style="background:#0E0E0E"></i></div>
+        <p class="desc">The spacious cut. Off-white, generous margins, calm Franklin headings in proper case. Opens on a <b>new golden-hour jet</b> clip; closes on a full cinematic frame.</p>
+        <div class="tags"><span>White</span><span>Whitespace</span><span>Editorial calm</span></div>
         <a class="open-btn" href="02-dune/index.html">Open full page →</a>
       </div>
     </article>
@@ -144,14 +142,14 @@
     <!-- 03 MERIDIAN -->
     <article class="card">
       <div class="frame">
-        <span class="num" style="color:#12161B">03</span><span class="mono ref">Organic · soft</span>
-        <iframe src="03-meridian/index.html?v=2" loading="lazy" title="Meridian preview" scrolling="no"></iframe>
+        <span class="num" style="color:#0E0E0E">03</span><span class="label ref">Organic · soft</span>
+        <iframe src="03-meridian/index.html?v=3" loading="lazy" title="Meridian preview" scrolling="no"></iframe>
         <a class="open" href="03-meridian/index.html" aria-label="Open Meridian"></a>
       </div>
       <div class="body">
         <div class="name">Meridian</div>
-        <div class="swatches"><i style="background:#F2F0E9"></i><i style="background:#2E6E96"></i><i style="background:#5FA3C9"></i><i style="background:#12161B"></i></div>
-        <p class="desc">The soft cut. Same palette, but big rounded frames, immersive imagery, and gentle shadows give it <b>warmth through form</b>, not color. Destination-led.</p>
+        <div class="swatches"><i style="background:#FAFAFA"></i><i style="background:#BB0000"></i><i style="background:#272727"></i><i style="background:#0E0E0E"></i></div>
+        <p class="desc">The soft cut. Big rounded frames and immersive imagery give it <b>warmth through form</b>. Dark hero copy reads crisply over the wing-and-coastline film.</p>
         <div class="tags"><span>Rounded</span><span>Immersive</span><span>Destination</span></div>
         <a class="open-btn" href="03-meridian/index.html">Open full page →</a>
       </div>
@@ -160,14 +158,14 @@
     <!-- 04 ATELIER -->
     <article class="card">
       <div class="frame">
-        <span class="num" style="color:#12161B">04</span><span class="mono ref">Editorial · grid</span>
-        <iframe src="04-atelier/index.html?v=2" loading="lazy" title="Atelier preview" scrolling="no"></iframe>
+        <span class="num" style="color:#0E0E0E">04</span><span class="label ref">Editorial · grid</span>
+        <iframe src="04-atelier/index.html?v=3" loading="lazy" title="Atelier preview" scrolling="no"></iframe>
         <a class="open" href="04-atelier/index.html" aria-label="Open Atelier"></a>
       </div>
       <div class="body">
         <div class="name">Atelier</div>
-        <div class="swatches"><i style="background:#F2F0E9"></i><i style="background:#12161B"></i><i style="background:#13314B"></i><i style="background:#2E6E96"></i></div>
-        <p class="desc">The magazine cut. Indexed grid, big numerals, column rules, captioned grayscale plates. The editorial feel now rides <b>structure, not a serif</b>.</p>
+        <div class="swatches"><i style="background:#FAFAFA"></i><i style="background:#0E0E0E"></i><i style="background:#BB0000"></i><i style="background:#272727"></i></div>
+        <p class="desc">The magazine cut. Indexed grid, big numerals, column rules, grayscale plates. The editorial feel rides <b>structure, not a serif</b> — red is the single mark.</p>
         <div class="tags"><span>Grid</span><span>Numerals</span><span>Lookbook</span></div>
         <a class="open-btn" href="04-atelier/index.html">Open full page →</a>
       </div>
@@ -176,14 +174,14 @@
     <!-- 05 AZURE -->
     <article class="card">
       <div class="frame">
-        <span class="num">05</span><span class="mono ref">Glassy · precise</span>
-        <iframe src="05-azure/index.html?v=2" loading="lazy" title="Azure preview" scrolling="no"></iframe>
+        <span class="num">05</span><span class="label ref">Glassy · precise</span>
+        <iframe src="05-azure/index.html?v=3" loading="lazy" title="Azure preview" scrolling="no"></iframe>
         <a class="open" href="05-azure/index.html" aria-label="Open Azure"></a>
       </div>
       <div class="body">
-        <div class="name">Azure <span class="mono" style="color:var(--blue);letter-spacing:.18em;font-size:.56rem;align-self:center">★ your pick</span></div>
-        <div class="swatches"><i style="background:#F6F8FA"></i><i style="background:#2E6E96"></i><i style="background:#5FA3C9"></i><i style="background:#13314B"></i></div>
-        <p class="desc">The modern cut — the page you flagged to keep. Glass cards, rounded frames, blue gradient CTAs, product-page precision. Kept virtually identical; only the V2 font and exact blues applied.</p>
+        <div class="name">Azure <span class="label" style="color:var(--red);font-size:.52rem;align-self:center">★ your pick</span></div>
+        <div class="swatches"><i style="background:#FAFAFA"></i><i style="background:#FFFFFF"></i><i style="background:#BB0000"></i><i style="background:#0E0E0E"></i></div>
+        <p class="desc">The modern cut — the page you flagged to keep. Glass cards, rounded frames, red CTAs, product-page precision. Now <b>~30% shorter</b> to scroll, with V2 branding applied.</p>
         <div class="tags"><span>Glassy</span><span>Bright</span><span>Precise</span></div>
         <a class="open-btn" href="05-azure/index.html">Open full page →</a>
       </div>
@@ -194,7 +192,7 @@
 
 <footer>
   <div class="wrap">
-    <p>All five use the real <b>V2 Jets</b> wordmark, the brand's own copy (“Flying is transcending,” “The World Awaits,” “Fly In Absolute Luxury”), the seven-tier fleet through <b>Obsidian</b>, and licensed stock photography + your existing cinematic clips. One identity, five architectures — concept studies for review, <b>© 2026</b>.</p>
+    <p>All five use the real <b>V2 Jets</b> wordmark and brand system (Franklin Gothic + Roboto, white / near-black / red), the brand's own copy, the seven-tier fleet through <b>Obsidian</b>, and licensed stock photography + your cinematic clips. One identity, five architectures — concept studies for review, <b>© 2026</b>.</p>
   </div>
 </footer>
 

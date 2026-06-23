@@ -1134,6 +1134,245 @@
     .reveal{opacity:1;transform:none;}
     .plate:hover img{transform:none;}
   }
+
+  /* =========================================================
+     TAB SYSTEM — re-architecture into a journal of panels
+     (mono labels · hairline rules · figure-number chrome)
+  ========================================================= */
+  :root{--bar-h:clamp(96px,11vh,124px);}
+
+  /* the persistent top bar gains a second tier: the tab rail */
+  header.site .tabnav{
+    display:flex;
+    align-items:stretch;
+    gap:0;
+    max-width:1440px;
+    margin:0 auto;
+    padding:0 var(--gutter);
+    border-top:var(--hairline);
+    overflow-x:auto;
+    scrollbar-width:none;
+  }
+  header.site .tabnav::-webkit-scrollbar{display:none;}
+  header.site .tabnav .tab{
+    font-family:var(--font-mono);
+    font-size:clamp(9px,.82vw,10.5px);
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--muted);
+    font-weight:600;
+    padding:11px clamp(10px,1.1vw,16px);
+    border-right:var(--hairline);
+    white-space:nowrap;
+    cursor:pointer;
+    background:none;border:0;border-right:var(--hairline);
+    position:relative;
+    transition:color .25s ease,background .25s ease;
+  }
+  header.site .tabnav .tab:first-child{border-left:var(--hairline);}
+  header.site .tabnav .tab .tnum{color:var(--red);margin-right:.5em;}
+  header.site .tabnav .tab:hover{color:var(--ink);background:var(--paper-2);}
+  header.site .tabnav .tab.is-active{
+    color:var(--ink);
+    background:var(--paper);
+    box-shadow:inset 0 -2px 0 var(--red);
+  }
+  /* narrow screens: the tab rail becomes a drawer opened by MENU */
+  @media (max-width:760px){
+    :root{--bar-h:clamp(58px,9vh,72px);}
+    header.site .tabnav{
+      position:fixed;
+      top:0;right:0;
+      height:100vh;width:min(80vw,300px);
+      flex-direction:column;
+      align-items:stretch;
+      justify-content:flex-start;
+      padding:clamp(64px,12vh,90px) 0 24px;
+      background:var(--paper);
+      border-top:0;border-left:1px solid var(--ink);
+      overflow-y:auto;
+      transform:translateX(100%);
+      transition:transform .42s cubic-bezier(.2,.7,.2,1);
+      z-index:130;
+    }
+    header.site .tabnav.open{transform:translateX(0);}
+    header.site .tabnav .tab{
+      border-right:0;border-left:0;
+      border-bottom:var(--hairline);
+      padding:15px 28px;
+      font-size:13px;letter-spacing:.12em;
+    }
+    header.site .tabnav .tab:first-child{border-left:0;border-top:var(--hairline);}
+    header.site .tabnav .tab.is-active{box-shadow:inset 3px 0 0 var(--red);}
+  }
+  /* MENU button mirrors the mono chrome */
+  .menu-btn{
+    font-family:var(--font-mono);
+    font-weight:600;
+    font-size:clamp(9px,.82vw,10.5px);
+    letter-spacing:.18em;
+    text-transform:uppercase;
+    border:1px solid var(--ink);
+    padding:9px 14px;
+    color:var(--ink);
+    background:none;
+    cursor:pointer;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    white-space:nowrap;
+    transition:background .25s ease,color .25s ease;
+  }
+  .menu-btn:hover{background:var(--ink);color:var(--paper);}
+  .menu-btn .mb-bars{display:inline-block;line-height:1;}
+
+  /* the header sits on paper at all times now (tab chrome needs the rule) */
+  header.site{background:var(--paper);border-bottom-color:var(--ink);}
+
+  /* ---- the panel model: one screen at a time ---- */
+  .tabpanel[hidden]{display:none !important;}
+  .tabpanel{
+    min-height:100vh;
+    padding-top:var(--bar-h);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+  }
+  /* panels that need to breathe scroll INTERNALLY, page never grows */
+  .tabpanel.scrolls{
+    min-height:100vh;
+    max-height:100vh;
+    overflow-y:auto;
+    justify-content:flex-start;
+    padding-bottom:clamp(24px,4vh,56px);
+    -webkit-overflow-scrolling:touch;
+  }
+  /* inside a panel, kill the big legacy section paddings so each fits a screen */
+  .tabpanel .section,
+  .tabpanel section[class*="section"]{padding-top:0;padding-bottom:0;}
+  .tabpanel .manifesto,
+  .tabpanel .fleet,
+  .tabpanel .cabin,
+  .tabpanel .world,
+  .tabpanel .trust,
+  .tabpanel .finale{padding:0;}
+  .tabpanel .vault .wrap{padding-top:clamp(24px,3vh,48px);padding-bottom:clamp(24px,3vh,48px);}
+  /* compress the section-marker margins inside panels */
+  .tabpanel .section-marker{margin:0 0 clamp(14px,2vh,24px);}
+
+  /* the Experience panel is THE EXCEPTION — it scroll-scrubs the film */
+  #experience.tabpanel[hidden]{display:none !important;}
+  #experience.tabpanel:not([hidden]){
+    display:block;
+    padding-top:0;
+    min-height:auto;
+  }
+
+  /* the Aircraft sub-tabs (7 tiers, one shown at a time) */
+  .tier-chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:0;
+    border-top:1px solid var(--ink);
+    border-bottom:var(--hairline);
+    margin-bottom:clamp(14px,2vh,26px);
+  }
+  .tier-chips .chip{
+    font-family:var(--font-mono);
+    font-size:clamp(9px,.82vw,10.5px);
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--muted);
+    font-weight:600;
+    padding:10px clamp(10px,1.2vw,16px);
+    border-right:var(--hairline);
+    background:none;border:0;border-right:var(--hairline);
+    cursor:pointer;
+    transition:color .25s ease,background .25s ease;
+  }
+  .tier-chips .chip .cnum{color:var(--red);margin-right:.45em;}
+  .tier-chips .chip:hover{color:var(--ink);background:var(--paper-2);}
+  .tier-chips .chip.is-active{color:var(--paper);background:var(--ink);}
+  .tier-chips .chip.is-active .cnum{color:var(--red);}
+
+  .tier-panel[hidden]{display:none;}
+  .tier-panel{
+    display:grid;
+    grid-template-columns:1.2fr 1fr;
+    gap:clamp(18px,2.6vw,40px);
+    align-items:stretch;
+    border-top:var(--hairline);
+  }
+  .tier-figure{
+    position:relative;
+    background:var(--paper-2);
+    border:1px solid var(--hair-tok);
+    aspect-ratio:3 / 2;
+    overflow:hidden;
+    display:flex;align-items:center;justify-content:center;
+  }
+  /* CROP FIX — show the WHOLE aircraft, nose-to-tail, clean letterbox */
+  .tier-figure img{
+    width:100%;height:100%;
+    object-fit:contain;
+    filter:grayscale(1) contrast(1.04);
+  }
+  .tier-figure .tf-cap{
+    position:absolute;left:0;bottom:0;
+    background:var(--paper);
+    border-top:1px solid var(--ink);
+    border-right:1px solid var(--ink);
+    padding:7px 13px;
+  }
+  .tier-figure .tf-index{
+    position:absolute;top:clamp(10px,1.2vw,16px);right:clamp(10px,1.2vw,16px);
+    font-family:var(--serif);font-weight:500;
+    font-size:clamp(28px,4vw,52px);color:var(--red);line-height:.8;
+  }
+  .tier-body{
+    display:flex;flex-direction:column;justify-content:center;gap:14px;
+    padding-left:clamp(0px,1vw,14px);
+  }
+  .tier-body .tb-name{
+    font-family:var(--serif);font-weight:600;
+    font-size:clamp(30px,4vw,58px);line-height:.96;letter-spacing:-.01em;margin:0;
+  }
+  .tier-body .tb-name .it{font-style:italic;font-weight:500;}
+  .tier-body .tb-desc{
+    font-size:clamp(13px,1.05vw,15px);line-height:1.55;color:var(--ink);margin:0;max-width:48ch;
+  }
+  .tier-body .tb-desc.muted{color:var(--muted);}
+  .tier-specs{
+    display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;
+    border-top:1px solid var(--ink);margin-top:6px;
+  }
+  .tier-specs .ts{
+    padding:12px clamp(8px,1vw,16px) 12px 0;border-right:var(--hairline);
+  }
+  .tier-specs .ts:last-child{border-right:0;}
+  .tier-specs .ts .ts-k{
+    font-family:var(--font-mono);font-weight:600;font-size:9px;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--muted);
+  }
+  .tier-specs .ts .ts-v{
+    font-family:var(--serif);font-weight:600;font-size:clamp(17px,1.7vw,24px);
+    line-height:1;margin-top:7px;
+  }
+  .tier-specs .ts .ts-v .accent{color:var(--red);}
+
+  /* Experience film → monochrome so the cabin clip reads B&W like the journal.
+     Scoped to THIS film's stage+canvas only; engine CSS + base .filmscroll untouched.
+     Grayscale rides on the canvas (the moving image) so the red caption accent survives. */
+  #experienceFilm .filmscroll__stage canvas{filter:grayscale(1) contrast(1.05);}
+
+  @media (max-width:900px){
+    .tier-panel{grid-template-columns:1fr;}
+    .tier-body{padding-left:0;}
+  }
+  @media (max-width:560px){
+    .tier-specs{grid-template-columns:1fr 1fr;}
+    .tier-specs .ts:nth-child(2){border-right:0;}
+  }
 </style>
 </head>
 <body>
@@ -1141,28 +1380,31 @@
 <!-- ============================== HEADER ============================== -->
 <header class="site" id="siteHeader">
   <div class="bar">
-    <a class="brand" href="#top" aria-label="V2 Jets — home">
+    <button class="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="tabNav">
+      <span class="mb-bars">&#9776;</span> Menu
+    </button>
+    <a class="brand" data-tab="home" href="#home" aria-label="V2 Jets — home">
       <img src="../assets/logo-ink.png" alt="V2 Jets" />
     </a>
-    <nav class="primary" id="primaryNav" aria-label="Primary">
-      <a href="#fleet">The Aircraft</a>
-      <a href="#vault">V2 Vault</a>
-      <a href="#world">Charter</a>
-      <a href="#manifesto">About Us</a>
-      <a href="#trust">The V2 Brief</a>
-      <a href="#trust">Safety</a>
-      <a href="#contact">Contact</a>
-      <a class="portal-btn" href="#contact">Client Portal</a>
-    </nav>
-    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="primaryNav">
-      <span></span><span></span><span></span>
-    </button>
+    <a class="portal-btn" data-tab="contact" href="#contact" style="margin-left:auto;">Book Now</a>
   </div>
+  <nav class="tabnav" id="tabNav" aria-label="Primary" aria-hidden="false">
+    <button class="tab" type="button" data-tab="home"><span class="tnum">00</span>Home</button>
+    <button class="tab" type="button" data-tab="aircraft"><span class="tnum">01</span>The Aircraft</button>
+    <button class="tab" type="button" data-tab="experience"><span class="tnum">02</span>Experience</button>
+    <button class="tab" type="button" data-tab="vault"><span class="tnum">03</span>V2 Vault</button>
+    <button class="tab" type="button" data-tab="charter"><span class="tnum">04</span>Charter</button>
+    <button class="tab" type="button" data-tab="about"><span class="tnum">05</span>About Us</button>
+    <button class="tab" type="button" data-tab="brief"><span class="tnum">06</span>The V2 Brief</button>
+    <button class="tab" type="button" data-tab="safety"><span class="tnum">07</span>Safety</button>
+    <button class="tab" type="button" data-tab="contact"><span class="tnum">08</span>Contact</button>
+  </nav>
 </header>
 
 <main id="top">
 
-  <!-- ============================== HERO ============================== -->
+  <!-- ============================== HOME ============================== -->
+  <section class="tabpanel scrolls" id="home" aria-label="Home">
   <section class="hero">
     <div class="wrap">
 
@@ -1199,8 +1441,8 @@
               With V2 Jets, flying isn't simply flying. <span class="lede">Tap into a world where luxury is a lifestyle — a private fleet, a single standard, and the skies arranged entirely around you.</span>
             </p>
             <div class="hero-cta">
-              <a class="btn btn-primary" href="#contact">Request a Charter <span class="arrow">→</span></a>
-              <a class="btn btn-ghost" href="#fleet">Explore the Fleet</a>
+              <a class="btn btn-primary" data-tab="contact" href="#contact">Request a Charter <span class="arrow">→</span></a>
+              <a class="btn btn-ghost" data-tab="aircraft" href="#aircraft">Explore the Fleet</a>
             </div>
           </div>
         </div>
@@ -1225,8 +1467,10 @@
 
     </div>
   </section>
+  </section><!-- /#home -->
 
-  <!-- ============================== MANIFESTO ============================== -->
+  <!-- ============================== ABOUT US (Manifesto) ============================== -->
+  <section class="tabpanel scrolls" id="about" aria-label="About Us">
   <section class="manifesto section" id="manifesto">
     <div class="wrap">
       <div class="section-marker reveal">
@@ -1249,104 +1493,170 @@
       </div>
     </div>
   </section>
+  </section><!-- /#about -->
 
-  <!-- ============================== THE FLEET ============================== -->
-  <section class="fleet section section-rule" id="fleet">
+  <!-- ============================== THE AIRCRAFT (7 tiers · sub-tabs) ============================== -->
+  <section class="tabpanel scrolls" id="aircraft" aria-label="The Aircraft">
+  <section class="fleet section" id="fleet">
     <div class="wrap">
       <div class="section-marker reveal">
         <span class="sig">§ II — <em>The Fleet</em></span>
         <span class="lead">Seven categories, indexed. The aircraft is the instrument; the experience is the composition. Obsidian leads the collection.</span>
       </div>
 
-      <div class="fleet-table reveal">
-        <div class="fleet-head" aria-hidden="true">
-          <span class="fh-num">Cat.</span>
-          <span class="fh-plate">Plate</span>
-          <span class="fh-name">Category</span>
-          <span class="fh-desc">Profile</span>
-          <span class="fh-spec">Capacity</span>
-          <span class="fh-spec">Range</span>
-        </div>
-        <div class="fleet-row reveal">
-          <div class="f-num">01</div>
-          <div class="f-plate"><img src="../assets/fleet/turbo-prop.jpg" alt="V2 Jets — Turbo Prop" loading="lazy" width="1200" height="800" /></div>
-          <div class="f-name">Turbo Prop</div>
-          <div class="f-desc">The agile short-hauler. Direct access to regional runways the jets can't reach, with the same uncompromising V2 cabin standard.</div>
-          <div class="f-guests">2–8<span>Guests</span></div>
-          <div class="f-range">≈ 600 nm<span>Range</span></div>
-        </div>
-        <div class="fleet-row reveal">
-          <div class="f-num">02</div>
-          <div class="f-plate"><img src="../assets/fleet/light-jet.jpg" alt="V2 Jets — Light Jet" loading="lazy" width="1200" height="800" /></div>
-          <div class="f-name">Light Jet</div>
-          <div class="f-desc">Effortless city-to-city velocity. The everyday workhorse of private travel, refined for the V2 traveler who values time above all.</div>
-          <div class="f-guests">5–7<span>Guests</span></div>
-          <div class="f-range">≈ 1,500 nm<span>Range</span></div>
-        </div>
-        <div class="fleet-row reveal">
-          <div class="f-num">03</div>
-          <div class="f-plate"><img src="../assets/fleet/mid-size.jpg" alt="V2 Jets — Mid Size" loading="lazy" width="1200" height="800" /></div>
-          <div class="f-name">Mid Size</div>
-          <div class="f-desc">More cabin, more reach. Stand-up comfort and coast-to-coast capability for the productive, unhurried flight.</div>
-          <div class="f-guests">7–9<span>Guests</span></div>
-          <div class="f-range">≈ 2,800 nm<span>Range</span></div>
-        </div>
-        <div class="fleet-row reveal">
-          <div class="f-num">04</div>
-          <div class="f-plate"><img src="../assets/fleet/super-mid.jpg" alt="V2 Jets — Super Mid" loading="lazy" width="1200" height="800" /></div>
-          <div class="f-name">Super Mid</div>
-          <div class="f-desc">The transcontinental sweet spot. Generous cabins, intercontinental legs, and a galley appointed for genuine dining at altitude.</div>
-          <div class="f-guests">8–10<span>Guests</span></div>
-          <div class="f-range">≈ 3,500 nm<span>Range</span></div>
-        </div>
-        <div class="fleet-row reveal">
-          <div class="f-num">05</div>
-          <div class="f-plate"><img src="../assets/fleet/heavy-jet.jpg" alt="V2 Jets — Heavy Jet" loading="lazy" width="1200" height="800" /></div>
-          <div class="f-name">Heavy Jet</div>
-          <div class="f-desc">Statement and substance. Dedicated zones for work, rest, and dining — the airborne residence for the larger party.</div>
-          <div class="f-guests">10–16<span>Guests</span></div>
-          <div class="f-range">≈ 4,500 nm<span>Range</span></div>
-        </div>
-        <div class="fleet-row reveal">
-          <div class="f-num">06</div>
-          <div class="f-plate"><img src="../assets/fleet/ultra-long-range.jpg" alt="V2 Jets — Ultra Long Range" loading="lazy" width="1200" height="800" /></div>
-          <div class="f-name">Ultra Long Range</div>
-          <div class="f-desc">Continents, nonstop. New York to Tokyo without a tankstop — a true private suite carrying you across the world while you sleep.</div>
-          <div class="f-guests">12–19<span>Guests</span></div>
-          <div class="f-range">≈ 7,500 nm<span>Range</span></div>
+      <!-- sub-tab chips: one tier shown at a time -->
+      <div class="tier-chips" role="tablist" aria-label="Aircraft categories">
+        <button class="chip is-active" type="button" data-tier="tier-1"><span class="cnum">01</span>Turbo Prop</button>
+        <button class="chip" type="button" data-tier="tier-2"><span class="cnum">02</span>Light Jet</button>
+        <button class="chip" type="button" data-tier="tier-3"><span class="cnum">03</span>Mid Size</button>
+        <button class="chip" type="button" data-tier="tier-4"><span class="cnum">04</span>Super Mid</button>
+        <button class="chip" type="button" data-tier="tier-5"><span class="cnum">05</span>Heavy Jet</button>
+        <button class="chip" type="button" data-tier="tier-6"><span class="cnum">06</span>Ultra Long Range</button>
+        <button class="chip" type="button" data-tier="tier-7"><span class="cnum">07</span>Obsidian</button>
+      </div>
+
+      <div class="tier-panel" id="tier-1">
+        <figure class="tier-figure" style="margin:0;">
+          <img src="../assets/fleet/turbo-prop.jpg" alt="V2 Jets — Turbo Prop" loading="lazy" width="1200" height="800" />
+          <span class="tf-index">01</span>
+          <figcaption class="tf-cap"><span class="caption">Pl. 01 — Turbo Prop</span></figcaption>
+        </figure>
+        <div class="tier-body">
+          <h3 class="tb-name">Turbo Prop</h3>
+          <p class="tb-desc">The agile short-hauler. Direct access to regional runways the jets can't reach, with the same uncompromising V2 cabin standard.</p>
+          <div class="tier-specs">
+            <div class="ts"><div class="ts-k">Category</div><div class="ts-v">Nº <span class="accent">01</span></div></div>
+            <div class="ts"><div class="ts-k">Guests</div><div class="ts-v">2–8</div></div>
+            <div class="ts"><div class="ts-k">Range</div><div class="ts-v">≈ 600 <small>nm</small></div></div>
+          </div>
         </div>
       </div>
 
-      <!-- OBSIDIAN — featured spread -->
-      <article class="obsidian reveal" aria-label="Obsidian — the flagship">
-        <div class="ob-grid">
-          <div class="ob-words">
-            <div>
-              <div class="ob-tag"><span class="star">★</span> Cover Story · The Flagship</div>
-              <div class="ob-num">07<small>Obsidian</small></div>
-            </div>
-            <h3>Obsidian.<br /><span class="it">The crown jewel.</span></h3>
-            <p class="ob-pull">
-              <span class="q">“</span>The skies are the limit — and Obsidian is how you reach them. The fullest expression of the V2 standard.<span class="q">”</span>
-            </p>
-            <div class="ob-meta">
-              <div><div class="k">Category</div><div class="v">Flagship</div></div>
-              <div><div class="k">Cabin</div><div class="v">Three Suites</div></div>
-              <div><div class="k">Service</div><div class="v">By Invitation</div></div>
-            </div>
-          </div>
-          <div class="ob-img">
-            <img src="../assets/fleet/obsidian.jpg" alt="V2 Jets — Obsidian" loading="lazy" width="1200" height="800" />
-            <span class="ob-cap">Pl. 07 — Obsidian, in profile</span>
+      <div class="tier-panel" id="tier-2" hidden>
+        <figure class="tier-figure" style="margin:0;">
+          <img src="../assets/fleet/light-jet.jpg" alt="V2 Jets — Light Jet" loading="lazy" width="1200" height="800" />
+          <span class="tf-index">02</span>
+          <figcaption class="tf-cap"><span class="caption">Pl. 02 — Light Jet</span></figcaption>
+        </figure>
+        <div class="tier-body">
+          <h3 class="tb-name">Light Jet</h3>
+          <p class="tb-desc">Effortless city-to-city velocity. The everyday workhorse of private travel, refined for the V2 traveler who values time above all.</p>
+          <div class="tier-specs">
+            <div class="ts"><div class="ts-k">Category</div><div class="ts-v">Nº <span class="accent">02</span></div></div>
+            <div class="ts"><div class="ts-k">Guests</div><div class="ts-v">5–7</div></div>
+            <div class="ts"><div class="ts-k">Range</div><div class="ts-v">≈ 1,500 <small>nm</small></div></div>
           </div>
         </div>
-      </article>
+      </div>
+
+      <div class="tier-panel" id="tier-3" hidden>
+        <figure class="tier-figure" style="margin:0;">
+          <img src="../assets/fleet/mid-size.jpg" alt="V2 Jets — Mid Size" loading="lazy" width="1200" height="800" />
+          <span class="tf-index">03</span>
+          <figcaption class="tf-cap"><span class="caption">Pl. 03 — Mid Size</span></figcaption>
+        </figure>
+        <div class="tier-body">
+          <h3 class="tb-name">Mid Size</h3>
+          <p class="tb-desc">More cabin, more reach. Stand-up comfort and coast-to-coast capability for the productive, unhurried flight.</p>
+          <div class="tier-specs">
+            <div class="ts"><div class="ts-k">Category</div><div class="ts-v">Nº <span class="accent">03</span></div></div>
+            <div class="ts"><div class="ts-k">Guests</div><div class="ts-v">7–9</div></div>
+            <div class="ts"><div class="ts-k">Range</div><div class="ts-v">≈ 2,800 <small>nm</small></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tier-panel" id="tier-4" hidden>
+        <figure class="tier-figure" style="margin:0;">
+          <img src="../assets/fleet/super-mid.jpg" alt="V2 Jets — Super Mid" loading="lazy" width="1200" height="800" />
+          <span class="tf-index">04</span>
+          <figcaption class="tf-cap"><span class="caption">Pl. 04 — Super Mid</span></figcaption>
+        </figure>
+        <div class="tier-body">
+          <h3 class="tb-name">Super Mid</h3>
+          <p class="tb-desc">The transcontinental sweet spot. Generous cabins, intercontinental legs, and a galley appointed for genuine dining at altitude.</p>
+          <div class="tier-specs">
+            <div class="ts"><div class="ts-k">Category</div><div class="ts-v">Nº <span class="accent">04</span></div></div>
+            <div class="ts"><div class="ts-k">Guests</div><div class="ts-v">8–10</div></div>
+            <div class="ts"><div class="ts-k">Range</div><div class="ts-v">≈ 3,500 <small>nm</small></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tier-panel" id="tier-5" hidden>
+        <figure class="tier-figure" style="margin:0;">
+          <img src="../assets/fleet/heavy-jet.jpg" alt="V2 Jets — Heavy Jet" loading="lazy" width="1200" height="800" />
+          <span class="tf-index">05</span>
+          <figcaption class="tf-cap"><span class="caption">Pl. 05 — Heavy Jet</span></figcaption>
+        </figure>
+        <div class="tier-body">
+          <h3 class="tb-name">Heavy Jet</h3>
+          <p class="tb-desc">Statement and substance. Dedicated zones for work, rest, and dining — the airborne residence for the larger party.</p>
+          <div class="tier-specs">
+            <div class="ts"><div class="ts-k">Category</div><div class="ts-v">Nº <span class="accent">05</span></div></div>
+            <div class="ts"><div class="ts-k">Guests</div><div class="ts-v">10–16</div></div>
+            <div class="ts"><div class="ts-k">Range</div><div class="ts-v">≈ 4,500 <small>nm</small></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tier-panel" id="tier-6" hidden>
+        <figure class="tier-figure" style="margin:0;">
+          <img src="../assets/fleet/ultra-long-range.jpg" alt="V2 Jets — Ultra Long Range" loading="lazy" width="1200" height="800" />
+          <span class="tf-index">06</span>
+          <figcaption class="tf-cap"><span class="caption">Pl. 06 — Ultra Long Range</span></figcaption>
+        </figure>
+        <div class="tier-body">
+          <h3 class="tb-name">Ultra Long Range</h3>
+          <p class="tb-desc">Continents, nonstop. New York to Tokyo without a tankstop — a true private suite carrying you across the world while you sleep.</p>
+          <div class="tier-specs">
+            <div class="ts"><div class="ts-k">Category</div><div class="ts-v">Nº <span class="accent">06</span></div></div>
+            <div class="ts"><div class="ts-k">Guests</div><div class="ts-v">12–19</div></div>
+            <div class="ts"><div class="ts-k">Range</div><div class="ts-v">≈ 7,500 <small>nm</small></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tier-panel" id="tier-7" hidden>
+        <figure class="tier-figure" style="margin:0;">
+          <img src="../assets/fleet/obsidian.jpg" alt="V2 Jets — Obsidian" loading="lazy" width="1200" height="800" />
+          <span class="tf-index">07</span>
+          <figcaption class="tf-cap"><span class="caption">Pl. 07 — Obsidian, in profile</span></figcaption>
+        </figure>
+        <div class="tier-body">
+          <div class="ob-tag" style="font-family:var(--font-mono);font-weight:600;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--red);">★ Cover Story · The Flagship</div>
+          <h3 class="tb-name">Obsidian. <span class="it">The crown jewel.</span></h3>
+          <p class="tb-desc">“The skies are the limit — and Obsidian is how you reach them. The fullest expression of the V2 standard.”</p>
+          <div class="tier-specs">
+            <div class="ts"><div class="ts-k">Category</div><div class="ts-v"><span class="accent">Flagship</span></div></div>
+            <div class="ts"><div class="ts-k">Cabin</div><div class="ts-v">Three Suites</div></div>
+            <div class="ts"><div class="ts-k">Service</div><div class="ts-v">By Invitation</div></div>
+          </div>
+        </div>
+      </div>
 
     </div>
   </section>
+  </section><!-- /#aircraft -->
 
-  <!-- ============================== THE CABIN ============================== -->
-  <section class="cabin section section-rule" id="cabin">
+  <!-- ============================== EXPERIENCE (Cabin + scroll-film) ============================== -->
+  <section class="tabpanel" id="experience" aria-label="Experience">
+
+  <!-- repurposed filmscroll → the Experience film, B&W to match the mono journal -->
+  <section class="filmscroll scrub interlude" id="experienceFilm" aria-label="Experience — Night Cabin" data-frames="../assets/frames/atelier-cabin" data-count="112">
+    <div class="filmscroll__stage">
+      <canvas></canvas>
+      <div class="filmscroll__scrim" aria-hidden="true"></div>
+      <div class="filmscroll__cap il-inner">
+        <p class="il-cap">Pl. 02 — The Cabin · § III</p>
+        <blockquote class="il-quote">
+          <span class="q">“</span>An interior <span class="it">composed,</span> never decorated.<span class="q">”</span>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <section class="cabin section" id="cabin">
     <div class="wrap">
       <div class="section-marker reveal">
         <span class="sig">§ III — <em>The Cabin</em></span>
@@ -1378,9 +1688,11 @@
       </div>
     </div>
   </section>
+  </section><!-- /#experience -->
 
-  <!-- ============================== THE WORLD AWAITS ============================== -->
-  <section class="world section section-rule" id="world">
+  <!-- ============================== CHARTER (The World Awaits) ============================== -->
+  <section class="tabpanel scrolls" id="charter" aria-label="Charter">
+  <section class="world section" id="world">
     <div class="wrap">
       <div class="section-marker reveal">
         <span class="sig">§ IV — <em>The Itinerary</em></span>
@@ -1444,23 +1756,11 @@
       </div>
     </div>
   </section>
-
-  <!-- ============================== CINEMATIC INTERLUDE (scroll-film: frame-sequence canvas) ============================== -->
-  <section class="filmscroll scrub interlude" aria-label="Interlude — Departure" data-frames="../assets/frames/departure-dusk" data-count="112">
-    <div class="filmscroll__stage">
-      <canvas></canvas>
-      <div class="filmscroll__scrim" aria-hidden="true"></div>
-      <div class="filmscroll__cap il-inner">
-        <p class="il-cap">Pl. — Departure</p>
-        <blockquote class="il-quote">
-          <span class="q">“</span>The world <span class="it">awaits.</span><span class="q">”</span>
-        </blockquote>
-      </div>
-    </div>
-  </section>
+  </section><!-- /#charter -->
 
   <!-- ============================== V2 VAULT ============================== -->
-  <section class="vault section" id="vault">
+  <section class="tabpanel scrolls" id="vault" aria-label="V2 Vault">
+  <section class="vault section">
     <div class="wrap">
       <div class="vault-grid">
         <div class="vault-left reveal">
@@ -1487,18 +1787,20 @@
             </div>
           </div>
           <div class="vault-cta">
-            <a class="btn btn-vault" href="#contact">Request Vault Access <span class="arrow">→</span></a>
+            <a class="btn btn-vault" data-tab="contact" href="#contact">Request Vault Access <span class="arrow">→</span></a>
           </div>
         </div>
       </div>
     </div>
   </section>
+  </section><!-- /#vault -->
 
-  <!-- ============================== TRUST / CREDENTIALS ============================== -->
+  <!-- ============================== SAFETY (Credentials / Trust) ============================== -->
+  <section class="tabpanel scrolls" id="safety" aria-label="Safety">
   <section class="trust section" id="trust">
     <div class="wrap">
       <div class="section-marker reveal" style="padding-bottom:0;">
-        <span class="sig">§ VI — <em>The V2 Brief</em></span>
+        <span class="sig">§ VI — <em>Safety</em></span>
         <span class="lead">Safety is the unglamorous foundation beneath everything glamorous. The numbers we hold ourselves to.</span>
       </div>
 
@@ -1539,9 +1841,51 @@
       </div>
     </div>
   </section>
+  </section><!-- /#safety -->
 
-  <!-- ============================== FINALE ============================== -->
-  <section class="finale section" id="contact">
+  <!-- ============================== THE V2 BRIEF ============================== -->
+  <section class="tabpanel scrolls" id="brief" aria-label="The V2 Brief">
+  <section class="trust section">
+    <div class="wrap">
+      <div class="section-marker reveal" style="padding-bottom:0;">
+        <span class="sig">§ VI — <em>The V2 Brief</em></span>
+        <span class="lead">A standard set not by the aircraft, but by the world it opens. The V2 position, stated plainly.</span>
+      </div>
+
+      <div class="trust-head reveal">
+        <h2>Held to a <span class="it">single</span> standard.</h2>
+        <span class="label">Vetted operators · audited safety · discreet service</span>
+      </div>
+
+      <div class="trust-grid">
+        <div class="stat reveal">
+          <div class="s-fig">100<span class="small">%</span></div>
+          <div class="s-lab">Vetted Operators</div>
+          <div class="s-sub">Every aircraft flown under audited, certified operators — no exceptions.</div>
+        </div>
+        <div class="stat reveal d1">
+          <div class="s-fig">24<span style="font-size:.5em;">/7</span></div>
+          <div class="s-lab">Concierge Desk</div>
+          <div class="s-sub">A dedicated team, awake whenever and wherever you are.</div>
+        </div>
+        <div class="stat reveal d2">
+          <div class="s-fig">07</div>
+          <div class="s-lab">Fleet Categories</div>
+          <div class="s-sub">From Turbo Prop to the Obsidian flagship, matched to every mission.</div>
+        </div>
+        <div class="stat reveal d3">
+          <div class="s-fig">∞</div>
+          <div class="s-lab">Destinations</div>
+          <div class="s-sub">The skies are the limit — global reach, on your timetable.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  </section><!-- /#brief -->
+
+  <!-- ============================== CONTACT (Finale) ============================== -->
+  <section class="tabpanel scrolls" id="contact" aria-label="Contact">
+  <section class="finale section">
     <div class="wrap">
       <p class="eyebrow reveal">Issue Nº 01 · The Last Word</p>
       <h2 class="reveal">Fly In <span class="it">Absolute</span><br />Luxury.</h2>
@@ -1549,11 +1893,17 @@
         Take to the skies in style. Tell us where the world is taking you next, and we will arrange the rest — quietly, completely, beautifully.
       </p>
       <div class="finale-cta reveal d2">
-        <a class="btn btn-primary" href="#contact">Request a Charter <span class="arrow">→</span></a>
-        <a class="btn btn-ghost" href="#vault">Enter the Client Portal</a>
+        <a class="btn btn-primary" href="tel:+12122048422">Book Now <span class="arrow">→</span></a>
+        <a class="btn btn-ghost" href="mailto:charter@v2jets.com">Email the Charter Desk</a>
+      </div>
+      <div class="cert-strip reveal d2" style="justify-content:center;margin-top:clamp(28px,4vh,48px);">
+        <span class="cert">Charter Desk · charter@v2jets.com</span>
+        <span class="cert">Concierge · 212-204-8422</span>
+        <span class="cert">Hours · 24 / 7 · 365</span>
       </div>
     </div>
   </section>
+  </section><!-- /#contact -->
 
 </main>
 
@@ -1570,27 +1920,27 @@
       <div class="foot-col">
         <h4>Explore</h4>
         <ul>
-          <li><a href="#fleet">The Aircraft</a></li>
-          <li><a href="#vault">V2 Vault</a></li>
-          <li><a href="#world">Charter</a></li>
-          <li><a href="#manifesto">About Us</a></li>
+          <li><a data-tab="aircraft" href="#aircraft">The Aircraft</a></li>
+          <li><a data-tab="vault" href="#vault">V2 Vault</a></li>
+          <li><a data-tab="charter" href="#charter">Charter</a></li>
+          <li><a data-tab="about" href="#about">About Us</a></li>
         </ul>
       </div>
 
       <div class="foot-col">
         <h4>Company</h4>
         <ul>
-          <li><a href="#trust">The V2 Brief</a></li>
-          <li><a href="#trust">Safety</a></li>
-          <li><a href="#fleet">Aircraft Management</a></li>
-          <li><a href="#contact">Bespoke Concierge</a></li>
+          <li><a data-tab="brief" href="#brief">The V2 Brief</a></li>
+          <li><a data-tab="safety" href="#safety">Safety</a></li>
+          <li><a data-tab="experience" href="#experience">Experience</a></li>
+          <li><a data-tab="contact" href="#contact">Bespoke Concierge</a></li>
         </ul>
       </div>
 
       <div class="foot-col">
         <h4>Contact</h4>
         <div class="contact-line"><b>Charter Desk</b><br />charter@v2jets.com</div>
-        <div class="contact-line"><b>Concierge</b><br />+1 (800) V2-FLYNOW</div>
+        <div class="contact-line"><b>Concierge</b><br /><a href="tel:+12122048422">212-204-8422</a></div>
         <div class="contact-line"><b>Hours</b><br />24 / 7 · 365</div>
       </div>
     </div>
@@ -1608,41 +1958,6 @@
   "use strict";
   var prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* ---- Sticky header scrolled state ---- */
-  var header = document.getElementById("siteHeader");
-  var lastKnown = false;
-  function onScroll(){
-    var scrolled = window.scrollY > 40;
-    if(scrolled !== lastKnown){
-      header.classList.toggle("scrolled", scrolled);
-      lastKnown = scrolled;
-    }
-  }
-  window.addEventListener("scroll", onScroll, {passive:true});
-  onScroll();
-
-  /* ---- Mobile nav toggle ---- */
-  var toggle = document.getElementById("navToggle");
-  var nav = document.getElementById("primaryNav");
-  function closeMenu(){
-    document.body.classList.remove("menu-open");
-    toggle.setAttribute("aria-expanded","false");
-    toggle.setAttribute("aria-label","Open menu");
-  }
-  if(toggle){
-    toggle.addEventListener("click", function(){
-      var open = document.body.classList.toggle("menu-open");
-      toggle.setAttribute("aria-expanded", open ? "true" : "false");
-      toggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
-    });
-    nav.addEventListener("click", function(e){
-      if(e.target.tagName === "A") closeMenu();
-    });
-    document.addEventListener("keydown", function(e){
-      if(e.key === "Escape") closeMenu();
-    });
-  }
-
   /* ---- Scroll reveal ---- */
   var revealEls = Array.prototype.slice.call(document.querySelectorAll(".reveal"));
   if(prefersReduced || !("IntersectionObserver" in window)){
@@ -1658,7 +1973,41 @@
     }, {threshold:0.14, rootMargin:"0px 0px -8% 0px"});
     revealEls.forEach(function(el){ io.observe(el); });
   }
+})();
+</script>
 
+<!-- ============================== TAB SYSTEM ============================== -->
+<script>
+(function(){
+  var panels=[].slice.call(document.querySelectorAll('.tabpanel'));
+  var tabs=[].slice.call(document.querySelectorAll('[data-tab]'));
+  function closeMenu(){var n=document.querySelector('.tabnav'),b=document.querySelector('.menu-btn');if(n){n.classList.remove('open');n.setAttribute('aria-hidden','false');}if(b)b.setAttribute('aria-expanded','false');document.body.classList.remove('menu-open');}
+  function show(id){
+    if(!document.getElementById(id))return;
+    panels.forEach(function(p){p.hidden=(p.id!==id);});
+    tabs.forEach(function(t){var on=t.getAttribute('data-tab')===id;t.classList.toggle('is-active',on);if(on){t.setAttribute('aria-current','page');}else{t.removeAttribute('aria-current');}});
+    window.scrollTo(0,0);
+    if(history.replaceState){history.replaceState(null,'','#'+id);}
+    // let a film canvas in the newly-shown panel recompute (it is 0x0 while hidden):
+    requestAnimationFrame(function(){window.dispatchEvent(new Event('resize'));window.dispatchEvent(new Event('scroll'));});
+    closeMenu();
+  }
+  tabs.forEach(function(t){t.addEventListener('click',function(e){var id=t.getAttribute('data-tab');if(id){e.preventDefault();show(id);}});});
+  var b=document.querySelector('.menu-btn'),n=document.querySelector('.tabnav');
+  if(b)b.addEventListener('click',function(){if(n&&n.classList.contains('open')){closeMenu();}else{if(n){n.classList.add('open');n.setAttribute('aria-hidden','false');}b.setAttribute('aria-expanded','true');document.body.classList.add('menu-open');}});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeMenu();});
+  var init=(location.hash||'').replace('#','');
+  if(!document.getElementById(init))init=(panels[0]&&panels[0].id)||'home';
+  show(init);
+
+  /* ---- Aircraft sub-tabs: 7 tiers, one shown at a time ---- */
+  var chips=[].slice.call(document.querySelectorAll('.tier-chips .chip'));
+  var tiers=[].slice.call(document.querySelectorAll('.tier-panel'));
+  chips.forEach(function(c){c.addEventListener('click',function(){
+    var id=c.getAttribute('data-tier');
+    tiers.forEach(function(p){p.hidden=(p.id!==id);});
+    chips.forEach(function(x){x.classList.toggle('is-active',x===c);});
+  });});
 })();
 </script>
 

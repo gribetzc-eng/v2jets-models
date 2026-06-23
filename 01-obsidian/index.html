@@ -333,7 +333,7 @@
   .ledger{border-top:1px solid var(--hairline)}
   .fleet-row{
     display:grid;
-    grid-template-columns:auto 1fr auto;
+    grid-template-columns:auto auto 1fr auto;
     align-items:center;
     gap:clamp(14px,3vw,40px);
     padding:clamp(26px,3.6vh,42px) clamp(8px,2vw,28px);
@@ -342,6 +342,23 @@
     transition:background .55s ease,padding .45s ease;
   }
   .fleet-row:hover{background:rgba(255,255,255,.025)}
+  /* refined wide thumbnail at the left of each row */
+  .fleet-row .tier-thumb{
+    width:clamp(86px,11vw,150px);
+    aspect-ratio:3/2;
+    object-fit:cover;
+    border:1px solid var(--hairline-soft);
+    border-radius:2px;
+    filter:grayscale(.18) brightness(.92);
+    opacity:.86;
+    align-self:center;
+    transition:opacity .5s ease,filter .5s ease,transform .6s cubic-bezier(.16,1,.3,1);
+  }
+  .fleet-row:hover .tier-thumb{opacity:1;filter:grayscale(0) brightness(1);transform:scale(1.02)}
+  @media(max-width:560px){
+    .fleet-row{grid-template-columns:auto 1fr auto}
+    .fleet-row .tier-thumb{display:none}
+  }
   .fleet-row .tier-no{font-family:var(--mono);font-size:11px;color:var(--ink-faint);letter-spacing:.16em;align-self:center}
   .fleet-row .tier-name{
     font-family:var(--serif);
@@ -697,6 +714,7 @@
     <div class="ledger" role="list">
 
       <div class="fleet-row reveal" role="listitem">
+        <img class="tier-thumb" src="../assets/fleet/turbo-prop.jpg" alt="V2 Jets — Turbo Prop" loading="lazy">
         <span class="tier-no">/ 01</span>
         <div>
           <span class="tier-name serif">Turbo Prop</span>
@@ -706,6 +724,7 @@
       </div>
 
       <div class="fleet-row reveal" role="listitem">
+        <img class="tier-thumb" src="../assets/fleet/light-jet.jpg" alt="V2 Jets — Light Jet" loading="lazy">
         <span class="tier-no">/ 02</span>
         <div>
           <span class="tier-name serif">Light Jet</span>
@@ -715,6 +734,7 @@
       </div>
 
       <div class="fleet-row reveal" role="listitem">
+        <img class="tier-thumb" src="../assets/fleet/mid-size.jpg" alt="V2 Jets — Mid Size" loading="lazy">
         <span class="tier-no">/ 03</span>
         <div>
           <span class="tier-name serif">Mid Size</span>
@@ -724,6 +744,7 @@
       </div>
 
       <div class="fleet-row reveal" role="listitem">
+        <img class="tier-thumb" src="../assets/fleet/super-mid.jpg" alt="V2 Jets — Super Mid" loading="lazy">
         <span class="tier-no">/ 04</span>
         <div>
           <span class="tier-name serif">Super Mid</span>
@@ -733,6 +754,7 @@
       </div>
 
       <div class="fleet-row reveal" role="listitem">
+        <img class="tier-thumb" src="../assets/fleet/heavy-jet.jpg" alt="V2 Jets — Heavy Jet" loading="lazy">
         <span class="tier-no">/ 05</span>
         <div>
           <span class="tier-name serif">Heavy Jet</span>
@@ -742,6 +764,7 @@
       </div>
 
       <div class="fleet-row reveal" role="listitem">
+        <img class="tier-thumb" src="../assets/fleet/ultra-long-range.jpg" alt="V2 Jets — Ultra Long Range" loading="lazy">
         <span class="tier-no">/ 06</span>
         <div>
           <span class="tier-name serif">Ultra Long Range</span>
@@ -752,6 +775,7 @@
 
       <!-- FLAGSHIP -->
       <div class="fleet-row fleet-row--flagship reveal" role="listitem">
+        <img class="tier-thumb" src="../assets/fleet/obsidian.jpg" alt="V2 Jets — Obsidian" loading="lazy">
         <span class="tier-no">/ 07</span>
         <div>
           <span class="flagship-tag">Signature Tier — Obsidian</span>
@@ -1048,6 +1072,21 @@
   }
 })();
 </script>
+
+<button class="replay-btn" type="button" aria-label="Replay films">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><polyline points="21 3 21 9 15 9"/></svg>
+    <span>Replay</span>
+  </button>
+  <style>
+  .replay-btn{position:fixed;right:clamp(14px,2vw,26px);bottom:clamp(14px,2vw,26px);z-index:300;display:inline-flex;align-items:center;gap:.55em;font-family:'Libre Franklin','Helvetica Neue',Arial,sans-serif;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#fff;background:#BB0000;border:none;padding:.72em 1.15em;cursor:pointer;box-shadow:0 10px 28px -10px rgba(0,0,0,.55);transition:background .3s ease,transform .3s ease,opacity .3s ease;opacity:.95}
+  .replay-btn:hover{background:#A20000;transform:translateY(-2px);opacity:1}
+  .replay-btn svg{display:block;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+  .replay-btn.spin svg{transform:rotate(-360deg)}
+  @media(prefers-reduced-motion:reduce){.replay-btn,.replay-btn svg{transition:none}}
+  </style>
+  <script>
+  (function(){var b=document.querySelector('.replay-btn');if(!b)return;b.addEventListener('click',function(){document.querySelectorAll('video').forEach(function(v){try{v.muted=true;v.currentTime=0;var p=v.play();if(p&&p.catch)p.catch(function(){});}catch(e){}});b.classList.add('spin');setTimeout(function(){b.classList.remove('spin');},650);});})();
+  </script>
 
 </body>
 </html>

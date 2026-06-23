@@ -333,6 +333,19 @@
     letter-spacing:.01em;
     display:flex;align-items:baseline;gap:.7rem;flex-wrap:wrap;
   }
+  /* fleet thumbnail — airy, hairline-framed, scales up by tier */
+  .fleet-row .shot{
+    display:block;width:100%;
+    height:var(--shot-h,150px);
+    object-fit:cover;
+    border:1px solid var(--hair);
+    background:var(--paper);
+    margin-bottom:clamp(1rem,1.8vw,1.6rem);
+    filter:saturate(.94) brightness(1.02);
+    transition:filter .6s var(--ease);
+  }
+  .fleet-row:hover .shot{filter:saturate(1) brightness(1.04);}
+  .fleet-row.flagship .shot{border-color:rgba(187,0,0,.28);}
   .fleet-row .desc{
     font-family:var(--sans);font-weight:300;
     font-size:clamp(.84rem,.8rem + .2vw,.95rem);
@@ -666,6 +679,7 @@
       <div class="fleet-row reveal">
         <span class="idx">01</span>
         <div>
+          <img class="shot" style="--shot-h:140px" src="../assets/fleet/turbo-prop.jpg" alt="V2 Jets — Turbo Prop" loading="lazy" />
           <div class="name">Turbo Prop</div>
           <p class="desc">Effortless on short runways and regional routes. Intimate, economical, and remarkably capable where jets cannot reach.</p>
         </div>
@@ -675,6 +689,7 @@
       <div class="fleet-row reveal">
         <span class="idx">02</span>
         <div>
+          <img class="shot" style="--shot-h:160px" src="../assets/fleet/light-jet.jpg" alt="V2 Jets — Light Jet" loading="lazy" />
           <div class="name">Light Jet</div>
           <p class="desc">The agile choice for swift point-to-point travel. Quick to the runway, easy on the schedule, generous in comfort.</p>
         </div>
@@ -684,6 +699,7 @@
       <div class="fleet-row reveal">
         <span class="idx">03</span>
         <div>
+          <img class="shot" style="--shot-h:180px" src="../assets/fleet/mid-size.jpg" alt="V2 Jets — Mid Size" loading="lazy" />
           <div class="name">Mid Size</div>
           <p class="desc">A standing cabin, fuller galley, and the range to cross the country without compromise. The everyday luxury standard.</p>
         </div>
@@ -693,6 +709,7 @@
       <div class="fleet-row reveal">
         <span class="idx">04</span>
         <div>
+          <img class="shot" style="--shot-h:200px" src="../assets/fleet/super-mid.jpg" alt="V2 Jets — Super Mid" loading="lazy" />
           <div class="name">Super Mid</div>
           <p class="desc">Transcontinental reach with the refinement of a heavy. Wide-body comfort, quieter cabins, coast-to-coast in a single leg.</p>
         </div>
@@ -702,6 +719,7 @@
       <div class="fleet-row reveal">
         <span class="idx">05</span>
         <div>
+          <img class="shot" style="--shot-h:224px" src="../assets/fleet/heavy-jet.jpg" alt="V2 Jets — Heavy Jet" loading="lazy" />
           <div class="name">Heavy Jet</div>
           <p class="desc">Spacious lounges, full service, and the presence to travel as a delegation. Where business and leisure share one cabin.</p>
         </div>
@@ -711,6 +729,7 @@
       <div class="fleet-row reveal">
         <span class="idx">06</span>
         <div>
+          <img class="shot" style="--shot-h:250px" src="../assets/fleet/ultra-long-range.jpg" alt="V2 Jets — Ultra Long Range" loading="lazy" />
           <div class="name">Ultra Long Range</div>
           <p class="desc">Continents in a single flight. Private suites, restful sleep, and the quiet of arriving rested at the far side of the world.</p>
         </div>
@@ -720,6 +739,7 @@
       <div class="fleet-row flagship reveal">
         <span class="idx">07</span>
         <div>
+          <img class="shot" style="--shot-h:280px" src="../assets/fleet/obsidian.jpg" alt="V2 Jets — Obsidian" loading="lazy" />
           <div class="name"><span class="dot"></span>Obsidian <span class="tier">Signature Tier</span></div>
           <p class="desc">The crown of the V2 fleet. A bespoke, invitation-only flagship — every surface, scent, and service composed for the few who travel without limit.</p>
         </div>
@@ -1061,5 +1081,19 @@
     io.observe(v);
   })();
 </script>
+  <button class="replay-btn" type="button" aria-label="Replay films">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><polyline points="21 3 21 9 15 9"/></svg>
+    <span>Replay</span>
+  </button>
+  <style>
+  .replay-btn{position:fixed;right:clamp(14px,2vw,26px);bottom:clamp(14px,2vw,26px);z-index:300;display:inline-flex;align-items:center;gap:.55em;font-family:'Libre Franklin','Helvetica Neue',Arial,sans-serif;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#fff;background:#BB0000;border:none;padding:.72em 1.15em;cursor:pointer;box-shadow:0 10px 28px -10px rgba(0,0,0,.55);transition:background .3s ease,transform .3s ease,opacity .3s ease;opacity:.95}
+  .replay-btn:hover{background:#A20000;transform:translateY(-2px);opacity:1}
+  .replay-btn svg{display:block;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+  .replay-btn.spin svg{transform:rotate(-360deg)}
+  @media(prefers-reduced-motion:reduce){.replay-btn,.replay-btn svg{transition:none}}
+  </style>
+  <script>
+  (function(){var b=document.querySelector('.replay-btn');if(!b)return;b.addEventListener('click',function(){document.querySelectorAll('video').forEach(function(v){try{v.muted=true;v.currentTime=0;var p=v.play();if(p&&p.catch)p.catch(function(){});}catch(e){}});b.classList.add('spin');setTimeout(function(){b.classList.remove('spin');},650);});})();
+  </script>
 </body>
 </html>

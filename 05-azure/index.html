@@ -223,6 +223,16 @@
     display:flex;flex-direction:column;min-height:170px;position:relative;overflow:hidden;
   }
   .fleet-card:hover{transform:translateY(-6px) scale(1.01);box-shadow:var(--shadow);border-color:rgba(187,0,0,.5);}
+  .fleet-media{
+    position:relative;display:block;width:calc(100% + 48px);margin:-22px -24px 16px;
+    aspect-ratio:3/2;overflow:hidden;border-radius:var(--r-card) var(--r-card) 14px 14px;background:var(--paper-2);
+  }
+  .fleet-media img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.7,.2,1);}
+  .fleet-card:hover .fleet-media img{transform:scale(1.045);}
+  .fleet-card.obsidian .fleet-media{
+    width:100%;margin:0 0 18px;aspect-ratio:16/9;border-radius:16px;
+    border:1px solid rgba(255,255,255,.12);box-shadow:0 18px 44px rgba(14,14,14,.4);
+  }
   .fleet-card .idx{font-family:var(--font-display);font-size:11px;letter-spacing:.18em;color:var(--sky-1);font-weight:500;}
   .fleet-card h3{font-family:var(--font-display);font-weight:600;font-size:1.3rem;letter-spacing:.04em;text-transform:uppercase;margin:10px 0 0;}
   .fleet-card .blurb{color:var(--muted);font-size:.95rem;margin:10px 0 0;flex:1;}
@@ -541,6 +551,7 @@
 
       <div class="fleet-grid">
         <article class="fleet-card reveal">
+          <span class="fleet-media"><img src="../assets/fleet/turbo-prop.jpg" alt="V2 Jets — Turbo Prop" loading="lazy" width="1200" height="800" /></span>
           <span class="idx">01 / Turbo Prop</span>
           <h3>Turbo Prop</h3>
           <p class="blurb">Short-hop efficiency into airfields the jets can't reach. The smart way to skip the connection.</p>
@@ -549,6 +560,7 @@
         </article>
 
         <article class="fleet-card reveal" data-d="1">
+          <span class="fleet-media"><img src="../assets/fleet/light-jet.jpg" alt="V2 Jets — Light Jet" loading="lazy" width="1200" height="800" /></span>
           <span class="idx">02 / Light Jet</span>
           <h3>Light Jet</h3>
           <p class="blurb">Regional speed with a cabin that works. Ideal for the day-trip that ends back home tonight.</p>
@@ -557,6 +569,7 @@
         </article>
 
         <article class="fleet-card reveal" data-d="2">
+          <span class="fleet-media"><img src="../assets/fleet/mid-size.jpg" alt="V2 Jets — Mid Size" loading="lazy" width="1200" height="800" /></span>
           <span class="idx">03 / Mid Size</span>
           <h3>Mid Size</h3>
           <p class="blurb">Stand-up comfort and coast-to-coast reach. The everyday workhorse of the discerning flyer.</p>
@@ -565,6 +578,7 @@
         </article>
 
         <article class="fleet-card reveal">
+          <span class="fleet-media"><img src="../assets/fleet/super-mid.jpg" alt="V2 Jets — Super Mid" loading="lazy" width="1200" height="800" /></span>
           <span class="idx">04 / Super Mid</span>
           <h3>Super Mid</h3>
           <p class="blurb">Transcontinental range, fuller cabin, faster cruise. Where business travel becomes effortless.</p>
@@ -573,6 +587,7 @@
         </article>
 
         <article class="fleet-card reveal" data-d="1">
+          <span class="fleet-media"><img src="../assets/fleet/heavy-jet.jpg" alt="V2 Jets — Heavy Jet" loading="lazy" width="1200" height="800" /></span>
           <span class="idx">05 / Heavy Jet</span>
           <h3>Heavy Jet</h3>
           <p class="blurb">A true cabin in the sky — galleys, divans, room to host. Long legs without the layover.</p>
@@ -581,6 +596,7 @@
         </article>
 
         <article class="fleet-card reveal" data-d="2">
+          <span class="fleet-media"><img src="../assets/fleet/ultra-long-range.jpg" alt="V2 Jets — Ultra Long Range" loading="lazy" width="1200" height="800" /></span>
           <span class="idx">06 / Ultra Long Range</span>
           <h3>Ultra Long Range</h3>
           <p class="blurb">Continents in a single hop. Sleep over one ocean and land for breakfast on the next.</p>
@@ -591,6 +607,7 @@
         <!-- Obsidian flagship dark glass card -->
         <article class="fleet-card obsidian reveal" id="obsidian">
           <div class="obs-main">
+            <span class="fleet-media"><img src="../assets/fleet/obsidian.jpg" alt="V2 Jets — Obsidian" loading="lazy" width="1200" height="800" /></span>
             <span class="crown"><span class="diamond"></span> 07 · The Flagship · Obsidian</span>
             <h3>Obsidian</h3>
             <p class="blurb">The crown jewel of the V2 fleet. A bespoke ultra-long-range cabin finished to a single owner's standard — private bedroom suite, dining for eight, and the silence of an aircraft built to disappear beneath you. By invitation, and by name.</p>
@@ -908,5 +925,19 @@
   }
 })();
 </script>
+  <button class="replay-btn" type="button" aria-label="Replay films">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><polyline points="21 3 21 9 15 9"/></svg>
+    <span>Replay</span>
+  </button>
+  <style>
+  .replay-btn{position:fixed;right:clamp(14px,2vw,26px);bottom:clamp(14px,2vw,26px);z-index:300;display:inline-flex;align-items:center;gap:.55em;font-family:'Libre Franklin','Helvetica Neue',Arial,sans-serif;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#fff;background:#BB0000;border:none;padding:.72em 1.15em;cursor:pointer;box-shadow:0 10px 28px -10px rgba(0,0,0,.55);transition:background .3s ease,transform .3s ease,opacity .3s ease;opacity:.95}
+  .replay-btn:hover{background:#A20000;transform:translateY(-2px);opacity:1}
+  .replay-btn svg{display:block;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+  .replay-btn.spin svg{transform:rotate(-360deg)}
+  @media(prefers-reduced-motion:reduce){.replay-btn,.replay-btn svg{transition:none}}
+  </style>
+  <script>
+  (function(){var b=document.querySelector('.replay-btn');if(!b)return;b.addEventListener('click',function(){document.querySelectorAll('video').forEach(function(v){try{v.muted=true;v.currentTime=0;var p=v.play();if(p&&p.catch)p.catch(function(){});}catch(e){}});b.classList.add('spin');setTimeout(function(){b.classList.remove('spin');},650);});})();
+  </script>
 </body>
 </html>

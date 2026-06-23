@@ -415,7 +415,7 @@
   .fleet-table{border-top:var(--rule);}
   .fleet-row{
     display:grid;
-    grid-template-columns:clamp(70px,9vw,140px) minmax(0,1fr) minmax(0,1.4fr) clamp(90px,11vw,170px);
+    grid-template-columns:clamp(70px,9vw,140px) auto minmax(0,1fr) minmax(0,1.4fr) clamp(90px,11vw,170px);
     align-items:center;
     gap:clamp(12px,2vw,32px);
     padding:clamp(20px,2.8vw,38px) 0;
@@ -430,6 +430,20 @@
     font-size:clamp(26px,3.4vw,50px);
     color:var(--red);
     line-height:.85;
+  }
+  .fleet-row .f-plate{
+    position:relative;
+    aspect-ratio:3 / 2;
+    width:clamp(96px,12vw,164px);
+    overflow:hidden;
+    border:1px solid var(--hair-tok);
+    background:var(--paper-2);
+    align-self:center;
+  }
+  .fleet-row .f-plate img{
+    width:100%;height:100%;
+    object-fit:cover;
+    filter:grayscale(4%) contrast(1.02);
   }
   .fleet-row .f-name{
     font-family:var(--serif);
@@ -942,11 +956,12 @@
     :root{--gutter:18px;}
     .fleet-row{
       grid-template-columns:48px 1fr;
-      grid-template-areas:"num name" ". desc" ". spec";
+      grid-template-areas:"num name" "plate plate" ". desc" ". spec";
       gap:8px 14px;
       row-gap:10px;
     }
     .fleet-row .f-num{grid-area:num;align-self:start;}
+    .fleet-row .f-plate{grid-area:plate;width:100%;margin-top:4px;}
     .fleet-row .f-name{grid-area:name;}
     .fleet-row .f-desc{grid-area:desc;}
     .fleet-row .f-spec{grid-area:spec;text-align:left;}
@@ -1082,36 +1097,42 @@
       <div class="fleet-table">
         <div class="fleet-row reveal">
           <div class="f-num">01</div>
+          <div class="f-plate"><img src="../assets/fleet/turbo-prop.jpg" alt="V2 Jets — Turbo Prop" loading="lazy" width="1200" height="800" /></div>
           <div class="f-name">Turbo Prop</div>
           <div class="f-desc">The agile short-hauler. Direct access to regional runways the jets can't reach, with the same uncompromising V2 cabin standard.</div>
           <div class="f-spec">2–8 Guests<span>≈ 600 nm range</span></div>
         </div>
         <div class="fleet-row reveal">
           <div class="f-num">02</div>
+          <div class="f-plate"><img src="../assets/fleet/light-jet.jpg" alt="V2 Jets — Light Jet" loading="lazy" width="1200" height="800" /></div>
           <div class="f-name">Light Jet</div>
           <div class="f-desc">Effortless city-to-city velocity. The everyday workhorse of private travel, refined for the V2 traveler who values time above all.</div>
           <div class="f-spec">5–7 Guests<span>≈ 1,500 nm range</span></div>
         </div>
         <div class="fleet-row reveal">
           <div class="f-num">03</div>
+          <div class="f-plate"><img src="../assets/fleet/mid-size.jpg" alt="V2 Jets — Mid Size" loading="lazy" width="1200" height="800" /></div>
           <div class="f-name">Mid Size</div>
           <div class="f-desc">More cabin, more reach. Stand-up comfort and coast-to-coast capability for the productive, unhurried flight.</div>
           <div class="f-spec">7–9 Guests<span>≈ 2,800 nm range</span></div>
         </div>
         <div class="fleet-row reveal">
           <div class="f-num">04</div>
+          <div class="f-plate"><img src="../assets/fleet/super-mid.jpg" alt="V2 Jets — Super Mid" loading="lazy" width="1200" height="800" /></div>
           <div class="f-name">Super Mid</div>
           <div class="f-desc">The transcontinental sweet spot. Generous cabins, intercontinental legs, and a galley appointed for genuine dining at altitude.</div>
           <div class="f-spec">8–10 Guests<span>≈ 3,500 nm range</span></div>
         </div>
         <div class="fleet-row reveal">
           <div class="f-num">05</div>
+          <div class="f-plate"><img src="../assets/fleet/heavy-jet.jpg" alt="V2 Jets — Heavy Jet" loading="lazy" width="1200" height="800" /></div>
           <div class="f-name">Heavy Jet</div>
           <div class="f-desc">Statement and substance. Dedicated zones for work, rest, and dining — the airborne residence for the larger party.</div>
           <div class="f-spec">10–16 Guests<span>≈ 4,500 nm range</span></div>
         </div>
         <div class="fleet-row reveal">
           <div class="f-num">06</div>
+          <div class="f-plate"><img src="../assets/fleet/ultra-long-range.jpg" alt="V2 Jets — Ultra Long Range" loading="lazy" width="1200" height="800" /></div>
           <div class="f-name">Ultra Long Range</div>
           <div class="f-desc">Continents, nonstop. New York to Tokyo without a tankstop — a true private suite carrying you across the world while you sleep.</div>
           <div class="f-spec">12–19 Guests<span>≈ 7,500 nm range</span></div>
@@ -1137,7 +1158,7 @@
             </div>
           </div>
           <div class="ob-img">
-            <img src="../assets/plane-exterior.jpg" alt="The Obsidian flagship aircraft, rendered in dramatic high-contrast monochrome against the sky." />
+            <img src="../assets/fleet/obsidian.jpg" alt="V2 Jets — Obsidian" loading="lazy" width="1200" height="800" />
             <span class="ob-cap">Pl. 07 — Obsidian, in profile</span>
           </div>
         </div>
@@ -1509,6 +1530,20 @@
     if(v.readyState>=2) paint(); else v.addEventListener('loadeddata',paint,{once:true});
   });
 })();
+</script>
+<button class="replay-btn" type="button" aria-label="Replay films">
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><polyline points="21 3 21 9 15 9"/></svg>
+  <span>Replay</span>
+</button>
+<style>
+.replay-btn{position:fixed;right:clamp(14px,2vw,26px);bottom:clamp(14px,2vw,26px);z-index:300;display:inline-flex;align-items:center;gap:.55em;font-family:'Libre Franklin','Helvetica Neue',Arial,sans-serif;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#fff;background:#BB0000;border:none;padding:.72em 1.15em;cursor:pointer;box-shadow:0 10px 28px -10px rgba(0,0,0,.55);transition:background .3s ease,transform .3s ease,opacity .3s ease;opacity:.95}
+.replay-btn:hover{background:#A20000;transform:translateY(-2px);opacity:1}
+.replay-btn svg{display:block;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.replay-btn.spin svg{transform:rotate(-360deg)}
+@media(prefers-reduced-motion:reduce){.replay-btn,.replay-btn svg{transition:none}}
+</style>
+<script>
+(function(){var b=document.querySelector('.replay-btn');if(!b)return;b.addEventListener('click',function(){document.querySelectorAll('video').forEach(function(v){try{v.muted=true;v.currentTime=0;var p=v.play();if(p&&p.catch)p.catch(function(){});}catch(e){}});b.classList.add('spin');setTimeout(function(){b.classList.remove('spin');},650);});})();
 </script>
 </body>
 </html>

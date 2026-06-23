@@ -277,6 +277,19 @@
     display:flex;flex-direction:column;min-height:230px;
   }
   .fleet-card:hover{transform:translateY(-6px);box-shadow:0 36px 70px -30px rgba(14,14,14,0.28);}
+  /* rounded media area at the top of each fleet card — matches the organic card radius */
+  .fleet-card .media{
+    margin:calc(-1 * clamp(24px,2.4vw,34px)) calc(-1 * clamp(24px,2.4vw,34px)) 0;
+    border-radius:var(--r-card) var(--r-card) 0 0;overflow:hidden;
+  }
+  .fleet-card .media img{
+    width:100%;height:clamp(170px,15vw,210px);object-fit:cover;display:block;
+    border-radius:inherit;box-shadow:0 18px 40px -26px rgba(14,14,14,0.34);
+  }
+  .fleet-card.flagship .media{
+    margin:0 0 clamp(18px,2vw,26px);border-radius:var(--r-frame);
+  }
+  .fleet-card.flagship .media img{height:clamp(200px,20vw,300px);}
   .fleet-card .num{font-family:var(--display);font-size:14px;color:var(--terracotta);letter-spacing:.08em;}
   .fleet-card h3{
     font-family:var(--display);font-weight:400;
@@ -658,6 +671,7 @@
 
     <div class="fleet-grid">
       <article class="fleet-card reveal">
+        <div class="media"><img src="../assets/fleet/turbo-prop.jpg" alt="V2 Jets — Turbo Prop" loading="lazy" width="1200" height="800" /></div>
         <span class="num">01</span>
         <h3>Turbo Prop</h3>
         <p>Effortless short hops and quiet regional escapes. The most direct route to the places the airlines forgot.</p>
@@ -665,6 +679,7 @@
       </article>
 
       <article class="fleet-card reveal d1">
+        <div class="media"><img src="../assets/fleet/light-jet.jpg" alt="V2 Jets — Light Jet" loading="lazy" width="1200" height="800" /></div>
         <span class="num">02</span>
         <h3>Light Jet</h3>
         <p>Nimble, fast, and intimate. Ideal for the weekend getaway or the meeting two cities away by lunch.</p>
@@ -672,6 +687,7 @@
       </article>
 
       <article class="fleet-card reveal d2">
+        <div class="media"><img src="../assets/fleet/mid-size.jpg" alt="V2 Jets — Mid Size" loading="lazy" width="1200" height="800" /></div>
         <span class="num">03</span>
         <h3>Mid Size</h3>
         <p>The comfortable middle ground — stand-up cabins and coast-to-coast range with room to settle in.</p>
@@ -679,6 +695,7 @@
       </article>
 
       <article class="fleet-card reveal">
+        <div class="media"><img src="../assets/fleet/super-mid.jpg" alt="V2 Jets — Super Mid" loading="lazy" width="1200" height="800" /></div>
         <span class="num">04</span>
         <h3>Super Mid</h3>
         <p>Transcontinental reach with a wider, brighter cabin. More space, more quiet, more of everything that matters.</p>
@@ -686,6 +703,7 @@
       </article>
 
       <article class="fleet-card reveal d1">
+        <div class="media"><img src="../assets/fleet/heavy-jet.jpg" alt="V2 Jets — Heavy Jet" loading="lazy" width="1200" height="800" /></div>
         <span class="num">05</span>
         <h3>Heavy Jet</h3>
         <p>Full galleys, private divans, and the legs to cross oceans in a single, unhurried evening.</p>
@@ -693,6 +711,7 @@
       </article>
 
       <article class="fleet-card reveal d2">
+        <div class="media"><img src="../assets/fleet/ultra-long-range.jpg" alt="V2 Jets — Ultra Long Range" loading="lazy" width="1200" height="800" /></div>
         <span class="num">06</span>
         <h3>Ultra Long Range</h3>
         <p>Continents without a stop. Sleep over one ocean and wake above another, the world rearranged beneath you.</p>
@@ -702,6 +721,7 @@
       <!-- Flagship -->
       <article class="fleet-card flagship reveal">
         <div class="left">
+          <div class="media"><img src="../assets/fleet/obsidian.jpg" alt="V2 Jets — Obsidian" loading="lazy" width="1200" height="800" /></div>
           <span class="crown">★ The Crown Jewel</span>
           <span class="num">07 — Flagship</span>
           <h3>Obsidian</h3>
@@ -1092,5 +1112,19 @@
   });
 })();
 </script>
+<button class="replay-btn" type="button" aria-label="Replay films">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><polyline points="21 3 21 9 15 9"/></svg>
+    <span>Replay</span>
+  </button>
+  <style>
+  .replay-btn{position:fixed;right:clamp(14px,2vw,26px);bottom:clamp(14px,2vw,26px);z-index:300;display:inline-flex;align-items:center;gap:.55em;font-family:'Libre Franklin','Helvetica Neue',Arial,sans-serif;font-size:11px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#fff;background:#BB0000;border:none;padding:.72em 1.15em;cursor:pointer;box-shadow:0 10px 28px -10px rgba(0,0,0,.55);transition:background .3s ease,transform .3s ease,opacity .3s ease;opacity:.95}
+  .replay-btn:hover{background:#A20000;transform:translateY(-2px);opacity:1}
+  .replay-btn svg{display:block;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+  .replay-btn.spin svg{transform:rotate(-360deg)}
+  @media(prefers-reduced-motion:reduce){.replay-btn,.replay-btn svg{transition:none}}
+  </style>
+  <script>
+  (function(){var b=document.querySelector('.replay-btn');if(!b)return;b.addEventListener('click',function(){document.querySelectorAll('video').forEach(function(v){try{v.muted=true;v.currentTime=0;var p=v.play();if(p&&p.catch)p.catch(function(){});}catch(e){}});b.classList.add('spin');setTimeout(function(){b.classList.remove('spin');},650);});})();
+  </script>
 </body>
 </html>

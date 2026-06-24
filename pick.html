@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>V2 Jets — Two Directions</title>
+<link rel="icon" href="assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --white:#FFFFFF; --paper:#FAFAFA; --paper-2:#F1F1F1; --card:#FFFFFF;
+    --ink:#0E0E0E; --ink-2:#272727; --muted:#6B6B6B; --hair:rgba(14,14,14,.12);
+    --red:#BB0000; --red-dark:#A20000;
+    --display:'Libre Franklin','Helvetica Neue',Arial,sans-serif;
+    --body:'Roboto','Helvetica Neue',Arial,sans-serif;
+    --ease:cubic-bezier(.16,1,.3,1);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:var(--body);
+    font-size:16px;line-height:1.6;font-weight:400;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1280px;margin:0 auto;padding:0 clamp(1.2rem,4vw,3rem)}
+  .label{font-family:var(--display);text-transform:uppercase;letter-spacing:.24em;font-size:.62rem;font-weight:600;color:var(--muted)}
+
+  /* ---------- masthead ---------- */
+  header{padding:clamp(2.6rem,7vh,5rem) 0 2.2rem;border-bottom:1px solid var(--hair)}
+  .brandrow{display:flex;align-items:center;gap:.9rem;margin-bottom:1.4rem}
+  .brandrow img{height:30px;width:auto;display:block}
+  .brandrow span{font-family:var(--display);font-size:.6rem;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);
+    padding-left:.9rem;border-left:1px solid var(--hair)}
+  .kicker{color:var(--red)}
+  h1{font-family:var(--display);font-weight:700;letter-spacing:.005em;text-transform:uppercase;
+    font-size:clamp(2.2rem,5.2vw,4.1rem);line-height:1.0;margin:.7rem 0 .9rem}
+  h1 b{font-weight:700;color:var(--red)}
+  .lede{max-width:64ch;color:var(--muted);font-size:clamp(.95rem,1.4vw,1.06rem);font-weight:300}
+  .lede b{color:var(--ink);font-weight:500}
+  .meta{display:flex;flex-wrap:wrap;gap:1.6rem;margin-top:1.8rem}
+  .meta div{border-left:2px solid var(--red);padding-left:.9rem}
+  .meta .k{font-family:var(--display);font-size:.58rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+  .meta .v{font-family:var(--display);font-weight:500;font-size:1.05rem;display:block;margin-top:.2rem}
+
+  /* ---------- grid ---------- */
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(1.2rem,2.4vw,2rem);
+    padding:clamp(2.4rem,6vh,4rem) 0 5rem}
+  @media(max-width:840px){.grid{grid-template-columns:1fr}}
+
+  .card{background:var(--card);border:1px solid var(--hair);overflow:hidden;
+    display:flex;flex-direction:column;transition:transform .5s var(--ease),border-color .5s var(--ease),box-shadow .5s var(--ease)}
+  .card:hover{transform:translateY(-4px);border-color:var(--red);
+    box-shadow:0 26px 60px -30px rgba(14,14,14,.4)}
+
+  .frame{position:relative;aspect-ratio:16/10;overflow:hidden;background:#0c0f13;border-bottom:1px solid var(--hair)}
+  .frame iframe{position:absolute;top:0;left:0;width:1440px;height:900px;border:0;
+    transform:scale(.31);transform-origin:top left;pointer-events:none}
+  @media(max-width:1180px){.frame iframe{transform:scale(.42)}}
+  @media(max-width:840px){.frame iframe{transform:scale(.62)}}
+  @media(max-width:600px){.frame iframe{transform:scale(.4)}}
+  .frame .num{position:absolute;top:14px;left:16px;z-index:3;
+    font-family:var(--display);font-weight:700;font-size:1.3rem;color:#fff;mix-blend-mode:difference}
+  .frame .ref{position:absolute;top:16px;right:16px;z-index:3;color:#fff;
+    background:rgba(12,15,19,.55);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.2);
+    padding:.32rem .7rem}
+  .frame a.open{position:absolute;inset:0;z-index:4}
+  .frame::after{content:"";position:absolute;inset:0;z-index:2;
+    background:linear-gradient(180deg,rgba(0,0,0,.16),transparent 28%,transparent 76%,rgba(0,0,0,.22));pointer-events:none}
+
+  .body{padding:1.3rem 1.4rem 1.5rem}
+  .name{font-family:var(--display);font-size:1.4rem;font-weight:700;letter-spacing:.02em;text-transform:uppercase;display:flex;align-items:baseline;gap:.6rem}
+  .swatches{display:flex;gap:5px;margin:.8rem 0 .9rem}
+  .swatches i{width:17px;height:17px;border-radius:50%;border:1px solid rgba(14,14,14,.16);display:block}
+  .desc{color:var(--muted);font-size:.92rem;line-height:1.58;max-width:48ch;font-weight:300}
+  .desc b{color:var(--ink);font-weight:500}
+  .tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem}
+  .tags span{font-family:var(--display);font-size:.56rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--ink-2);border:1px solid var(--hair);padding:.28rem .55rem}
+  .open-btn{margin-top:1.3rem;display:inline-flex;align-items:center;gap:.5rem;
+    font-family:var(--display);font-size:.66rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#fff;
+    background:var(--red);border:1px solid var(--red);padding:.75rem 1.2rem;
+    transition:background .4s var(--ease)}
+  .card:hover .open-btn{background:var(--red-dark)}
+
+  footer{border-top:1px solid var(--hair);padding:2.4rem 0 4rem;color:var(--muted);font-size:.82rem;font-weight:300}
+  footer b{color:var(--ink);font-weight:500}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="brandrow">
+      <img src="assets/logo-ink.png" alt="V2 Jets">
+      <span>Brand &amp; Web Concepts · June 2026</span>
+    </div>
+    <p class="label kicker">One identity · two architectures</p>
+    <h1>Two <b>directions</b>, one V2.</h1>
+    <p class="lede">The two finalists, side by side. Both wear the <b>real V2 Jets identity</b> — the V2 wordmark, Libre Franklin with Roboto, white / near-black with the signature <b>V2 red</b> — and both are <b>tabbed sites</b> modeled on the v2jets.com menu: a main page, then a tab for every section. What separates them is the <b>architecture</b>. Click either to open it full-screen.</p>
+    <div class="meta">
+      <div><span class="k">Shared</span><span class="v">V2 identity · tabbed menu · seven-tier fleet · cinematic Experience film</span></div>
+      <div><span class="k">Differs by</span><span class="v">Form · density · imagery</span></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="grid">
+
+    <!-- MERIDIAN -->
+    <article class="card">
+      <div class="frame">
+        <span class="num" style="color:#0E0E0E">01</span><span class="label ref">Organic · soft</span>
+        <iframe src="03-meridian/index.html?v=6" loading="lazy" title="Meridian preview" scrolling="no"></iframe>
+        <a class="open" href="03-meridian/index.html" aria-label="Open Meridian"></a>
+      </div>
+      <div class="body">
+        <div class="name">Meridian</div>
+        <div class="swatches"><i style="background:#FAFAFA"></i><i style="background:#BB0000"></i><i style="background:#272727"></i><i style="background:#0E0E0E"></i></div>
+        <p class="desc">The soft cut. A v2jets-style tabbed menu over <b>big rounded editorial blocks</b> — warmth through form. Large rounded imagery, pill chrome, and a golden fleet film in the Experience tab.</p>
+        <div class="tags"><span>Rounded</span><span>Editorial</span><span>Tabbed</span></div>
+        <a class="open-btn" href="03-meridian/index.html">Open full page →</a>
+      </div>
+    </article>
+
+    <!-- ATELIER -->
+    <article class="card">
+      <div class="frame">
+        <span class="num" style="color:#0E0E0E">02</span><span class="label ref">Editorial · grid</span>
+        <iframe src="04-atelier/index.html?v=6" loading="lazy" title="Atelier preview" scrolling="no"></iframe>
+        <a class="open" href="04-atelier/index.html" aria-label="Open Atelier"></a>
+      </div>
+      <div class="body">
+        <div class="name">Atelier</div>
+        <div class="swatches"><i style="background:#FAFAFA"></i><i style="background:#0E0E0E"></i><i style="background:#BB0000"></i><i style="background:#272727"></i></div>
+        <p class="desc">The magazine cut. A tabbed journal — <b>dense indexed grid</b>, mono labels, figure numbers, hairline rules, grayscale plates. Red is the single mark; the Experience tab runs a monochrome cabin film.</p>
+        <div class="tags"><span>Grid</span><span>Journal</span><span>Tabbed</span></div>
+        <a class="open-btn" href="04-atelier/index.html">Open full page →</a>
+      </div>
+    </article>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Both finalists use the real <b>V2 Jets</b> wordmark and brand system (Libre Franklin + Roboto, white / near-black / red), the brand's own copy, the seven-tier fleet through <b>Obsidian</b>, and licensed stock photography + cinematic clips. Two architectures, one identity — concept studies for review, <b>© 2026</b>.</p>
+  </div>
+</footer>
+
+</body>
+</html>

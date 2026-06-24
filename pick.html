@@ -47,6 +47,11 @@
     padding:clamp(2.4rem,6vh,4rem) 0 5rem}
   @media(max-width:840px){.grid{grid-template-columns:1fr}}
 
+  .groupsep{padding:clamp(1.6rem,4vh,2.6rem) 0 0;margin-top:clamp(1.4rem,4vh,2.6rem);border-top:1px solid var(--hair)}
+  .grouph{font-family:var(--display);font-weight:700;letter-spacing:.005em;text-transform:uppercase;
+    font-size:clamp(1.5rem,3.4vw,2.6rem);line-height:1.04;margin:.5rem 0 .7rem}
+  .grouph b{color:var(--red)}
+
   .card{background:var(--card);border:1px solid var(--hair);overflow:hidden;
     display:flex;flex-direction:column;transition:transform .5s var(--ease),border-color .5s var(--ease),box-shadow .5s var(--ease)}
   .card:hover{transform:translateY(-4px);border-color:var(--red);
@@ -94,7 +99,7 @@
       <img src="assets/logo-ink.png" alt="V2 Jets">
       <span>Brand &amp; Web Concepts · June 2026</span>
     </div>
-    <p class="label kicker">One identity · two architectures</p>
+    <p class="label kicker">Two finalists · three more live builds</p>
     <h1>Two <b>directions</b>, one V2.</h1>
     <p class="lede">The two finalists, side by side. Both wear the <b>real V2 Jets identity</b> — the V2 wordmark, Libre Franklin with Roboto, white / near-black with the signature <b>V2 red</b> — and both are <b>tabbed sites</b> modeled on the v2jets.com menu: a main page, then a tab for every section. What separates them is the <b>architecture</b>. Click either to open it full-screen.</p>
     <div class="meta">
@@ -140,11 +145,69 @@
     </article>
 
   </div>
+
+  <div class="groupsep">
+    <p class="label kicker">Also live</p>
+    <h2 class="grouph">Three more <b>builds</b>.</h2>
+    <p class="lede">Three other live V2 Jets sites, in different formats — two <b>cinematic scroll-films</b> driven by a GSAP scroll engine, and a compact <b>video-led</b> page. Each opens in a new tab.</p>
+  </div>
+
+  <div class="grid">
+
+    <!-- 03 MOTION (v2jets) -->
+    <article class="card">
+      <div class="frame">
+        <span class="num">03</span><span class="label ref">Video · direct</span>
+        <iframe src="https://gribetzc-eng.github.io/v2jets/" loading="lazy" title="Motion preview" scrolling="no"></iframe>
+        <a class="open" href="https://gribetzc-eng.github.io/v2jets/" target="_blank" rel="noopener" aria-label="Open the video build"></a>
+      </div>
+      <div class="body">
+        <div class="name">Motion</div>
+        <div class="swatches"><i style="background:#0E0E0E"></i><i style="background:#161616"></i><i style="background:#BB0000"></i><i style="background:#FFFFFF"></i></div>
+        <p class="desc">The video-led cut. Full-bleed motion behind the V2 wordmark and a single <b>Book Now</b> CTA — the most direct, cinematic landing of the set.</p>
+        <div class="tags"><span>Video</span><span>Single-page</span><span>Direct</span></div>
+        <a class="open-btn" href="https://gribetzc-eng.github.io/v2jets/" target="_blank" rel="noopener">Open full page →</a>
+      </div>
+    </article>
+
+    <!-- 04 CINEMATIC · THE SKIES (v2-jets-cinematic) -->
+    <article class="card">
+      <div class="frame">
+        <span class="num">04</span><span class="label ref">Scroll-film</span>
+        <iframe src="https://gribetzc-eng.github.io/v2-jets-cinematic/" loading="lazy" title="Cinematic — The Skies preview" scrolling="no"></iframe>
+        <a class="open" href="https://gribetzc-eng.github.io/v2-jets-cinematic/" target="_blank" rel="noopener" aria-label="Open the cinematic Skies build"></a>
+      </div>
+      <div class="body">
+        <div class="name">Cinematic — The Skies</div>
+        <div class="swatches"><i style="background:#0E0E0E"></i><i style="background:#BB0000"></i><i style="background:#272727"></i><i style="background:#FFFFFF"></i></div>
+        <p class="desc">A <b>GSAP scroll-film</b>. Chaptered frame sequences scrub as you scroll — "a request becomes wheels-up," the fleet hand-picked, on-demand or by the hour.</p>
+        <div class="tags"><span>Scroll-film</span><span>Chaptered</span><span>GSAP</span></div>
+        <a class="open-btn" href="https://gribetzc-eng.github.io/v2-jets-cinematic/" target="_blank" rel="noopener">Open full page →</a>
+      </div>
+    </article>
+
+    <!-- 05 CINEMATIC · THE WORLD (v2jets-cinematic) -->
+    <article class="card">
+      <div class="frame">
+        <span class="num">05</span><span class="label ref">Scroll-film</span>
+        <iframe src="https://gribetzc-eng.github.io/v2jets-cinematic/" loading="lazy" title="Cinematic — The World preview" scrolling="no"></iframe>
+        <a class="open" href="https://gribetzc-eng.github.io/v2jets-cinematic/" target="_blank" rel="noopener" aria-label="Open the cinematic World build"></a>
+      </div>
+      <div class="body">
+        <div class="name">Cinematic — The World</div>
+        <div class="swatches"><i style="background:#0E0E0E"></i><i style="background:#BB0000"></i><i style="background:#272727"></i><i style="background:#FFFFFF"></i></div>
+        <p class="desc">The canonical scroll-film engine. A narrative scrub — "we own no aircraft; we hold access to them all," building to <b>"Trust is our bond."</b></p>
+        <div class="tags"><span>Scroll-film</span><span>Narrative</span><span>GSAP</span></div>
+        <a class="open-btn" href="https://gribetzc-eng.github.io/v2jets-cinematic/" target="_blank" rel="noopener">Open full page →</a>
+      </div>
+    </article>
+
+  </div>
 </main>
 
 <footer>
   <div class="wrap">
-    <p>Both finalists use the real <b>V2 Jets</b> wordmark and brand system (Libre Franklin + Roboto, white / near-black / red), the brand's own copy, the seven-tier fleet through <b>Obsidian</b>, and licensed stock photography + cinematic clips. Two architectures, one identity — concept studies for review, <b>© 2026</b>.</p>
+    <p>Every site here uses the real <b>V2 Jets</b> wordmark and brand system (Libre Franklin + Roboto, white / near-black / red) and the brand's own copy. Up top, the <b>two tabbed finalists</b>; below, three other <b>live builds</b> — two cinematic scroll-films and a video page. Concept studies for review, <b>© 2026</b>.</p>
   </div>
 </footer>
 

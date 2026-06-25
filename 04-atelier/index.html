@@ -8,40 +8,47 @@
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=Libre+Franklin:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet" />
 <style>
   :root{
-    /* ===== REAL V2 JETS BRAND KIT ===== */
-    --white:#FFFFFF;
-    --paper:#FAFAFA;
-    --paper-2:#F1F1F1;
-    --ink:#0E0E0E;
-    --ink-2:#272727;
-    --gray:#6B6B6B;
-    --gray-2:#959595;
-    --hair-tok:rgba(14,14,14,.12);
-    --red:#BB0000;
+    /* ===== V2 JETS — ATELIER / MAISON edition (warm couture palette) ===== */
+    --white:#FBF8F1;               /* warm ivory white */
+    --paper:#F3EEE3;               /* bone / undyed linen */
+    --paper-2:#E9E1D1;             /* warm sand */
+    --ink:#1A1611;                 /* warm espresso-noir */
+    --ink-2:#39322A;               /* roasted umber */
+    --gray:#8A7E6B;                /* warm taupe */
+    --gray-2:#A89B85;              /* pale taupe */
+    --hair-tok:rgba(26,22,17,.13);
+    --red:#BB0000;                 /* V2 brand red — kept exact across all five sites */
     --red-dark:#A20000;
 
-    /* dark-surface tokens (grayscale plates / noir spreads) */
-    --noir:#0E0E0E;
-    --noir-2:#141414;
-    --on-noir:#FAFAFA;
-    --on-noir-soft:#959595;
-    --hair-d:rgba(250,250,250,.16);
+    /* champagne-gold metal — the maison's signature finish */
+    --gold:#9A7B3F;
+    --gold-2:#C2A064;              /* lit champagne */
+    --gold-soft:rgba(154,123,63,.30);
+    --hair-gold:rgba(154,123,63,.36);
 
+    /* dark-surface tokens (sepia plates / noir spreads) */
+    --noir:#16120D;
+    --noir-2:#1E1812;
+    --on-noir:#F3EEE3;
+    --on-noir-soft:#A89B85;
+    --hair-d:rgba(243,238,227,.18);
+
+    --font-serif-display:'Playfair Display','GT Sectra Display',Georgia,'Times New Roman',serif;
     --font-display:'Libre Franklin','Helvetica Neue',Arial,sans-serif;
     --font-body:'Roboto','Helvetica Neue',Arial,sans-serif;
     /* mono stack for editorial chrome (labels / figure nums / running heads) */
     --font-mono:ui-monospace,'SFMono-Regular',Menlo,'Roboto Mono','DejaVu Sans Mono',monospace;
 
-    /* ===== legacy aliases mapped to V2 kit (layout/feel unchanged) ===== */
+    /* ===== legacy aliases mapped to the maison kit ===== */
     --accent:var(--red);
     --hair:var(--ink);
     --paper-deep:var(--paper-2);
     --muted:var(--gray);
-    --serif:var(--font-display);   /* editorial display: Libre Franklin */
-    --grotesk:var(--font-body);    /* labels/body: Roboto */
+    --serif:var(--font-serif-display);   /* couture display: Playfair Display (Didone) */
+    --grotesk:var(--font-body);          /* labels/body: Roboto */
     --gutter:clamp(20px, 5vw, 88px);
     --rule:1px solid var(--ink);
     --hairthin:var(--hair-tok);
@@ -1557,6 +1564,57 @@
     .jtouch .jt-cell{border-right:0;}
     .jfield{grid-column:1 / -1 !important;border-right:0;}
   }
+
+  /* =========================================================
+     MAISON V2 — couture overrides (Atelier edition)
+     Warm ivory ground · Playfair Didone display · champagne-gold
+     metal for editorial detail · V2 red kept for brand punctuation.
+     ========================================================= */
+
+  /* warm the ground with the faintest vertical light, like raked linen */
+  body{
+    background:
+      radial-gradient(120% 80% at 50% -10%, #FBF7EE 0%, rgba(251,247,238,0) 60%),
+      var(--paper);
+    letter-spacing:.004em;
+  }
+
+  /* --- Didone display: lighten the weight, refine the tracking --- */
+  .hero-headline{ font-weight:400; letter-spacing:-.012em; line-height:.94;
+    font-feature-settings:"liga" 1,"dlig" 1; }
+  .hero-headline .it{ font-weight:500; font-style:italic; }
+  .serif{ font-feature-settings:"liga" 1; }
+  .hero-date,.caption,.scroll-note{ letter-spacing:0; }
+
+  /* --- champagne-gold = the maison's editorial metal --- */
+  .numeral,.fig,.hero-foot .scroll-note{ color:var(--gold); }
+  .section-marker .sig em,.runhead .rh-sig .red{ color:var(--gold); }
+  .plate-index{ color:var(--gold-2); }
+  /* prominent horizontal rules drawn in fine gold; cell hairlines stay warm-ink */
+  .hero-top{ border-top:1px solid var(--gold); }
+  .section-marker{ border-top:1px solid var(--gold); }
+  .hero-foot{ border-top:1px solid var(--gold-soft); border-bottom:1px solid var(--gold-soft); }
+  .runhead{ border-top:1px solid var(--gold-soft); }
+  /* a hairline gold underline travels under nav links instead of red */
+  header.site nav.primary a::after{ background:var(--gold); }
+
+  /* --- couture photography: warm, hushed, never flat grey --- */
+  .hero-plate img{ filter:grayscale(22%) sepia(12%) contrast(1.03) brightness(1.01); }
+  .hero-plate .hero-plate-vid{ filter:grayscale(78%) sepia(16%) contrast(1.04); }
+  .hero-plate .plate-cap{ background:var(--white); border-color:var(--gold-soft); }
+
+  /* the Experience film: trade the red frame for a gold one */
+  #experienceFilm.filmscroll,
+  .filmscroll.interlude{ border-top-color:var(--gold); border-bottom-color:var(--gold); }
+
+  /* --- more air in the masthead; let the couture breathe --- */
+  .hero{ padding-top:clamp(104px,11vw,150px); }
+  .hero-headline{ font-size:clamp(50px,8.8vw,146px); }
+
+  /* active tab keeps the V2 red — clear wayfinding, the one brand mark */
+  header.site .tabnav .tab.is-active{ box-shadow:inset 0 -2px 0 var(--red); }
+  header.site .tabnav .tab .tnum{ color:var(--gold); }
+  header.site .tabnav .tab.is-active .tnum{ color:var(--red); }
 </style>
 </head>
 <body>
@@ -1607,7 +1665,7 @@
         </div>
         <div class="ht-cell c3 cell-l">
           <span class="k">Set In</span>
-          <span class="v">Libre Franklin · Roboto</span>
+          <span class="v">Playfair Display · Libre Franklin</span>
         </div>
       </div>
 
